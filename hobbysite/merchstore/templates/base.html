@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merchandise Store - {% block title %}{% endblock title %}</title>
     <style>
+        :root {
+            --theme: rgb(0, 109, 218);
+        }
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: f5f5f5;
         }
         nav {
-            background-color:rgb(0, 109, 218);
+            background-color: var(--theme);
             margin: 0;
             padding: 2rem;
         }
@@ -33,16 +36,30 @@
         article > a {
             color: black;
             font-size: 1.2rem;
+            text-decoration: none;
         }
-        article div {
+        article > a > div {
             background-color:rgb(255, 255, 255);
-            aspect-ratio: 1;
+            aspect-ratio: calc(1/1.25);
             display: grid;
             grid-template-rows: 8fr 2fr;
             border-radius: 6px;
             padding: 1rem;
             box-shadow: 0px 0px 25px 0px rgba(132,132,132,0.25);
             outline: 2px solid rgb(216, 216, 216);
+        }
+        article > a > div > div > p {
+            margin: 5px 0;
+        }
+        article > a > div > div > p:nth-child(2) {
+            color: var(--theme);
+        }
+        article > a > div > div > p:nth-child(3) {
+            font-size: 0.6em;
+            border: 1px solid rgb(145, 145, 145);
+            border-radius: 2px;
+            display: inline-block;
+            padding: 1px 12px;
         }
         .product-img {
             background-color: rgb(236, 236, 236);

@@ -5,7 +5,14 @@
 <article>
     {% if products %}
         {% for product in products %}
-            <a href="{{product.get_absolute_url}}"><div><img src="" class="product-img"><p>{{product.name}}</p></div></a>
+            <a href="{{product.get_absolute_url}}"><div>
+                <img src="" class="product-img">
+                <div>
+                    <p>{{product.name}}</p>
+                    <p>₱{{product.price}}</p>
+                    <p>{{product.product_type.name}}</p>
+                </div>
+            </div></a>
         {% endfor %}
     {% else %}
         <h3>Sorry, no products found.</h3>
