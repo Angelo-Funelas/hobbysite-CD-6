@@ -5,7 +5,7 @@
 <article>
     {% if products %}
         {% for product in products %}
-            <a href=""><div><img src="" class="product-img"><p>{{product.name}}</p></div></a>
+            <a href="{{product.get_absolute_url}}"><div><img src="" class="product-img"><p>{{product.name}}</p></div></a>
         {% endfor %}
     {% else %}
         <h3>Sorry, no products found.</h3>
