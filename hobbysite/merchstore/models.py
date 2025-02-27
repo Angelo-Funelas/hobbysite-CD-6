@@ -7,6 +7,8 @@ class ProductType(models.Model):
     description = models.TextField()
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ["name"]
     
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -17,4 +19,5 @@ class Product(models.Model):
         return self.name
     def get_absolute_url(self):
         return reverse("item", kwargs={"itemID": self.id})
-    
+    class Meta:
+        ordering = ["name"]
