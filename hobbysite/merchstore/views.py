@@ -4,7 +4,7 @@ from .models import *
 # Create your views here.
 def index(request):
     return render(request, "index.html", {
-        "products": Product.objects.all()
+        "products": Product.objects.all().order_by('name')
     })
 
 def item(request, itemID):
