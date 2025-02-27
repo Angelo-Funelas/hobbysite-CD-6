@@ -3,10 +3,20 @@
 {% block title %}{{product.name}}{% endblock title %}
 {% block body %}
 <a href="{% url 'index' %}" class="nav-link">< Go back</a>
-<div>
-    <h2>{{product.name}}</h2>
-    <div>{{product.product_type.name}}</div>
-    <p>{{product.price}}</p>
-    <p>{{product.description|linebreaksbr}}</p>
-</div>
+<article class="product-view">
+    <img src="" class="">
+    <div>
+        <h2>{{product.name}}</h2>
+        <p>₱{{product.price}}</p>
+        <p class="product-type-tag">{{product.product_type.name}}</p>
+        <p>Description:</p>
+        <p>
+            {{product.description|linebreaksbr}}
+        </p>
+        <div class="purchase-buttons">
+            <button>Buy Now</button>
+            <button>Add To Cart</button>
+        </div>
+    </div>
+</article>
 {% endblock body %}
