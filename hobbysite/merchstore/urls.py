@@ -5,5 +5,5 @@ from django.shortcuts import redirect
 urlpatterns = [
     path("", lambda request: redirect("index")),
     path("items", views.index, name="index"),
-    path("item", views.item, name="item"),
+    path("item/<int:itemID>", views.item, name="item"),
 ]
