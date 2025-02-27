@@ -1,4 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}All Items{% endblock title %}
-{% block body %}{% endblock body %}
+{% block body %}
+<article>
+    {% if products %}
+        {% for product in products %}
+            <a href=""><div><img src="" class="product-img"><p>{{product.name}}</p></div></a>
+        {% endfor %}
+    {% else %}
+        <h3>Sorry, no products found.</h3>
+    {% endif %}
+</article>
+{% endblock body %}
