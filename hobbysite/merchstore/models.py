@@ -8,7 +8,7 @@ class ProductType(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        ordering = ["name"]
+        ordering = ["name"] # order by name ascending order
     
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -20,4 +20,4 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("item", kwargs={"itemID": self.id})
     class Meta:
-        ordering = ["name"]
+        ordering = ["name"] # order by name ascending order
