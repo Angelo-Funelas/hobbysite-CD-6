@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}{{product.name}}{% endblock title %}
 {% block body %}
+<a href="{% url 'index' %}" class="nav-link">< Go back</a>
 <div>
     <h2>{{product.name}}</h2>
     <div>{{product.product_type.name}}</div>
