@@ -1,3 +1,18 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+class PostCategoryAdmin(admin.ModelAdmin):
+    model = PostCategory
+
+    list_display = ('name', 'description',)
+    list_filter = ('category',)
+
+class PostAdmin(admin.ModelAdmin):
+    model = Post
+
+    list_display = ('title', 'category', 'entry', 'created_on', 'updated_on',)
+    search_fields = ('title', 'entry',)
+    list_filter = ('created_on',)
+
+admin.site.register(PostCategory, PostCategoryAdmin)
+admin.site.register(Post, PostAdmin)
