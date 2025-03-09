@@ -8,6 +8,9 @@ class PostCategory(models.Model):
     def __str__(self):
         return self.name
     
+    def latest_post(self):
+        return self.posts.order_by('-created_on')[0]
+
     class Meta:
         verbose_name = 'Post Category'
         verbose_name_plural = 'Post Categories'
@@ -15,7 +18,7 @@ class PostCategory(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="category")
+    category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
