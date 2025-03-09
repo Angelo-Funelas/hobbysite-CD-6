@@ -1,0 +1,24 @@
+{% extends 'base_template.html' %}
+
+{% block head %}
+
+    {{ block.super }}
+
+    {% block title %} Forum Menu {% endblock %}
+
+{% endblock %}
+
+{% block content %}
+    
+    {% for thread in threads %}
+        <div class = "thread-category-holder">
+            <h2> {{ thread.name }}</h2>
+            <p> {{ thread.description}} </p>
+            <h3> Latest Post: </h3>
+            <h4> {{ thread.latest_post.title }} </h4>
+            <p> Created: {{ thread.latest_post.created_on }}, Last Updated: {{ thread.latest_post.updated_on }} </p>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+    
