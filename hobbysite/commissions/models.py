@@ -11,6 +11,9 @@ class Commission(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('commissions:commission_details', args=[self.pk])
 
     class Meta:
         ordering = ["created_on"] # Sorted by creation date in ascending order
@@ -27,6 +30,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment from {self.commission.title} on {self.created_on.strftime('%d-%m-%Y')}"
+    
+    
 
     class Meta:
         ordering = ["-created_on"] # Sorted by creation date in descending order

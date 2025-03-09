@@ -3,5 +3,18 @@
 
 {% block title %}Commissions{% endblock title %}
 
-{% block body %}
-{% endblock body %}
+{% block content %}
+    {% if commissions %}
+        <ul>
+            {% for commission in commissions %}
+                <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+    <p>
+        there are no commissions. good job proxy!
+    </p>
+    {% endif %}
+
+{% endblock %}

@@ -8,7 +8,7 @@ def commission(request):
     })
 
 def commission_details(request, pk):
-    return render(request, "commission_details.html", {
+    return render(request, "commissions_detail.html", {
         "comments": Commission.objects.get(pk=pk)
     })
 
