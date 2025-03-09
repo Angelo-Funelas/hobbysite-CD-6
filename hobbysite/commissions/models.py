@@ -26,7 +26,7 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now = True)
 
     def __str__(self):
-        return f"Comment from {self.commission.title} on {self.createdOn.strftime('%d-%m-%Y')}"
+        return f"Comment from {self.commission.title} on {self.created_on.strftime('%d-%m-%Y')}"
 
     class Meta:
         ordering = ["-created_on"] # Sorted by creation date in descending order
