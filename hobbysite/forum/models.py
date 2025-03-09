@@ -11,6 +11,7 @@ class PostCategory(models.Model):
     class Meta:
         verbose_name = 'Post Category'
         verbose_name_plural = 'Post Categories'
+        ordering = ["name"]
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -25,3 +26,4 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+        ordering = ["-created_on"]
