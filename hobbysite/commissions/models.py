@@ -5,7 +5,7 @@ from django.urls import reverse
 class Commission(models.Model):
     title = models.CharField(max_length = 255)
     description = models.TextField()
-    peopleRequired = models.IntegerField()
+    people_required = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add = True)
     updated_on = models.DateTimeField(auto_now = True)
 
@@ -30,8 +30,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment from {self.commission.title} on {self.created_on.strftime('%d-%m-%Y')}"
-    
-    
 
     class Meta:
         ordering = ["-created_on"] # Sorted by creation date in descending order
