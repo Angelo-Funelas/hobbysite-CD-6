@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class ArticleCategory(models.Model):
@@ -23,3 +24,6 @@ class Article(models.Model):
     
     class Meta:
         ordering = ['-created_on'] # Sorted by creation date in descending order
+
+    def get_absolute_url(self):
+        return reverse('wiki:article_detail', args=[self.pk])
