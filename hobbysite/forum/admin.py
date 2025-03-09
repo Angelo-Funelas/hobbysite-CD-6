@@ -5,7 +5,7 @@ class PostCategoryAdmin(admin.ModelAdmin):
     model = PostCategory
 
     list_display = ('name', 'description',)
-    list_filter = ('posts',)
+    search_fields = ('name', )
 
 class PostAdmin(admin.ModelAdmin):
     model = Post
