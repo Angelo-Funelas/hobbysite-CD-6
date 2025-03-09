@@ -4,5 +4,14 @@
 {% block title %}Commission Details{% endblock title %}
 
 {% block content %}
-<p>hihihihihi</p>
+    {% if comments %}
+        {% for comment in comments %}
+            <p><h2>COMMISSION DETAILS: <i>{{comment.commission.title }}</i></h2></p>
+            <p><b>Created on:</b> {{comment.created_on}} <b>Modified on:</b> {{comment.updated_on}}</p>
+             <p>{{ comment.entry }}</p>
+        {% endfor %}
+        
+    {% endif %}
+
+
 {% endblock %}
