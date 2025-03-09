@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Article Title{% endblock title %}
-{% block content %}{% endblock content %}
+{% block title %}{{ article.title }}{% endblock title %}
+{% block content %}
+    <h1>{{ article.title }}</h1>
+        <p><strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}</p>
+        <p><strong>Created On:</strong> {{ article.created_on|date:"F d, Y" }}</p>
+        <p><strong>Last Updated:</strong> {{ article.updated_on|date:"F d, Y" }}</p>
+        
+        <div>
+            {{ article.entry|linebreaks }}
+        </div>
+{% endblock content %}
