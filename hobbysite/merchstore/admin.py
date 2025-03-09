@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-class ProductTyepAdmin(admin.ModelAdmin):
+class ProductTypeAdmin(admin.ModelAdmin):
     model = ProductType
     search_fields = ("name",)
 
@@ -12,5 +12,5 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("product_type",)
     list_display = ("name", "product_type", "price",)
 
-admin.site.register(ProductType, ProductTyepAdmin)
+admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Product, ProductAdmin)
