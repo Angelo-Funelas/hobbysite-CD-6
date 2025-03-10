@@ -2,21 +2,72 @@
 
 {% block head %}
 
-    {{ block.super }}
-
-    {% block title %} Forum Menu {% endblock %}
+    <style>
+        .thread-category-holder{
+            display: grid;
+            grid-template-columns: repeat(11,  1fr);
+            grid-template-rows: 20vh 10vh;
+            padding: 2em;
+            border: 0.05em solid;    
+        }
+        .thread-category-name{
+            grid-column: 1 /12;
+            grid-row: 1;
+            padding-top: 2em;
+        }
+        .thread-category-latest{
+            grid-column: 1 /12;
+            grid-row: 2;
+            padding: 0px;
+        }
+        .thread-category-name > h2{
+            font-size: 3.2rem;
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-name > h2 > a{
+            text-decoration: none;
+            color: black;
+        }
+        .thread-category-name > h2 > a:hover{
+            text-decoration: underline;
+        }
+        .thread-category-name > p{
+            font-size: 1.5rem;
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > p{
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > h3{
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > h4{
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
 
 {% endblock %}
+
+{% block title %} Forum Menu {% endblock %}
 
 {% block content %}
     
     {% for thread in threads %}
         <div class = "thread-category-holder">
-            <h2> {{ thread.name }}</h2>
-            <p> {{ thread.description}} </p>
-            <h3> Latest Post: </h3>
-            <h4> {{ thread.latest_post.title }} </h4>
-            <p> Created: {{ thread.latest_post.created_on }}, Last Updated: {{ thread.latest_post.updated_on }} </p>
+            <div class= "thread-category-name">
+                <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.name }} </a> </h2>
+                <p> {{ thread.description}} </p>
+            </div>
+            <div class="thread-category-latest">
+                <h3> Latest Post: </h3>
+                <h4> <a href="{{thread.latest_post.get_absolute_url}}">{{ thread.latest_post.title }}</a> </h4>
+                <p> Created: {{ thread.latest_post.created_on }}, Last Updated: {{ thread.latest_post.updated_on }} </p>
+            </div>
         </div>
     {% endfor %}
 
