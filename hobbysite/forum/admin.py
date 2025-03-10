@@ -10,6 +10,7 @@ class PostCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description',)
     search_fields = ('name', )
 
+    # Allows for admin to view Posts under a PostCategory.
     inlines = [PostInLine, ]
 
 class PostAdmin(admin.ModelAdmin):

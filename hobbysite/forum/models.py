@@ -12,6 +12,10 @@ class PostCategory(models.Model):
         return reverse('forum:threads_in_category', args=[self.name])
 
     def latest_post(self):
+        '''
+        This function gets the latest created within the category by accessing the foreign key connected to the Post model.
+        
+        '''
         return self.posts.order_by('-created_on')[0]
 
     class Meta:
