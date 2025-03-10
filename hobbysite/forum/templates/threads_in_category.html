@@ -3,29 +3,17 @@
 {% block head %}
 
     <style>
-        .thread-holder{
-            display: grid;
-            grid-template-columns: repeat(11,  1fr);
-            grid-template-rows: 20vh 10vh;
-            padding: 2em;
-            border: 0.05em solid;    
-        }
-        .thread-holder:hover{
-            background-color: white;
-        }
-        .thread-name{
-            grid-column: 1 /12;
-            grid-row: 1;
-            padding-top: 2em;
+        a{
+            text-decoration: none;
+            color:black;
         }
         .thread-details{
             grid-column: 1 /12;
             grid-row: 2;
             padding: 0px;
         }
-        a{
-            text-decoration: none;
-            color: black;
+        .thread-list-name > h2{
+            font-size: 2em;
         }
     </style>
 
@@ -37,8 +25,8 @@
     
     {% for thread in threads %}
         <a href="{{thread.get_absolute_url}}">
-            <div class = "thread-holder">
-                <div class="thread-name">
+            <div class = "thread-list">
+                <div class="thread-list-name">
                     <h2> {{ thread.title }} </h2>
                     <p> {{ thread.entry }} </p>
                 </div>

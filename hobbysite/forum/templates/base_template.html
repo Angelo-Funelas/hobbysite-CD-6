@@ -3,6 +3,7 @@
 <html lang="en-US">
 
 <head>
+
     {% block head %}
     {% endblock %}
     <meta charset="UTF-8">
@@ -13,6 +14,7 @@
             width: 100%;
             margin: 0;
             background-color: rgb(179, 177, 177);
+            color: rgb(77, 75, 75);
         }
         header{
             display: flex;
@@ -20,6 +22,7 @@
             align-items: center;
             background-color: blue;
             height: 10vh;
+            color: black;
         }
         header > h1{
             margin: 0;
@@ -27,14 +30,35 @@
         }
         .main-body{
             margin: 0 auto;
-            border-radius: 10px;
             width: 75vw;
             background-color: aliceblue;
         }
+        .thread-list{
+            display: grid;
+            grid-template-columns: repeat(11,  1fr);
+            grid-template-rows: 20vh 10vh;
+            padding: 2em;
+            border: 0.05em solid;
+        }
+        .thread-list:hover{
+            background-color: rgb(255, 255, 255);
+        }
+        .thread-list-name{
+            grid-column: 1 /12;
+            grid-row: 1;
+            padding-top: 2em;
+        }
+        .thread-category-latest{
+            grid-column: 1 /12;
+            grid-row: 2;
+            padding: 0px;
+        }
     </style>
+
 </head>
 
 <body>
+    
     <header>
         <h1> MIST FORUMS </h1>
     </header>

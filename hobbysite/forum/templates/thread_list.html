@@ -3,36 +3,19 @@
 {% block head %}
 
     <style>
-        .thread-category-holder{
-            display: grid;
-            grid-template-columns: repeat(11,  1fr);
-            grid-template-rows: 20vh 10vh;
-            padding: 2em;
-            border: 0.05em solid;    
+        a{
+            text-decoration: none;
+            color: black;
         }
-        .thread-category-name{
-            grid-column: 1 /12;
-            grid-row: 1;
-            padding-top: 2em;
+        a:hover{
+            text-decoration: underline;
         }
-        .thread-category-latest{
-            grid-column: 1 /12;
-            grid-row: 2;
-            padding: 0px;
-        }
-        .thread-category-name > h2{
+        .thread-list-name > h2{
             font-size: 3.2rem;
             padding: 0px;
             margin: 0px;
         }
-        .thread-category-name > h2 > a{
-            text-decoration: none;
-            color: black;
-        }
-        .thread-category-name > h2 > a:hover{
-            text-decoration: underline;
-        }
-        .thread-category-name > p{
+        .thread-list-name > p{
             font-size: 1.5rem;
             padding: 0px;
             margin: 0px;
@@ -58,8 +41,8 @@
 {% block content %}
     
     {% for thread in threads %}
-        <div class = "thread-category-holder">
-            <div class= "thread-category-name">
+        <div class = "thread-list">
+            <div class= "thread-list-name">
                 <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.name }} </a> </h2>
                 <p> {{ thread.description}} </p>
             </div>

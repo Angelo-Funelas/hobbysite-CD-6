@@ -1,0 +1,47 @@
+{% extends 'base_template.html' %}
+
+{% block head %}
+
+    <style>
+        .thread-holder{
+            display: grid;
+            grid-template-columns: repeat(11,  1fr);
+            grid-template-rows: repeat(2, auto);
+            padding: 2em;
+            border: 0.05em solid;
+        }
+        .thread-name{
+            grid-column: 1/ 5;
+            color: black;
+        }
+        .thread-time-details{
+            grid-column: 9/ 12;
+            font-size: 0.5em;
+        }
+        .thread-entry{
+            grid-column: 1/ 12;
+            grid-row: 2;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block title %} {{ thread.title }} {% endblock %}
+
+{% block content %}
+
+    <div class="thread-holder">
+        <div class="thread-name">
+            <h2> {{ thread.title }} </h2>
+        </div>
+        <div class="thread-time-details">
+            <p> Posted on: {{ thread.created_on }}, Last Updated: {{ thread.updated_on }} </p>
+        </div>
+        <div class="thread-entry">
+            <p> {{ thread.entry }} </p>
+        </div>
+    </div>
+
+{% endblock %}
+    
