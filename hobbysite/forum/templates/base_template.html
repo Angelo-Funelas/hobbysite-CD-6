@@ -8,11 +8,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <style>
+        body{
+            width: 100%;
+            margin: 0;
+            background-color: rgb(179, 177, 177);
+        }
+        header{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: blue;
+            height: 10vh;
+        }
+        header > h1{
+            margin: 0;
+            padding: 0 0 0 2em;
+        }
+        .main-body{
+            margin: 0 auto;
+            border-radius: 10px;
+            width: 75vw;
+            background-color: aliceblue;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <div>
+    <header>
+        <h1> MIST FORUMS </h1>
+    </header>
+    <div class = "main-body">
         {% block content %}{% endblock %}
     </div>
 
