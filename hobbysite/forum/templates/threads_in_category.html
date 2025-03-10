@@ -1,0 +1,53 @@
+{% extends 'base_template.html' %}
+
+{% block head %}
+
+    <style>
+        .thread-holder{
+            display: grid;
+            grid-template-columns: repeat(11,  1fr);
+            grid-template-rows: 20vh 10vh;
+            padding: 2em;
+            border: 0.05em solid;    
+        }
+        .thread-holder:hover{
+            background-color: white;
+        }
+        .thread-name{
+            grid-column: 1 /12;
+            grid-row: 1;
+            padding-top: 2em;
+        }
+        .thread-details{
+            grid-column: 1 /12;
+            grid-row: 2;
+            padding: 0px;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+
+{% endblock %}
+
+{% block title %} Posts under {{chosen_category}} {% endblock %}
+
+{% block content %}
+    
+    {% for thread in threads %}
+        <a href="{{thread.get_absolute_url}}">
+            <div class = "thread-holder">
+                <div class="thread-name">
+                    <h2> {{ thread.title }} </h2>
+                    <p> {{ thread.entry }} </p>
+                </div>
+                <div class="thread-details">
+                    <p> Created: {{ thread.created_on }}, Last Updated: {{ thread.updated_on }} </p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+{% endblock %}
+    
