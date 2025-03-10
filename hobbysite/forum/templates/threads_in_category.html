@@ -1,7 +1,6 @@
+<!-- This html file displays all of the posts/threads in a selected category. -->
 {% extends 'base_template.html' %}
-
 {% block head %}
-
     <style>
         a{
             text-decoration: none;
@@ -16,13 +15,9 @@
             font-size: 2em;
         }
     </style>
-
 {% endblock %}
-
 {% block title %} Posts under {{chosen_category}} {% endblock %}
-
 {% block content %}
-    
     {% for thread in threads %}
         <a href="{{thread.get_absolute_url}}">
             <div class = "thread-list">
@@ -36,6 +31,5 @@
             </div>
         </a>
     {% endfor %}
-
 {% endblock %}
     

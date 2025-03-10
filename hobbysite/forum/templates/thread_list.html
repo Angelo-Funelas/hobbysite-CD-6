@@ -1,7 +1,6 @@
+<!-- This html file displays all the post/thread categories and a teaser of the latest post underneath it. -->
 {% extends 'base_template.html' %}
-
 {% block head %}
-
     <style>
         a{
             text-decoration: none;
@@ -33,13 +32,9 @@
             margin: 0px;
         }
     </style>
-
 {% endblock %}
-
 {% block title %} Forum Menu {% endblock %}
-
 {% block content %}
-    
     {% for thread in threads %}
         <div class = "thread-list">
             <div class= "thread-list-name">
@@ -53,6 +48,5 @@
             </div>
         </div>
     {% endfor %}
-
 {% endblock %}
     

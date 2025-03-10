@@ -1,9 +1,7 @@
 <!-- This html file serves as the template file for the different forum app pages. -->
 <!DOCTYPE html>
 <html lang="en-US">
-
 <head>
-
     {% block head %}
     {% endblock %}
     <meta charset="UTF-8">
@@ -54,18 +52,13 @@
             padding: 0px;
         }
     </style>
-
 </head>
-
 <body>
-    
     <header>
         <h1> MIST FORUMS </h1>
     </header>
     <div class = "main-body">
         {% block content %}{% endblock %}
     </div>
-
 </body>
-
 </html>
