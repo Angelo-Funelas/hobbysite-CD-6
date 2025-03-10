@@ -7,3 +7,5 @@ urlpatterns = [
     path("items", views.index, name="index"),
     path("item/<int:itemID>", views.item, name="item"),
 ]
+
+app_name = "merchstore"
