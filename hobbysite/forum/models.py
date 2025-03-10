@@ -7,7 +7,10 @@ class PostCategory(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+    def get_absolute_url(self):
+        return reverse('forum:threads_in_category', args=[self.name])
+
     def latest_post(self):
         return self.posts.order_by('-created_on')[0]
 
@@ -27,7 +30,7 @@ class Post(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('forum:thread', args=[str(self.id)])
+        return reverse('forum:detailed_thread', args=[str(self.id)])
     
     class Meta:
         verbose_name = 'Post'
