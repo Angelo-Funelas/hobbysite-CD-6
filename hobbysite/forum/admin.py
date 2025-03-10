@@ -1,16 +1,21 @@
 from django.contrib import admin
 from .models import *
 
+class PostInLine(admin.StackedInline):
+    model = Post
+
 class PostCategoryAdmin(admin.ModelAdmin):
     model = PostCategory
 
     list_display = ('name', 'description',)
     search_fields = ('name', )
 
+    inlines = [PostInLine, ]
+
 class PostAdmin(admin.ModelAdmin):
     model = Post
 
-    list_display = ('title', 'category', 'entry', 'created_on', 'updated_on',)
+    list_display = ('title', 'category', 'entry', 'created_on', 'updated_on', 'id', )
     search_fields = ('title', 'entry',)
     list_filter = ('created_on',)
 
