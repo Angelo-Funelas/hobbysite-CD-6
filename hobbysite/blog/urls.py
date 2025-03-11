@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import *
 
 urlpatterns = [
-    path("articles", [], name="index"),
-    path("article/<int:num>", [], name="item"),
+    path("articles/", articles_list, name="index"),
+    path("article/<int:article_id>/", article_detail, name="item"),
 ]
 
 app_name = "blog"
