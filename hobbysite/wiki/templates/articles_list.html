@@ -3,16 +3,71 @@
 
 {% block title %}Articles List{% endblock title %}
 {% block content %}
-    <h1>Articles</h1>
-    {% if articles %}
+    <h1 style="
+    font-size: 2.5rem; 
+    color: #4cafaf; 
+    text-align: center; 
+    margin-bottom: 15px;">
+    Online Wiki
+    </h1>
+
+    <h2 style="
+    font-size: 1.8rem; 
+    color: #333; 
+    text-align: center; 
+    border-bottom: 2px solid #4cafaf;
+    padding-bottom: 5px;
+    margin-top: 20px;">
+    Categories</h2>
+
+    {% if categories %}
         <ul>
-            {% for article in articles %}
-                <li>
-                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+            {% for category in categories %}
+                <li style="
+                    background-color: #eaf6f6;
+                    border: 1px solid #bde0e0;
+                    padding: 8px 12px;
+                    margin-bottom: 8px;
+                    border-radius: 5px;">
+                    <strong>{{ category.name }}</strong> — {{ category.description }}
                 </li>
             {% endfor %}
         </ul>
-        {% else %}
+    {% else %}
+        <p>No categories available.</p>
+    {% endif %}
+
+    <h2 style="
+    font-size: 1.8rem; 
+    color: #333; 
+    text-align: center; 
+    border-bottom: 2px solid #4cafaf;
+    padding-bottom: 5px;
+    margin-top: 20px;">
+    Articles</h2>
+
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li style="
+                    background-color: #eaf6f6;
+                    border: 1px solid #bde0e0;
+                    padding: 10px 15px;
+                    margin-bottom: 10px;
+                    border-radius: 6px;">
+                    <a href="{{ article.get_absolute_url }}" 
+                        style="font-weight: bold; font-size: 1.1rem; color: #4cafaf;">
+                        {{ article.title }}
+                    </a>
+                    <div style="font-size: 0.9rem; color: #555;">
+                        Category: <strong>{{ article.category.name }}</strong><br>
+                        Created on: {{ article.created_on|date:"F d, Y" }} | 
+                        Last updated: {{ article.updated_on|date:"F d, Y" }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
         <p>No articles available.</p>
-        {% endif %}
+    {% endif %}
 {% endblock content %}
