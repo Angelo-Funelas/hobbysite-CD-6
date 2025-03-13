@@ -1,11 +1,11 @@
 from django.urls import path
-from . import views
+from .views import *
 from django.shortcuts import redirect
 
 urlpatterns = [
-    path("", lambda request: redirect("index")),
-    path("items", views.index, name="index"),
-    path("item/<int:id>", views.item, name="item"),
+    path("", lambda request: redirect("merchstore:index")),
+    path("items", index, name="index"),
+    path("item/<int:id>", item, name="item"),
 ]
 
 app_name = "merchstore"
