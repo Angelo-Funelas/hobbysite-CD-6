@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import ArticleCategory, Article
 
+# Register your models here.
 class ArticleCategoryAdmin(admin.ModelAdmin):
     model = ArticleCategory
     list_display = ['name',]
@@ -14,5 +15,3 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
-
-# Register your models here.
