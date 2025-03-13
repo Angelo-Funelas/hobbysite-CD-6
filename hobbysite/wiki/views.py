@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import *
 
-# Create your views here.
 def articles_list(request):
     ctx = {
         "articles": Article.objects.all(),
