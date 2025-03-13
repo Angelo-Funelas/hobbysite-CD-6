@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import *
 
+# Register your models here.
+
 class CommissionAdmin(admin.ModelAdmin):
     model = Commission
     list_display = ['title', 'description', 'people_required', 'created_on', 'updated_on']
@@ -13,4 +15,3 @@ class CommentAdmin(admin.ModelAdmin):
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Comment, CommentAdmin)
-# Register your models here.

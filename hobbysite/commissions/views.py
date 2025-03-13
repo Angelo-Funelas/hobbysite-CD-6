@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 
 # Create your views here.
+
 def commission(request):
     return render(request, 'commissions/commissions.html', {
         'commissions': Commission.objects.all()
