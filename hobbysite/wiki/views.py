@@ -6,10 +6,10 @@ def articles_list(request):
         "articles": Article.objects.all(),
         "categories": ArticleCategory.objects.all()
     }
-    return render(request, "articles_list.html", ctx)
+    return render(request, "wiki/articles_list.html", ctx)
 
 def article_detail(request, pk):
     ctx = {
         "article": Article.objects.get(pk=pk)
     }
-    return render(request, "article.html", ctx)
+    return render(request, "wiki/article.html", ctx)
