@@ -2,14 +2,12 @@ from django.shortcuts import render
 from .models import *
 
 def articles_list(request):
-    ctx = {
-        "articles": Article.objects.all(),
-        "categories": ArticleCategory.objects.all()
-    }
-    return render(request, "wiki/articles_list.html", ctx)
+    return render(request, 'wiki/articles_list.html', {
+        'articles': Article.objects.all(),
+        'categories': ArticleCategory.objects.all()
+    })
 
 def article_detail(request, pk):
-    ctx = {
-        "article": Article.objects.get(pk=pk)
-    }
-    return render(request, "wiki/article.html", ctx)
+    return render(request, 'wiki/article.html', {
+        'article': Article.objects.get(pk=pk)
+    })
