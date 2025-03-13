@@ -9,4 +9,7 @@ def articles_list(request):
     return render(request, "articles_list.html", ctx)
 
 def article_detail(request, pk):
-    return render(request, "article.html", {"article": Article.objects.get(pk=pk)})
+    ctx = {
+        "article": Article.objects.get(pk=pk)
+    }
+    return render(request, "article.html", ctx)
