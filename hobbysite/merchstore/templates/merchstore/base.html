@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merchandise Store - {% block title %}{% endblock title %}</title>
+    <title>Merchandise Store - {% block title %}{% endblock %}</title>
     <style>
         :root {
             --theme: rgb(0, 109, 218);
@@ -122,8 +122,8 @@
         <a href="{% url 'merchstore:index' %}"><h1>Merchandise Store</h1></a>
     </nav>
     <main>
-        {% block body %}
-        {% endblock body %}
+        {% block content %}
+        {% endblock %}
     </main>
     <script>
         var prices = document.querySelectorAll('.price')

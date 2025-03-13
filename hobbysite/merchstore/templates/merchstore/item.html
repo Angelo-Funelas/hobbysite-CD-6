@@ -1,6 +1,6 @@
 {% extends "merchstore/base.html" %}
 {% load static %}
-{% block title %}{{product.name}}{% endblock title %}
+{% block title %}{{product.name}}{% endblock %}
 {% block body %}
 <a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a>
 <article class="product-view">
@@ -19,4 +19,4 @@
         </div>
     </div>
 </article>
-{% endblock body %}
+{% endblock %}
