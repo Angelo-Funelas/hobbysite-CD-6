@@ -19,14 +19,10 @@ class Commission(models.Model):
         ordering = ["created_on"] # Sorted by creation date in ascending order
 
 class Comment(models.Model):
-    commission = models.ForeignKey(
-        Commission,
-        on_delete=models.CASCADE, 
-        related_name="comments",
-    )
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="comments",)
     entry = models.TextField()
-    created_on = models.DateTimeField(auto_now_add = True)
-    updated_on = models.DateTimeField(auto_now = True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Comment from {self.commission.title} on {self.created_on.strftime('%d-%m-%Y')}"
