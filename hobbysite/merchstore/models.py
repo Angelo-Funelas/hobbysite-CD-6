@@ -18,6 +18,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse("merchstore:item", kwargs={"itemID": self.id})
+        return reverse("merchstore:item", kwargs={"id": self.id})
     class Meta:
         ordering = ["name"] # order by name ascending order

@@ -7,7 +7,7 @@ def index(request):
         "products": Product.objects.all()
     })
 
-def item(request, itemID):
+def item(request, id):
     return render(request, "merchstore/item.html", {
-        "product": Product.objects.get(id=itemID)
+        "product": Product.objects.get(id=id)
     })
