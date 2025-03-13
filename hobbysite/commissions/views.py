@@ -13,4 +13,3 @@ def commission_details(request, pk):
         'commission': commission_object,
         'comments': commission_object.comments.all()
     })
-
