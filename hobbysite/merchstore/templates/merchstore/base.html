@@ -121,8 +121,7 @@
         <a href="{% url 'merchstore:index' %}"><h1>Merchandise Store</h1></a>
     </nav>
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
     <script>
         var prices = document.querySelectorAll('.price')
