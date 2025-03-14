@@ -3,27 +3,25 @@
 {% block title %}Commissions{% endblock title %}
 
 {% block content %}
-    <h2>COMMISSIONS: </h2>
+    <h2 class="title">COMMISSIONS: </h2>
     {% if commissions %}
         <ol>
             {% for commission in commissions %}
-                <li>
-                   <div>
-                    <p>Link: <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></p>
-                    <p><b>Created on:</b> {{commission.created_on}} <b>Modified on:</b> {{commission.updated_on}}</p>
-                    <p>{{ commission.description }}</p>
-                    <p><b>People required:</b> {{commission.people_required}}</p>
+                <div class="commission-block">
+                <p class="link-section"><a href="{{ commission.get_absolute_url }}" class="button">{{ commission.title }}</a></p>
+                <p><b>Created on:</b> {{commission.created_on}} <b>Modified on:</b> {{commission.updated_on}}</p>
+                <p>{{ commission.description }}</p>
+                <p><b>People required:</b> {{commission.people_required}}</p>
 
-                   </div>
-                </li>
+                </div>
 
             {% endfor %}
 
         </ol>
     {% else %}
-    <p>
+    <div class="commission-block">
         There are no commissions. Good job proxy!
-    </p>
+    </div>
     {% endif %}
 
 {% endblock %}

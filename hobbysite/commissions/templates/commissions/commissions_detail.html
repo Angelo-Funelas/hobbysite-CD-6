@@ -5,9 +5,11 @@
 {% block content %}
     {% if comments %}
         {% for comment in comments %}
-            <p><h2>COMMISSION DETAILS: <i>{{comment.commission.title }}</i></h2></p>
-            <p><b>Created on:</b> {{comment.created_on}} <b>Modified on:</b> {{comment.updated_on}}</p>
-             <p>{{ comment.entry }}</p>
+            <div class="commission-block">
+                <p><h2>COMMISSION DETAILS: <i>{{comment.commission.title }}</i></h2></p>
+                <p><b>Created on:</b> {{comment.created_on}} <b>Modified on:</b> {{comment.updated_on}}</p>
+                <p>{{ comment.entry }}</p>
+            </div>
         {% endfor %}
         
     {% endif %}
