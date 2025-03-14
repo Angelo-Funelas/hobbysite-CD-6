@@ -2,50 +2,24 @@
 
 {% block title %}{{ article.title }}{% endblock title %}
 {% block content %}
-    <div style="
-        background-color: #f9f9f9;
-        border: 2px solid #bde0e0;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px auto;
-        max-width: 800px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+    <div class="article-detail">
 
-        <a href="{% url 'wiki:articles_list' %}" 
-           style="
-           display: inline-block;
-           margin-bottom: 15px;
-           padding: 6px 12px;
-           background-color: #4cafaf;
-           color: #fff;
-           text-decoration: none;
-           border-radius: 5px;">
+        <a href="{% url 'wiki:articles_list' %}" class="back-button">
            &larr; Back to Articles
         </a>
 
-        <h1 style="
-            color: #4cafaf;
-            font-size: 2rem;
-            margin-bottom: 5px;">
-            {{ article.title }}
-        </h1>
+        <h1 class="title">{{ article.title }}</h1>
 
-        <p style="color: #555; font-style: italic; margin-bottom: 15px;">
+        <p class="article-meta">
             <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}
         </p>
 
-        <p style="
-            background-color: #eaf6f6;
-            padding: 8px 12px;
-            border-left: 4px solid #bde0e0;
-            margin-bottom: 15px;">
+        <p class="highlight-box">
             Created On: {{ article.created_on|date:"F d, Y" }}<br>
             Last Updated: {{ article.updated_on|date:"F d, Y" }}
         </p>
 
-        <div style="
-            line-height: 1.6;
-            color: #333;">
+        <div class="article-entry">
             {{ article.entry|linebreaks }}
         </div>
     </div>
