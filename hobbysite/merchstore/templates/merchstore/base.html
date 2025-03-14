@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise Store - {% block title %}{% endblock %}</title>
+    <style>
+        :root {
+            --theme: rgb(0, 109, 218);
+            --theme2: rgb(46, 182, 236);
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        nav {
+            background-color: var(--theme);
+            margin: 0;
+            padding: 2rem;
+        }
+        nav h1 {
+            margin: 0;
+            color: white;
+        }
+        nav > a {
+            text-decoration: none;
+        }
+        article {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 250px);
+            grid-gap: 1rem;
+            width: 60vw;
+            margin: 0 auto;
+        }
+        article > a {
+            color: black;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        article > a > div {
+            background-color:rgb(255, 255, 255);
+            aspect-ratio: calc(1/1.25);
+            display: grid;
+            grid-template-rows: 8fr 2fr;
+            border-radius: 6px;
+            padding: 1rem;
+            box-shadow: 0px 0px 25px 0px rgba(132,132,132,0.25);
+            outline: 2px solid rgb(216, 216, 216);
+        }
+        article > a > div > div > p {
+            margin: 5px 0;
+        }
+        article > a > div > div > p:nth-child(2) {
+            color: var(--theme);
+        }
+        .product-type-tag {
+            font-size: 0.8em;
+            border: 1px solid rgb(145, 145, 145);
+            border-radius: 2px;
+            display: inline-block;
+            padding: 1px 12px;
+        }
+        img {
+            background-color: rgb(236, 236, 236);
+        }
+        main {
+            margin: 4rem;
+        }
+        .nav-link {
+            text-decoration: none;
+            padding: 6px;
+            border-radius: 2px;
+            border: 1px solid black;
+            color: black;
+            font-size: .8rem;
+        }
+        .nav-link:hover {
+            background-color: black;
+            color: white;
+        }
+        .product-view {
+            grid-template-columns: 2fr 5fr;
+        }
+        .product-view > div > p:nth-child(2) {
+            color: var(--theme);
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .product-view > div > p:nth-child(4) {
+            color: rgb(73, 73, 73);
+        }
+        .product-view > div > p:last-child {
+            padding-left: 1rem;
+        }
+        .purchase-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 1rem;
+        }
+        button {
+            padding: 1rem 2rem;
+            width: 100%;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            background-color: var(--theme);
+            cursor: pointer;
+        }
+        button:hover {
+            filter: brightness(1.1);
+        }
+        button:nth-child(2) {
+            background-color: var(--theme2);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'merchstore:index' %}"><h1>Merchandise Store</h1></a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <script>
+        var prices = document.querySelectorAll('.price')
+        for (var price of prices) {
+            price.innerText = price.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+    </script>
+</body>
+</html>
