@@ -1,7 +1,5 @@
 {% extends "commissions/base.html" %}
-
 {% block title %}Commission Details{% endblock title %}
-
 {% block content %}
     {% if comments %}
         {% for comment in comments %}
@@ -10,14 +8,10 @@
                 <p><b>Created on:</b> {{comment.created_on}} <b>Modified on:</b> {{comment.updated_on}}</p>
                 <p>{{ comment.entry }}</p>
             </div>
-        {% endfor %}
-        
+        {% endfor %}  
     {% else %}
         <div class="commission-block">
             There are no comments. 
         </div>
-
-    {% endif %}
-
-    
+    {% endif %}    
 {% endblock %}
