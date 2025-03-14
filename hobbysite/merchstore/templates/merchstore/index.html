@@ -1,0 +1,20 @@
+{% extends "merchstore/base.html" %}
+{% block title %}All Items{% endblock %}
+{% block content %}
+<article>
+    {% if products %}
+        {% for product in products %}
+            <a href="{{product.get_absolute_url}}"><div>
+                <img src="" class="product-img">
+                <div>
+                    <p>{{product.name}}</p>
+                    <p class="price">₱{{product.price}}</p>
+                    <p class="product-type-tag">{{product.product_type.name}}</p>
+                </div>
+            </div></a>
+        {% endfor %}
+    {% else %}
+        <h3>Sorry, no products found.</h3>
+    {% endif %}
+</article>
+{% endblock %}

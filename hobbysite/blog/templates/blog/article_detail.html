@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+    {% if article %}
+        <h2>{{ article.title }}</h2>
+        <p><strong>Category: </strong> {{ article.category }}</p>
+        <p>{{ article.entry }}</p>
+        <p><small>Created on: {{ article.created_on }}</small></p>
+        <p><small>Last updated on: {{ article.updated_on }}</small></p>
+    {% else %}
+        <h2>Article Not Found</h2>
+        <p>The requested article does not exist.</p>
+    {% endif %}
+{% endblock %}
