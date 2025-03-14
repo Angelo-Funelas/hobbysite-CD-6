@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ArticleCategory, Article
+from .models import *
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     model = ArticleCategory
