@@ -1,0 +1,21 @@
+{% extends "merchstore/base.html" %}
+{% block title %}{{product.name}}{% endblock %}
+{% block content %}
+<a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a>
+<article class="product-view">
+    <img src="" class="">
+    <div>
+        <h2>{{product.name}}</h2>
+        <p class="price">₱{{product.price}}</p>
+        <p class="product-type-tag">{{product.product_type.name}}</p>
+        <p>Description:</p>
+        <p>
+            {{product.description|linebreaksbr}}
+        </p>
+        <div class="purchase-buttons">
+            <button>Buy Now</button>
+            <button>Add To Cart</button>
+        </div>
+    </div>
+</article>
+{% endblock %}

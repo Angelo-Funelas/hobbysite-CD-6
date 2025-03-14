@@ -1,0 +1,51 @@
+<!-- This html file displays all the post/thread categories and a teaser of the latest post underneath it. -->
+{% extends 'forum/base.html' %}
+{% block head %}
+    <style>
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        .thread-list-name > h2{
+            font-size: 3.2rem;
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-list-name > p{
+            font-size: 1.5rem;
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > p{
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > h3{
+            padding: 0px;
+            margin: 0px;
+        }
+        .thread-category-latest > h4{
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+{% endblock %}
+{% block title %} Forum Menu {% endblock %}
+{% block content %}
+    {% for thread in threads %}
+        <div class = "thread-list">
+            <div class= "thread-list-name">
+                <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.name }} </a> </h2>
+                <p> {{ thread.description}} </p>
+            </div>
+            <div class="thread-category-latest">
+                <h3> Latest Post: </h3>
+                <h4> <a href="{{thread.latest_post.get_absolute_url}}">{{ thread.latest_post.title }}</a> </h4>
+                <p> Created: {{ thread.latest_post.created_on }}, Last Updated: {{ thread.latest_post.updated_on }} </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
