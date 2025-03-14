@@ -1,0 +1,39 @@
+{% extends "wiki/base.html" %}
+
+{% block title %}Articles List{% endblock %}
+{% block content %}
+    <h1 class="title">Online Wiki</h1>
+
+    <h2 class="section-title">Categories</h2>
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li class="category-item">
+                    <strong>{{ category.name }}</strong> — {{ category.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No categories available.</p>
+    {% endif %}
+
+    <h2 class="section-title">Articles</h2>
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li class="article-item">
+                    <a href="{{ article.get_absolute_url }}" class="article-link">
+                        {{ article.title }}
+                    </a>
+                    <div class="article-meta">
+                        Category: <strong>{{ article.category.name }}</strong><br>
+                        Created on: {{ article.created_on|date:"F d, Y" }} | 
+                        Last updated: {{ article.updated_on|date:"F d, Y" }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles available.</p>
+    {% endif %}
+{% endblock %}

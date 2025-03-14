@@ -1,0 +1,26 @@
+{% extends "wiki/base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+    <div class="article-detail">
+
+        <a href="{% url 'wiki:articles_list' %}" class="back-button">
+           &larr; Back to Articles
+        </a>
+
+        <h1 class="title">{{ article.title }}</h1>
+
+        <p class="article-meta">
+            <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}
+        </p>
+
+        <p class="highlight-box">
+            Created On: {{ article.created_on|date:"F d, Y" }}<br>
+            Last Updated: {{ article.updated_on|date:"F d, Y" }}
+        </p>
+
+        <div class="article-entry">
+            {{ article.entry|linebreaks }}
+        </div>
+    </div>
+{% endblock %}
