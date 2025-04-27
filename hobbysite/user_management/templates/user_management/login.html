@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Hobbysite - Login{% endblock %}
+{% block body %}
+    <h3>Login</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+		Forget your password? Click <a href="{% url 'password_reset' %}">here</a>
+    </form>
+{% endblock %}
