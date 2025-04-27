@@ -7,4 +7,4 @@ class Profile(models.Model):
     email_address = models.EmailField()
     profile_picture = models.ImageField(blank=True, upload_to='profile_pictures/', default='default.png')
     def __str__(self):
-        return self.name
+        return self.display_name
