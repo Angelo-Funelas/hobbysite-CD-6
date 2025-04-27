@@ -10,7 +10,7 @@ nav {
     grid-template-columns: 1fr 1fr;
     background-color: var(--theme);
     margin: 0;
-    padding: 2rem;
+    padding: 1.2rem 5rem;
 }
 nav > div:last-child {
     text-align: right;
@@ -21,7 +21,6 @@ nav h1 {
 }
 nav a {
     text-decoration: none;
-    color: white;
     vertical-align: middle;
 }
 nav > div {
@@ -60,4 +59,54 @@ form img {
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: contain;
+}
+nav > div > .profile-dropdown > p {
+    padding-left: 2em;
+    display: inline-block;
+}
+nav > div > .profile-dropdown > div {
+    display: inline-block;
+    clip-path: polygon(50% 80%, 0 0, 100% 0);
+    aspect-ratio: 1;
+    height: .7em;
+    margin-left: .75em;
+    vertical-align: middle;
+    background-color: black;
+}
+nav > div > .profile-dropdown, nav > div:nth-child(2) > a {
+    background-color: white;
+    padding: 1em;
+    position: relative;
+}
+nav > div > .profile-dropdown > ul {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    background-color: white;
+    list-style: none;
+    right: 0;
+    top: 100%;
+    width: 100%;
+}
+nav > div > .profile-dropdown:hover > ul {
+    display: block;
+}
+nav > div > .profile-dropdown > ul > li {
+    padding: 0 1em;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+nav > div > .profile-dropdown > ul > li:hover {
+    background-color: rgb(214, 214, 214);
+}
+nav > div:nth-child(2) p {
+    margin: 0;
+    color: black;
+}
+nav > div > .profile-dropdown > ul > li > a > p {
+    margin: 0;
+    padding: 1em 0;
 }
