@@ -29,7 +29,6 @@ def register(request):
         email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["passwordConfirm"]
-        profile_picture = request.FILES["profile-picture"]
         
         if password != confirm_password:
             messages.error(request, "Passwords do not match.")
@@ -52,7 +51,7 @@ def register(request):
             email_address=email,
         )
         try:
-            profile.profile_picture = profile_picture
+            profile.profile_picture = request.FILES["profile-picture"]
             profile.save()
         except:
             pass
