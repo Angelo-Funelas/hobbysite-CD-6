@@ -10,5 +10,15 @@
     </form>
     <p>Forget your password? Click <a href="{% url 'password_reset' %}">here</a></p>
     <p>Don't have an account? Register <a href="{% url 'register' %}">here</a></p>
-		
+    <script>
+        window.onload = function() {
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                  const displaynameField = document.getElementById('id_username');
+                  if (displaynameField) displaynameField.value = displaynameField.value.toLowerCase();
+                });
+            }
+        }
+      </script>
 {% endblock %}

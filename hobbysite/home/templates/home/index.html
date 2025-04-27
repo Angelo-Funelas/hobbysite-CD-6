@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Welcome to Hobbysite{% endblock %}
+{% block body %}
+<article>
+    <h1>Welcome to Hobbysite</h1>
+    {% if not user.is_authenticated %}
+    <p><a href="{% url 'login' %}">Login</a> to make the most out of our services</p>
+    {% endif %}
+    <p>Services we offer:</p>
+    <ul>
+        {% for service in services %}
+            <li><a href="{% url service.url %}">{{ service.name }}</a></li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock %}
