@@ -3,10 +3,36 @@
 {% block title %}Hobbysite - Register{% endblock %}
 {% block body %}
     <h3>Register</h3>
-    <form method="POST">
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="message {{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p>
+            <label for="register-input-email">Email:</label>
+            <input type="email" name="email" id="register-input-email">
+        </p>
+        <p>
+            <label for="register-input-username">Username:</label>
+            <input type="text" name="username" id="register-input-username">
+        </p>
+        <p>
+            <label for="register-input-password">Password:</label>
+            <input type="password" name="password" id="register-input-password">
+        </p>
+        <p>
+            <label for="register-input-passwordConfirm">Confirm Password:</label>
+            <input type="password" name="passwordConfirm" id="register-input-passwordConfirm">
+        </p>
+        <p>
+            <label for="register-input-profilePicture">Profile Picture:</label>
+            <input type="file" accept="image/*" name="profile-picture" id="register-input-profilePicture">
+        </p>
         <button type="submit">Register</button>
-		Already have an account? Click <a href="{% url 'password_reset' %}">here</a>
+        <p>Already have an account? Click <a href="{% url 'login' %}">here</a></p>
     </form>
 {% endblock %}
