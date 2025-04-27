@@ -1,0 +1,56 @@
+:root {
+    --theme: #12aa98;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--theme);
+    margin: 0;
+    padding: 2rem;
+}
+nav > div:last-child {
+    text-align: right;
+}
+nav h1 {
+    margin: 0;
+    color: white;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    vertical-align: middle;
+}
+main {
+    margin: 4rem;
+}
+.nav-link {
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 2px;
+    border: 1px solid black;
+    color: black;
+    font-size: .8rem;
+}
+.nav-link:hover {
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 15em;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(118, 118, 118);
+    font-size: 1rem;
+}
+form img {
+    display: block;
+    height: 10em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: contain;
+}
