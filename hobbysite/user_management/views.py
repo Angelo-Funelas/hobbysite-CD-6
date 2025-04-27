@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .models import Profile
+from django.contrib import messages
 
 @login_required
 def index(request):
@@ -20,17 +22,37 @@ def index(request):
         
 def register(request):
     if request.method == 'GET':
-        return render(request, "registration/register.html")
+        return render(request, "user_management/register.html")
     elif request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
-        try: 
-            User.objects.get(username=username.lower())
-        except User.DoesNotExist:
-            try:
-                pfp = request.FILES["pfp"]
-                User.objects.create_user(username.lower(), email, password, pfp=pfp, display_name=username)
-            except:
-                user = User.objects.create_user(username.lower(), email, password, display_name=username) 
-            return HttpResponseRedirect(reverse('index'))
+        confirm_password = request.POST["passwordConfirm"]
+        profile_picture = request.FILES["profile-picture"]
+        
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return HttpResponseRedirect(reverse('register'))
+
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken.")
+            return HttpResponseRedirect(reverse('register'))
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already in use.")
+            return HttpResponseRedirect(reverse('register'))
+        
+        user = User.objects.create_user(username.lower(), email, password)
+        profile = Profile.objects.create(
+            user=user,
+            display_name=username,
+            email_address=email,
+        )
+        try:
+            profile.profile_picture = profile_picture
+            profile.save()
+        except:
+            pass
+        return HttpResponseRedirect(reverse('login'))
