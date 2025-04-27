@@ -24,6 +24,13 @@ nav a {
     color: white;
     vertical-align: middle;
 }
+nav > div {
+    display: flex;
+    align-items: center;
+}
+nav > div:nth-child(2) {
+    justify-content: right;
+}
 main {
     margin: 4rem;
 }
