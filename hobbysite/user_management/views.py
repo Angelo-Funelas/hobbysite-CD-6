@@ -15,6 +15,7 @@ def index(request):
         profile.display_name = display_name
         profile.email_field = email
         profile.save()
+        return HttpResponseRedirect(reverse('index'))
     else:
         return render(request, "user_management/profile.html", {
             "profile": request.user.profile
