@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import thread_list, threads_in_category, detailed_thread
 
 urlpatterns = [
     path("threads", thread_list, name="thread_list"),

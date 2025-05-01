@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Post, PostCategory
 
 class PostInLine(admin.StackedInline):
     model = Post

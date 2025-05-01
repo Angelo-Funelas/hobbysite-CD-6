@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import *
+from .models import PostCategory, Post
 
 def thread_list(request):
     return render(request, 'forum/thread_list.html', {
