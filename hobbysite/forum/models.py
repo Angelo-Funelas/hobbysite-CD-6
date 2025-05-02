@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
-class PostCategory(models.Model):
+class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -20,10 +21,11 @@ class PostCategory(models.Model):
         verbose_name_plural = 'Post Categories'
         ordering = ["name"]
 
-class Post(models.Model):
+class Thread(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
+    category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
     entry = models.TextField()
+    image = models.ImageField(upload_to='images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -37,3 +39,5 @@ class Post(models.Model):
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ["-created_on"]
+
+
