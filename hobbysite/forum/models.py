@@ -17,8 +17,8 @@ class ThreadCategory(models.Model):
         return self.posts.order_by('-created_on')[0]
 
     class Meta:
-        verbose_name = 'Post Category'
-        verbose_name_plural = 'Post Categories'
+        verbose_name = 'Thread Category'
+        verbose_name_plural = 'Thread Categories'
         ordering = ["name"]
 
 class Thread(models.Model):
@@ -36,8 +36,18 @@ class Thread(models.Model):
         return reverse('forum:detailed_thread', args=[str(self.id)])
     
     class Meta:
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
+        verbose_name = 'Thread'
+        verbose_name_plural = 'Threads'
         ordering = ["-created_on"]
 
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ["created_on"]
