@@ -23,6 +23,7 @@ class ThreadCategory(models.Model):
 
 class Thread(models.Model):
     title = models.CharField(max_length=255)
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
     entry = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True)
@@ -34,7 +35,7 @@ class Thread(models.Model):
     
     def get_absolute_url(self):
         return reverse('forum:detailed_thread', args=[str(self.id)])
-    
+
     class Meta:
         verbose_name = 'Thread'
         verbose_name_plural = 'Threads'
