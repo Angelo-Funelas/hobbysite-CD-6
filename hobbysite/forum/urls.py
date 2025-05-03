@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import thread_list, threads_in_category, detailed_thread
+from .views import thread_list, detailed_thread
 
 urlpatterns = [
     path("threads", thread_list, name="thread_list"),
-    path("threads/<str:category_name>", threads_in_category, name="threads_in_category"),
     path("thread/<int:thread_num>", detailed_thread, name="detailed_thread"),
 ]
 
