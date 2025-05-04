@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} {{ thread.title }} {% endblock %}
+{% block body %}
+<a href="{% url 'forum:thread_list' %}">Forum Home</a>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ thread_form.as_p }}
+        <button type="Submit">Post Thread</button>
+    </form>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import ThreadCategory, Thread, Comment
-from .forms import CommentForm
+from .forms import CommentForm, ThreadForm
 
 @login_required
 def thread_list(request):
@@ -24,13 +24,6 @@ def thread_list(request):
         'other_threads': grouped_threads
     })
 
-# def threads_in_category(request, category_name):
-#     chosen_category = ThreadCategory.objects.get(name=category_name)
-#     return render(request, 'forum/threads_in_category.html', {
-#         'threads': Thread.objects.filter(category=chosen_category),
-#         'chosen_category': chosen_category
-#     })
-
 def detailed_thread(request, thread_num):
     chosen_thread = Thread.objects.get(id=thread_num)
     other_threads = Thread.objects.filter(category=chosen_thread.category).exclude(id=thread_num)[:4]
@@ -51,4 +44,19 @@ def detailed_thread(request, thread_num):
         'other_threads': other_threads,
         'comments': comments,
         'comment_form': comment_form
+    })
+
+@login_required
+def create_thread(request):
+    if request.method == "POST":
+        thread_form = ThreadForm(request.POST)
+        thread = thread_form.save(commit=False)
+        thread.author = request.user.profile
+        thread.save()
+        return redirect('forum:detailed_thread', thread.id)
+    
+    thread_form = ThreadForm()
+
+    return render(request, 'forum/create_thread.html', {
+        'thread_form': thread_form
     })
