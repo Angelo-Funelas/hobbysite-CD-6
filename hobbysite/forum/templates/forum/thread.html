@@ -2,12 +2,14 @@
 {% extends 'base.html' %}
 {% block title %} {{ thread.title }} {% endblock %}
 {% block body %}
-<a href="{% url 'forum:thread_list' %}">Forum Home</a>
+    <a href="{% url 'forum:thread_list' %}">Forum Home</a>
     <div class="thread-holder">
         <div class="thread-name">
             <h2> {{ thread.title }} </h2>
         </div>
-        <a href="{% url 'forum:update_thread' thread.id %}">Edit Thread</a>
+        {% if user.is_authenticated and thread.author.user == user %}
+            <a href="{% url 'forum:update_thread' thread.id %}">Edit Thread</a>
+        {% endif %}
         <div class="thread-time-details">
             <p> Posted on: {{ thread.created_on }}, Last Updated: {{ thread.updated_on }} </p>
         </div>
@@ -20,12 +22,14 @@
         <p>{{ comment.author }}</p>
         <p>{{ comment.entry }}</p>
     {% endfor %}
-    <form method="post">
-        {% csrf_token %}
-        <h5> Add Comment </h5>
-        {{ comment_form.as_p }}
-        <button type="Submit">Post Comment</button>
-    </form>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            <h5> Add Comment </h5>
+            {{ comment_form.as_p }}
+            <button type="Submit">Post Comment</button>
+        </form>
+    {% endif %}
     <h3> Posts under {{ thread.category }}</h3>
     {% for thread in other_threads %}
         <h4> <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a></h4>
