@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import ThreadCategory, Thread
+from django.shortcuts import render, redirect
+from .models import ThreadCategory, Thread, Comment
+from .forms import CommentForm
 
 @login_required
 def thread_list(request):
@@ -31,6 +32,23 @@ def thread_list(request):
 #     })
 
 def detailed_thread(request, thread_num):
+    chosen_thread = Thread.objects.get(id=thread_num)
+    other_threads = Thread.objects.filter(category=chosen_thread.category).exclude(id=thread_num)[:4]
+    comments = Comment.objects.filter(thread=chosen_thread)
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        new_comment = comment_form.save(commit=False)
+        new_comment.author = request.user.profile
+        new_comment.thread = chosen_thread
+        new_comment.save()
+        return redirect('forum:detailed_thread', thread_num)
+
+    comment_form = CommentForm()
+
     return render(request, 'forum/thread.html', {
-        'thread': Thread.objects.get(id=thread_num)
+        'thread': chosen_thread,
+        'other_threads': other_threads,
+        'comments': comments,
+        'comment_form': comment_form
     })
