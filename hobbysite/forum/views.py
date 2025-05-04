@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import ThreadCategory, Thread, Comment
-from .forms import CommentForm, ThreadForm
+from .forms import CommentForm, NewThreadForm, UpdateThreadForm
 
 @login_required
 def thread_list(request):
@@ -51,14 +51,30 @@ def detailed_thread(request, thread_num):
 @login_required
 def create_thread(request):
     if request.method == "POST":
-        thread_form = ThreadForm(request.POST)
+        thread_form = NewThreadForm(request.POST)
         thread = thread_form.save(commit=False)
         thread.author = request.user.profile
         thread.save()
         return redirect('forum:detailed_thread', thread.id)
     
-    thread_form = ThreadForm()
+    thread_form = NewThreadForm()
 
     return render(request, 'forum/create_thread.html', {
         'thread_form': thread_form
     })
+
+@login_required
+def update_thread(request, thread_num):
+    chosen_thread = Thread.objects.get(id=thread_num)
+    if request.method == "POST":
+        update_form = UpdateThreadForm(request.POST, request.FILES, instance=chosen_thread)
+        update_form.save()
+        return redirect('forum:detailed_thread', chosen_thread.id)
+    
+    update_form = UpdateThreadForm(instance=chosen_thread)
+
+    return render(request, 'forum/update_thread.html', {
+        'thread': chosen_thread,
+        'update_form': update_form
+    })
+    
