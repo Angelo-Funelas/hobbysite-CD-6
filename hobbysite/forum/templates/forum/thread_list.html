@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block title %} Forum Menu {% endblock %}
 {% block body %}
+<a href="{% url 'forum:create_thread' %}">Create New Thread</a>
+    <h1>{{ username }}'s Posts</h1>
     {% for thread in user_threads %}
-        <h1>{{ thread.author.display_name }}'s Posts</h1>
         <div class = "thread-list">
             <div class= "thread-list-name">
                 <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.title }} </a> </h2>

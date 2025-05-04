@@ -5,8 +5,9 @@ from .forms import CommentForm, ThreadForm
 
 @login_required
 def thread_list(request):
-    user_threads = Thread.objects.filter(author=request.user.profile)
-    other_threads = Thread.objects.exclude(author=request.user.profile)
+    username = request.user.profile
+    user_threads = Thread.objects.filter(author=username)
+    other_threads = Thread.objects.exclude(author=username)
     
     # Iterates through all categories and then groups them into respective dictionaries
     categories = ThreadCategory.objects.all()
@@ -21,7 +22,8 @@ def thread_list(request):
 
     return render(request, 'forum/thread_list.html', {
         'user_threads': user_threads,
-        'other_threads': grouped_threads
+        'other_threads': grouped_threads,
+        'username': username
     })
 
 def detailed_thread(request, thread_num):
