@@ -3,27 +3,42 @@ from django.shortcuts import render, redirect
 from .models import ThreadCategory, Thread, Comment
 from .forms import CommentForm, NewThreadForm, UpdateThreadForm
 
-@login_required
 def thread_list(request):
-    username = request.user.profile
-    user_threads = Thread.objects.filter(author=username)
-    other_threads = Thread.objects.exclude(author=username)
+    if request.user.is_authenticated:
+        username = request.user.profile
+        user_threads = Thread.objects.filter(author=username)
+        other_threads = Thread.objects.exclude(author=username)
     
-    # Iterates through all categories and then groups them into respective dictionaries
+        # Iterates through all categories and then groups them into respective dictionaries
+        categories = ThreadCategory.objects.all()
+        grouped_threads = []
+        for category in categories:
+            threads_in_category = other_threads.filter(category=category)
+            if threads_in_category.exists():
+                grouped_threads.append({
+                    'category': category,
+                    'threads': threads_in_category
+                })
+
+        return render(request, 'forum/thread_list.html', {
+            'user_threads': user_threads,
+            'other_threads': grouped_threads,
+            'username': username
+        })
+    
+    threads = Thread.objects.all()
     categories = ThreadCategory.objects.all()
     grouped_threads = []
     for category in categories:
-        threads_in_category = other_threads.filter(category=category)
-        if threads_in_category.exists():
-            grouped_threads.append({
-                'category': category,
-                'threads': threads_in_category
-            })
-
+            threads_in_category = threads.filter(category=category)
+            if threads_in_category.exists():
+                grouped_threads.append({
+                    'category': category,
+                    'threads': threads_in_category
+                })
+    
     return render(request, 'forum/thread_list.html', {
-        'user_threads': user_threads,
-        'other_threads': grouped_threads,
-        'username': username
+        'all_threads': grouped_threads,
     })
 
 def detailed_thread(request, thread_num):
