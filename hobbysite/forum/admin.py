@@ -1,8 +1,11 @@
 from django.contrib import admin
-from .models import Thread, ThreadCategory
+from .models import Thread, ThreadCategory, Comment
 
 class ThreadInLine(admin.StackedInline):
     model = Thread
+
+class CommentInLine(admin.StackedInline):
+    model = Comment
 
 class ThreadCategoryAdmin(admin.ModelAdmin):
     model = ThreadCategory
@@ -19,6 +22,8 @@ class ThreadAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'entry', 'created_on', 'updated_on', 'id', )
     search_fields = ('title', 'entry',)
     list_filter = ('created_on',)
+
+    inlines = [CommentInLine, ]
 
 admin.site.register(ThreadCategory, ThreadCategoryAdmin)
 admin.site.register(Thread, ThreadAdmin)
