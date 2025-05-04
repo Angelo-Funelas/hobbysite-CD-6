@@ -6,7 +6,12 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['entry']
 
-class ThreadForm(forms.ModelForm):
+class NewThreadForm(forms.ModelForm):
     class Meta:
         model = Thread
         fields = ['title', 'category', 'entry', 'image']
+
+class UpdateThreadForm(forms.ModelForm):
+    class Meta:
+        model = Thread
+        exclude = ['created_on', 'author']
