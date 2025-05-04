@@ -7,6 +7,11 @@
         <div class="thread-name">
             <h2> {{ thread.title }} </h2>
         </div>
+        {% if thread.image %}
+            <div class="thread-image">
+                <img src="{{ thread.image.url }}" alt="{{ thread.image }}" style="max-width: 20%; height: auto;">
+            </div>
+        {% endif %}
         {% if user.is_authenticated and thread.author.user == user %}
             <a href="{% url 'forum:update_thread' thread.id %}">Edit Thread</a>
         {% endif %}
