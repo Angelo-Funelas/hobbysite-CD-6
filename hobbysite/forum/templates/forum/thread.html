@@ -1,30 +1,8 @@
 <!-- This html file displays the complete details of a chosen thread. -->
-{% extends 'forum/base.html' %}
-{% block head %}
-    <style>
-        .thread-holder{
-            display: grid;
-            grid-template-columns: repeat(11,  1fr);
-            grid-template-rows: repeat(2, auto);
-            padding: 2em;
-            border: 0.05em solid;
-        }
-        .thread-name{
-            grid-column: 1/ 5;
-            color: black;
-        }
-        .thread-time-details{
-            grid-column: 9/ 12;
-            font-size: 0.5em;
-        }
-        .thread-entry{
-            grid-column: 1/ 12;
-            grid-row: 2;
-        }
-    </style>
-{% endblock %}
+{% extends 'base.html' %}
 {% block title %} {{ thread.title }} {% endblock %}
-{% block content %}
+{% block body %}
+<a href="{% url 'forum:thread_list' %}">Forum Home</a>
     <div class="thread-holder">
         <div class="thread-name">
             <h2> {{ thread.title }} </h2>
@@ -36,4 +14,19 @@
             <p> {{ thread.entry }} </p>
         </div>
     </div>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <p>{{ comment.author }}</p>
+        <p>{{ comment.entry }}</p>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <h5> Add Comment </h5>
+        {{ comment_form.as_p }}
+        <button type="Submit">Post Comment</button>
+    </form>
+    <h3> Posts under {{ thread.category }}</h3>
+    {% for thread in other_threads %}
+        <h4> <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a></h4>
+    {% endfor %}
 {% endblock %}
