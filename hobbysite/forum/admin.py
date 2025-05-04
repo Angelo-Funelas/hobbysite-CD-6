@@ -19,7 +19,7 @@ class ThreadCategoryAdmin(admin.ModelAdmin):
 class ThreadAdmin(admin.ModelAdmin):
     model = Thread
 
-    list_display = ('title', 'category', 'entry', 'created_on', 'updated_on', 'id', )
+    list_display = ('title', 'author', 'category', 'created_on', 'updated_on', 'id', )
     search_fields = ('title', 'entry',)
     list_filter = ('created_on',)
 
