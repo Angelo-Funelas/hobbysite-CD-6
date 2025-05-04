@@ -25,5 +25,11 @@ class ThreadAdmin(admin.ModelAdmin):
 
     inlines = [CommentInLine, ]
 
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
+
+    list_display = ('author', 'thread', 'entry', 'created_on')
+
 admin.site.register(ThreadCategory, ThreadCategoryAdmin)
 admin.site.register(Thread, ThreadAdmin)
+admin.site.register(Comment, CommentAdmin)
