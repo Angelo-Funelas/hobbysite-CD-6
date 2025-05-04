@@ -7,6 +7,7 @@
         <div class="thread-name">
             <h2> {{ thread.title }} </h2>
         </div>
+        <a href="{% url 'forum:update_thread' thread.id %}">Edit Thread</a>
         <div class="thread-time-details">
             <p> Posted on: {{ thread.created_on }}, Last Updated: {{ thread.updated_on }} </p>
         </div>
