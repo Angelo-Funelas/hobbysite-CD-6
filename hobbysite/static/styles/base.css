@@ -95,12 +95,16 @@ form img {
     display: block;
     background-color: white;
     color: black;
-    padding: 1em;
+    padding: .4em;
     position: relative;
+}
+nav > div:last-child > div:last-child > a {
+    padding: 1em;
 }
 .profile-dropdown > p {
     padding-left: 2em;
     display: inline-block;
+    vertical-align: middle;
 }
 .profile-dropdown > div {
     display: inline-block;
@@ -142,4 +146,13 @@ nav > div:last-child p {
 .profile-dropdown > ul > li > a > p {
     margin: 0;
     padding: 1em 0;
+}
+.profile-dropdown > img {
+    vertical-align: middle;
+    display: inline-block;
+    height: 2.2rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    image-rendering: optimizeQuality;
 }

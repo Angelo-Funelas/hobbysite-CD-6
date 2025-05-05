@@ -31,7 +31,7 @@
             <div>
                 {% if user.is_authenticated %}
                 <div class="profile-dropdown">
-                    <p>{{ user.profile.display_name }}</p><div></div>
+                    <img src="{{ user.profile.profile_picture.url }}"><p>{{ user.profile.display_name }}</p><div></div>
                     <ul>
                         <li><a href="{% url 'index' %}"><p>View Profile</p></a></li>
                         <li><a href="{% url 'logout' %}"><p>Logout</p></a></li>

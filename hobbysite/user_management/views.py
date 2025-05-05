@@ -21,9 +21,7 @@ def index(request):
         profile.save()
         return HttpResponseRedirect(reverse('index'))
     else:
-        return render(request, "user_management/profile.html", {
-            "profile": request.user.profile
-        })
+        return render(request, "user_management/profile.html")
         
 def register(request):
     if request.method == 'GET':
