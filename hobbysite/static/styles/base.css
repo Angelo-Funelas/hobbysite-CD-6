@@ -89,7 +89,7 @@ form img {
     height: 10em;
     aspect-ratio: 1;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
 }
 .profile-dropdown, nav > div:last-child > div:last-child > a {
     display: block;
