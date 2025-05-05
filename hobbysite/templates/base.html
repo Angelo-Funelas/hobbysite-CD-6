@@ -6,29 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <nav>
         <div>
-            <a href="{% url 'home:index' %}"><h1>Hobbysite</h1></a>
-        </div>
-        <div>
-            {% if user.is_authenticated %}
-            <div class="profile-dropdown">
-                <p>{{ user.profile.display_name }}</p><div></div>
-                <ul>
-                    <li><a href="{% url 'index' %}"><p>View Profile</p></a></li>
-                    <li><a href="{% url 'logout' %}"><p>Logout</p></a></li>
+            <a href="{% url 'index' %}">Hobbysite</a>
+            <div>
+                <ul id="app-links">
+                    <li><a href="{% url 'merchstore:index' %}">Merchandise Store</a></li>
+                    <li><a href="{% url 'wiki:articles_list' %}">Online Wiki</a></li>
+                    <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                    <li><a href="{% url 'forum:thread_list' %}">Forum</a></li>
+                    <li><a href="{% url 'commissions:commission' %}">Commision</a></li>
                 </ul>
             </div>
-            {% else %}
-            <a href="{% url 'login' %}"><p>Login</p></a>
-            {% endif %}
+        </div>
+        <div>
+            <div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                <div class="profile-dropdown">
+                    <p>{{ user.profile.display_name }}</p><div></div>
+                    <ul>
+                        <li><a href="{% url 'index' %}"><p>View Profile</p></a></li>
+                        <li><a href="{% url 'logout' %}"><p>Logout</p></a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}"><p>Login</p></a>
+                {% endif %}
+            </div>
         </div>
     </nav>
     <main>
-        {% block body %}
+        {% block content %}
         {% endblock %}
     </main>
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>
