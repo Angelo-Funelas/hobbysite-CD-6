@@ -14,6 +14,10 @@ def index(request):
         profile = request.user.profile
         profile.display_name = display_name
         profile.email_field = email
+        try:
+            profile.profile_picture = request.FILES["profile-picture"]
+        except:
+            pass
         profile.save()
         return HttpResponseRedirect(reverse('index'))
     else:
