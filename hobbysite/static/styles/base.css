@@ -1,8 +1,11 @@
 :root {
     --theme: #12aa98;
 }
-body {
+html, body {
     margin: 0;
+    padding: 0;
+}
+body {
     font-family: Arial, sans-serif;
 }
 nav {
@@ -155,4 +158,24 @@ nav > div:last-child p {
     object-fit: cover;
     border-radius: 50%;
     image-rendering: optimizeQuality;
+}
+main {
+    min-height: 100vh;
+}
+footer {
+    background-color: #282a35;
+    color: white;
+    padding: 1rem 5rem;
+    text-align: center;
+}
+footer > ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+footer > ul > li {
+    padding: 0 3rem;
+}
+footer > ul > li + li {
+    border-left: solid 1px white;
 }
