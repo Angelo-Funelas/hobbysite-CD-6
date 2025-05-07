@@ -1,5 +1,9 @@
-{% extends "merchstore/base.html" %}
+{% extends "base.html" %}
+{% load static %}
 {% block title %}All Items{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static "merchstore/styles.css" %}">
+{% endblock %}
 {% block content %}
 <article>
     {% if products %}
@@ -18,3 +22,6 @@
     {% endif %}
 </article>
 {% endblock %}
+{% block scripts %}
+<script src="{% static "merchstore/priceFormatter.js" %}"></script>
+{% endblock  %}
