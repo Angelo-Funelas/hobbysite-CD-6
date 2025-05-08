@@ -10,6 +10,8 @@ class ArticleCategory(models.Model):
 
     class Meta:
         ordering = ['name'] # Sorted by name in ascending order
+        verbose_name = "Article category"
+        verbose_name_plural = "Article categories"
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
