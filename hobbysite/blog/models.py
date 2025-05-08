@@ -26,6 +26,10 @@ class Article(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="article")
+    header_image = models.ImageField(upload_to='article_headers/', blank=True, null=True)
+    
+
     def __str__(self):
         return self.title
     
