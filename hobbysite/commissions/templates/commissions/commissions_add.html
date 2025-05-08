@@ -1,0 +1,10 @@
+{% extends "commissions/base.html" %}
+{% block title %}Create Commission{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ commission_form.as_p }}
+    {{ job_form.as_p }}
+    <button type="Submit">Post Commission</button>
+</form>
+{% endblock %}

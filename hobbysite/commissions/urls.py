@@ -6,6 +6,7 @@ urlpatterns = [
     path("", lambda request: redirect("commissions:commission")),
     path('list/', commission, name="commission"),
     path('detail/<int:pk>/', commission_details, name="commission_details"),
+    path('add/', commission_create, name="commission_create"),
 
 ]
 

@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from django.contrib.auth.decorators import login_required
+from .forms import *
 
 
 def commission(request):
@@ -13,6 +15,35 @@ def commission_details(request, pk):
         'commission': commission_object,
         'jobs': commission_object.jobs.all()
     })
+
+@login_required
+def commission_create(request):
+    if request.method == "POST":
+        commission_form = CreateCommissionForm(request.POST, request.FILES)
+        job_form = CreateJobForm(request.POST, request.FILES)
+        if commission_form.is_valid() and job_form.is_valid():
+            commission = commission_form.save(commit=False)
+            commission.author = request.user.profile
+            commission.save()
+            job = job_form.save(commit=False)
+            job.author = request.user.profile
+            job.save()
+            
+            return redirect('commission_details', pk=commission.pk)
+        
+    commission_form = CreateCommissionForm()
+    job_form = CreateJobForm()
+
+    return render(request, 'commissions/commissions_add.html', {
+        'commission_form': commission_form,
+        'job_form': job_form,
+        })
+
+
+
+#def commission_update(request, pk):
+
+#def job(request):
 
 #TODO
 #Make a commission lists view

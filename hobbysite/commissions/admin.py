@@ -1,10 +1,12 @@
 from django.contrib import admin
 from .models import *
+from django.contrib.auth.decorators import login_required
+
 
 
 class CommissionAdmin(admin.ModelAdmin):
     model = Commission
-    list_display = ('title', 'description', 'created_on', 'updated_on',)
+    list_display = ('title', 'description', 'status', 'created_on', 'updated_on',)
     search_fields = ('name',)
 
 class JobAdmin(admin.ModelAdmin):
