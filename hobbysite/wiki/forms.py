@@ -6,7 +6,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['entry']
 
-
 class NewArticleForm(forms.ModelForm):
     class Meta:
         model = Article
