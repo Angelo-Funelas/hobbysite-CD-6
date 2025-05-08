@@ -27,11 +27,24 @@ class Article(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="article")
-    header_image = models.ImageField(upload_to='article_headers/', blank=True, null=True)
+    header_image = models.ImageField(upload_to='blog/article_headers/', blank=True, null=True)
     
 
     def __str__(self):
         return self.title
     
     class Meta:
-        ordering = ["-created_on"]
+        ordering = ["-created_on"] #descending
+
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="comments")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.author
+    
+    class Meta:
+        ordering = ['created_on'] #ascending
