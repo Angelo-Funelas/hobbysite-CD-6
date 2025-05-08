@@ -39,10 +39,10 @@ class Job(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
 
     def __str__(self):
-        return f"Comment from {self.commission.title} on {self.created_on.strftime('%d-%m-%Y')}"
+        return self.role
 
     class Meta:
-        ordering = ["status","-manpower_required", "role"] # Sorted by status (open>full),
+        ordering = ["-status","-manpower_required", "role"] # Sorted by status (open>full),
         #manpower_required in descending order, role in ascending order
 
 class JobApplication(models.Model):
@@ -54,4 +54,9 @@ class JobApplication(models.Model):
         ('accepted', 'Accepted'),
         ('rejected', 'Rejected'),
     ]
+
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    applied_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-status', 'applied_on']

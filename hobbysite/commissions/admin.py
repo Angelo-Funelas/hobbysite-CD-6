@@ -9,8 +9,14 @@ class CommissionAdmin(admin.ModelAdmin):
 
 class JobAdmin(admin.ModelAdmin):
     model = Job
-    list_display = ('commission', 'created_on', 'updated_on',)
+    list_display = ('commission', 'status', 'created_on', 'updated_on',)
     list_filter = ('commission',)
+
+class JobApplicationAdmin(admin.ModelAdmin):
+    model = JobApplication
+    list_display = ('job', 'applicant', 'status', 'applied_on',)
+    list_filter = ('job',)
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
+admin.site.register(JobApplication, JobApplicationAdmin)
