@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import *
+from .models import Article
 
 def articles_list(request):
     return render(request, 'blog/article_list.html', {

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import articles_list, article_detail
 from django.shortcuts import redirect
 
 urlpatterns = [
