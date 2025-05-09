@@ -1,7 +1,7 @@
-<!-- This html file displays the complete details of a chosen thread. -->
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} {{ thread.title }} {% endblock %}
-{% block body %}
+{% block content %}
     <a href="{% url 'forum:thread_list' %}">Forum Home</a>
     <div class="thread-holder">
         <div class="thread-name">
