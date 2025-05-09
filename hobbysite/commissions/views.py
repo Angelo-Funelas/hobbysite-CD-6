@@ -27,9 +27,10 @@ def commission_create(request):
             commission.save()
             job = job_form.save(commit=False)
             job.author = request.user.profile
+            job.commission = commission
             job.save()
             
-            return redirect('commission_details', pk=commission.pk)
+            return redirect('commissions:commission_details', pk=commission.pk)
         
     commission_form = CreateCommissionForm()
     job_form = CreateJobForm()
