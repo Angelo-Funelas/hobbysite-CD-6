@@ -9,9 +9,9 @@ class CommentForm(forms.ModelForm):
 class NewArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'category', 'header_image']
+        fields = ['title', 'entry', 'category', 'header_image']
 
 class UpdateArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'category', 'header_image']
+        fields = ['title', 'entry', 'category', 'header_image']
