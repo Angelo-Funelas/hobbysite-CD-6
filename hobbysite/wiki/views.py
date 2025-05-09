@@ -10,9 +10,25 @@ def articles_list(request):
         'categories': ArticleCategory.objects.all()
     })
 
-def article_detail(request, pk): # Unfinished, will work on specifications later
+def article_detail(request, pk): 
+    article = Article.objects.get(pk=pk)
+    
+    if request.method == "POST" and request.user.is_authenticated:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.author = request.user.profile
+            comment.save()
+            return redirect('article_detail', pk=article.pk)
+    else:
+        comment_form = CommentForm()
+    
     return render(request, 'wiki/article.html', {
-        'article': Article.objects.get(pk=pk)
+        'article': article,
+        'comment_form': comment_form,
+        'related_articles' : Article.objects.filter(category=article.category).exclude(pk=pk)[:2],
+        'comments' : article.comment_set.all().order_by('-created_on')
     })
 
 @login_required
