@@ -23,7 +23,8 @@ def thread_list(request):
         return render(request, 'forum/thread_list.html', {
             'user_threads': user_threads,
             'other_threads': grouped_threads,
-            'username': username
+            'username': username,
+            'categories': categories
         })
     
     threads = Thread.objects.all()
@@ -39,6 +40,7 @@ def thread_list(request):
     
     return render(request, 'forum/thread_list.html', {
         'all_threads': grouped_threads,
+        'categories': categories
     })
 
 def detailed_thread(request, thread_num):
