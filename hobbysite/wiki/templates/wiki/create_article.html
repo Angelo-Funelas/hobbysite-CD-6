@@ -1,0 +1,16 @@
+{% extends 'wiki/base.html' %}
+
+{% block content %}
+    <a href="{% url 'wiki:articles_list' %}" class="back-button">
+        &larr; Back to Articles
+    </a>
+
+    <br>
+
+    <h2>Create New Article</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ article_form.as_p }}
+      <button type="submit">Create</button> 
+    </form>
+{% endblock %}
