@@ -20,7 +20,7 @@ def article_detail(request, pk):
             comment.article = article
             comment.author = request.user.profile
             comment.save()
-            return redirect('article_detail', pk=article.pk)
+            return redirect('wiki:article_detail', pk=article.pk)
     else:
         comment_form = CommentForm()
     
@@ -39,7 +39,7 @@ def article_create(request):
             article = article_form.save(commit=False)
             article.author = request.user.profile
             article.save()
-            return redirect('article_detail', pk=article.pk)
+            return redirect('wiki:article_detail', pk=article.pk)
     else:
         article_form = NewArticleForm()
 
@@ -51,13 +51,13 @@ def article_create(request):
 def article_update(request, pk):
     article = Article.objects.get(pk=pk)
     if article.author != request.user.profile:
-        return redirect('article_detail', pk=pk)
+        return redirect('wiki:article_detail', pk=pk)
     
     if request.method == 'POST':
         article_form = UpdateArticleForm(request.POST, request.FILES, instance=article)
         if article_form.is_valid():
             article_form.save()
-            return redirect('article_detail', pk=pk)
+            return redirect('wiki:article_detail', pk=pk)
     else:
         article_form = UpdateArticleForm(instance=article)
 
