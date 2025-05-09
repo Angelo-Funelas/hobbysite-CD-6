@@ -2,15 +2,39 @@
 {% block title %}Article List{% endblock title %}
 {% block content %}
     <h1>Community Blogs</h1>
-    {% for article in articles %}
-        <a href="{% url 'blog:item' article.id %}" class="article-link">
-            <div class="article-card">
-                <h3>{{ article.title }}</h3>
-                <p class="category">{{ article.category.name }}</p>
-                <p class="last-update">Last updated: {{ article.updated_on }}</p>
-            </div>
-        </a>
-    {% empty %}
-        <p>No articles available.</p>
-    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'blog:add' %}" class="create-link">+ Create New Article</a>
+
+        <div class="user-articles-section">
+            <h2 class="section-title">Your Articles</h2>
+            {% for article in user_articles %}
+                <a href="{% url 'blog:item' article.id %}" class="article-link">
+                    <div class="article-card">
+                        <h3>{{ article.title }}</h3>
+                    </div>
+                </a>
+            {% empty %}
+                <p>You haven't written any articles yet.</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="all-articles-section">
+        <h2 class="section-title">All Articles</h2>
+        {% for category, articles in grouped_articles.items %}
+            <h3>{{ category.name }}</h3>
+            {% for article in articles %}
+                <a href="{% url 'blog:item' article.id %}" class="article-link">
+                    <div class="article-card">
+                        <h3>{{ article.title }}</h3>
+                    </div>
+                </a>
+            {% empty %}
+                <p>No articles in this category.</p>
+            {% endfor %}
+        {% empty %}
+            <p>No articles available.</p>
+        {% endfor %}
+    </div>
 {% endblock %}

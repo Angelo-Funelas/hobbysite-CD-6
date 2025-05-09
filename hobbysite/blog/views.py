@@ -1,10 +1,33 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from .models import Article
 
 def articles_list(request):
-    return render(request, 'blog/article_list.html', {
-        'articles': Article.objects.all()
-    })
+    category_grouping = {}
+    user_articles = []
+
+    articles = Article.objects.select_related('category', 'author').all()
+
+    if request.user.is_authenticated:
+        user_profile = request.user.profile
+        user_articles = articles.filter(author=user_profile)
+        articles = articles.exclude(author=user_profile)
+
+    for article in articles:
+        if article.category:
+            category_name = article.category.name
+        else:
+            category_name = "Uncategorized"
+        if category_name not in category_grouping:
+            category_grouping[category_name] = []
+        category_grouping[category_name].append(article)
+    
+    context = {
+        "user_articles": user_articles,
+        "category_grouping": category_grouping,
+    }
+
+    return render(request, 'blog/article_list.html', context)
 
 def article_detail(request, article_id):
     return render(request, 'blog/article_detail.html', {
