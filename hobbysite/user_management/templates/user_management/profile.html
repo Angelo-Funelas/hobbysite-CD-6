@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Hobbysite - Register{% endblock %}
-{% block body %}
+{% block title %}Hobbysite - Profile{% endblock %}
+{% block content %}
     <h3>Profile</h3>
     {% if messages %}
     <ul class="messages">
@@ -14,19 +14,19 @@
         {% csrf_token %}
         <p>
             <label for="register-input-email">Email:</label>
-            <input type="email" name="email" id="register-input-email" value="{{ profile.email_address }}">
+            <input type="email" name="email" id="register-input-email" value="{{ user.profile.email_address }}" required>
         </p>
         <p>
             Username: {{ user.username }}
         </p>
         <p>
             <label for="register-input-displayName">Display Name:</label>
-            <input type="text" name="display-name" id="register-input-displayName" value="{{ profile.display_name }}">
+            <input type="text" name="display-name" id="register-input-displayName" value="{{ user.profile.display_name }}" required>
         </p>
         <p>
             <label for="register-input-profilePicture">Profile Picture:</label>
             <input type="file" accept="image/*" name="profile-picture" id="register-input-profilePicture">
-            <img src="{{ profile.profile_picture.url }}">
+            <img src="{{ user.profile.profile_picture.url }}">
         </p>
         <button type="submit">Save</button>
     </form>
