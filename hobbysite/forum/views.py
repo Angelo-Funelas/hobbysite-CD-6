@@ -47,6 +47,7 @@ def detailed_thread(request, thread_num):
     chosen_thread = Thread.objects.get(id=thread_num)
     other_threads = Thread.objects.filter(category=chosen_thread.category).exclude(id=thread_num)[:4]
     comments = Comment.objects.filter(thread=chosen_thread)
+    categories = ThreadCategory.objects.all()
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -61,6 +62,7 @@ def detailed_thread(request, thread_num):
     return render(request, 'forum/thread.html', {
         'thread': chosen_thread,
         'other_threads': other_threads,
+        'categories': categories,
         'comments': comments,
         'comment_form': comment_form
     })
