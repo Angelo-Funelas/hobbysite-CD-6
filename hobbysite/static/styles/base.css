@@ -18,7 +18,7 @@ nav > div:first-child {
     grid-template-columns: auto 1fr;
     background-color: #282a35;
     color: white;
-    padding: 0 10rem;
+    padding: 0 5rem;
 }
 nav > div:first-child p {
     margin: 0;
@@ -29,6 +29,7 @@ nav > div:first-child p {
     display: flex;
     justify-content: center;
     margin: .8rem 0;
+    text-align: center;
 }
 #app-links > li {
     padding: 0 3rem;
@@ -57,6 +58,7 @@ nav a {
     text-decoration: none;
     vertical-align: middle;
     color: white;
+    border-radius: 5px;
 }
 nav > div {
     display: flex;
@@ -101,6 +103,7 @@ form img {
     color: black;
     padding: .4em;
     position: relative;
+    border-radius: 5px;
 }
 nav > div:last-child > div:last-child > a {
     padding: 1em;
