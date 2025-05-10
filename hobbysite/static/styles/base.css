@@ -1,5 +1,6 @@
 :root {
-    --theme: #12aa98;
+    --theme: #0091c8;
+    --accent: #62c7ff;
 }
 html, body {
     margin: 0;
