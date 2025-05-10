@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .models import Article
+from .models import Article, ArticleCategory, Comment
+from user_management.models import Profile
 
 def articles_list(request):
     category_grouping = {}
@@ -9,9 +10,12 @@ def articles_list(request):
     articles = Article.objects.select_related('category', 'author').all()
 
     if request.user.is_authenticated:
-        user_profile = request.user.profile
-        user_articles = articles.filter(author=user_profile)
-        articles = articles.exclude(author=user_profile)
+        try:    
+            user_profile = request.user.profile
+            user_articles = articles.filter(author=user_profile)
+            articles = articles.exclude(author=user_profile)
+        except Profile.DoesNotExist:
+            pass
 
     for article in articles:
         if article.category:
