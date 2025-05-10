@@ -1,5 +1,6 @@
 :root {
-    --theme: #12aa98;
+    --theme: #0091c8;
+    --accent: #62c7ff;
 }
 html, body {
     margin: 0;
@@ -17,7 +18,7 @@ nav > div:first-child {
     grid-template-columns: auto 1fr;
     background-color: #282a35;
     color: white;
-    padding: 0 10rem;
+    padding: 0 5rem;
 }
 nav > div:first-child p {
     margin: 0;
@@ -28,6 +29,7 @@ nav > div:first-child p {
     display: flex;
     justify-content: center;
     margin: .8rem 0;
+    text-align: center;
 }
 #app-links > li {
     padding: 0 3rem;
@@ -56,6 +58,7 @@ nav a {
     text-decoration: none;
     vertical-align: middle;
     color: white;
+    border-radius: 5px;
 }
 nav > div {
     display: flex;
@@ -100,6 +103,7 @@ form img {
     color: black;
     padding: .4em;
     position: relative;
+    border-radius: 5px;
 }
 nav > div:last-child > div:last-child > a {
     padding: 1em;
@@ -129,6 +133,12 @@ nav > div:last-child > div:last-child > a {
     right: 0;
     top: 100%;
     width: 100%;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0px 5px 5px;
+}
+.profile-dropdown:hover {
+    border-radius: 5px 5px 0 0;
+    z-index: 2;
 }
 .profile-dropdown:hover > ul {
     display: block;
