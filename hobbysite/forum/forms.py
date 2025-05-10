@@ -5,6 +5,14 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['entry']
+        widgets = {
+            'entry': forms.Textarea(attrs={
+                'placeholder': 'Share your thoughts'
+            })
+        }
+        labels = {
+            'entry': ''
+        }
 
 class NewThreadForm(forms.ModelForm):
     class Meta:
