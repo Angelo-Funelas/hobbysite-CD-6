@@ -6,21 +6,15 @@
 {% endblock %}
 {% block nav %}
     <div class = "forum-nav">
-        <h1>Forum</h1>
+        <a href="{%url 'forum:thread_list' %}"><h1>Forum</h1></a>
         {% if user.is_authenticated %}
-            <span>
-                <a href="{% url 'forum:create_thread' %}" class="create-thread">
-                    <button class="create-btn">
-                        <p>Create</p>
-                    </button>
-                </a>
-            </span>
+            <a href="{% url 'forum:create_thread' %}" class="create-btn">Create</a>
         {% endif %}
     </div>
 {% endblock %}
 {% block content %}
     <div class="sidebar">
-        <div class="sidebar-item"><h3>Categories</h3></div>
+        <h2>Categories</h2>
         <ul>
             {% for category in categories %}
                 <li><a href="#category-{{category.id}}"><span>{{ category.name }}</span></a></li>
@@ -29,31 +23,79 @@
     </div>
     <div class="forum-body">
         {% if user.is_authenticated %}
-            <h1>{{ username }}'s Posts</h1>
-            {% for thread in user_threads %}
-                <div class = "thread-list">
-                    <div class= "thread-list-name">
-                        <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.title }} </a> </h2>
+            <div class="user-threads">
+                <h2>{{ username }}'s Posts</h2>
+                {% for thread in user_threads %}
+                    <div class = "thread">
+                        <a href="{{thread.get_absolute_url}}">
+                            <div class="thread-container">
+                                <div class= "thread-name">
+                                    <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                    <h3> {{thread.title}} </h3>
+                                </div>
+                                {% if thread.image %}
+                                    <div class="thread-image">
+                                        <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
+                                    </div>
+                                {% endif %}
+                                <div class="thread-entry">
+                                    <p> {{thread.entry|truncatewords:50}}</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-            {% endfor %}
-            <h1>Other Posts</h1>
-            {% for group in other_threads %}
-                <h3 id="category-{{ group.category.id }}">{{ group.category.name }}</h3>
-                {% for thread in group.threads %}
-                    <a href="{{thread.get_absolute_url}}">{{ thread.title }}</a>
                 {% endfor %}
-                </div>
-            {% endfor %}
-        {% else %}
-            <h1>Posts</h1>
-            {% for group in all_threads %}
-                <h3>{{ group.category.name }}</h3>
-                <ul>
+            </div>
+            <div class="threads">
+                <h2>Other Posts</h2>
+                {% for group in other_threads %}
+                    <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
                     {% for thread in group.threads %}
-                        <li><a href="{{thread.get_absolute_url}}">{{ thread.title }}</a></li>
+                        <div class = "thread">
+                            <a href="{{thread.get_absolute_url}}">
+                                <div class="thread-container">
+                                    <div class= "thread-name">
+                                        <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                        <h3> {{thread.title}} </h3>
+                                    </div>
+                                    {% if thread.image %}
+                                        <div class="thread-image">
+                                            <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
+                                        </div>
+                                    {% endif %}
+                                    <div class="thread-entry">
+                                        <p> {{thread.entry|truncatewords:50}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     {% endfor %}
-                </ul>
-                </div>
+                {% endfor %}
+            </div>            
+        {% else %}
+            <h2>Posts</h2>
+            {% for group in all_threads %}
+                <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
+                {% for thread in group.threads %}
+                    <div class = "thread">
+                        <a href="{{thread.get_absolute_url}}">
+                            <div class="thread-container">
+                                <div class= "thread-name">
+                                    <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                    <h3> {{thread.title}} </h3>
+                                </div>
+                                {% if thread.image %}
+                                    <div class="thread-image">
+                                        <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
+                                    </div>
+                                {% endif %}
+                                <div class="thread-entry">
+                                    <p> {{thread.entry|truncatewords:50}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
             {% endfor %}
         {% endif %}
     </div>
