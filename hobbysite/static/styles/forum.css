@@ -43,6 +43,9 @@ nav > div:last-child {
     background-color: var(--lightgrey);
 }
 main {
+    margin: 0;
+}
+.thread-list-main {
     display: grid;
     grid-template-columns: 20% 80%;
     margin: 0;
