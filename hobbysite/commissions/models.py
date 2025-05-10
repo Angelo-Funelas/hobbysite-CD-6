@@ -6,6 +6,7 @@ from user_management.models import Profile
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     STATUS_CHOICES = [

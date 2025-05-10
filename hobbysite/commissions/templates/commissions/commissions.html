@@ -1,20 +1,43 @@
-{% extends "commissions/base.html" %}
+{% extends "base.html" %}
 {% block title %}Commissions{% endblock %}
 {% block content %}
     <h2 class="title">COMMISSIONS: </h2>
-    {% if commissions %}
+    {% if user.is_authenticated %}
+    <h3>Your commissions:</h3>
+    {% endif %}
+    {% if user_commissions %}
         <ol>
-            {% for commission in commissions %}
+            {% for user_commission in user_commissions %}
                 <div class="commission-block">
-                <p class="link-section"><a href="{{ commission.get_absolute_url }}" class="button">{{ commission.title }}</a></p>
-                <p><b>Created on:</b> {{commission.created_on}} <b>Modified on:</b> {{commission.updated_on}}</p>
-                <p>{{ commission.description }}</p>
+                <p class="link-section"><a href="{{ user_commission.get_absolute_url }}" class="button">{{ user_commission.title }}</a></p>
+                <p><b>Created on:</b> {{user_commission.created_on}} <b>Modified on:</b> {{user_commission.updated_on}}</p>
+                <p>{{ user_commission.description }}</p>
+                <p><b>status: </b>{{ user_commission.status}}</p>
                 </div>
             {% endfor %}
         </ol>
     {% else %}
         <div class="commission-block">
-            There are no commissions. 
+            You do not have any published commissions.
+        </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <h3>Other commissions:</h3>
+    {% endif %}
+    {% if other_commissions %}
+        <ol>
+            {% for other_commission in other_commissions %}
+                <div class="commission-block">
+                <p class="link-section"><a href="{{ user_commission.get_absolute_url }}" class="button">{{ other_commission.title }}</a></p>
+                <p><b>Created on:</b> {{other_commission.created_on}} <b>Modified on:</b> {{other_commission.updated_on}}</p>
+                <p>{{ other_commission.description }}</p>
+                <p>{{ other_commission.status}}</p>
+                </div>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <div class="commission-block">
+            There are no available outside commissions.
         </div>
     {% endif %}
 {% endblock %}
