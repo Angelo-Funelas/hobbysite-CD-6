@@ -1,39 +1,38 @@
 {% extends 'base.html' %}
-{% block title %}Article List{% endblock title %}
+
+{% block title %}Articles{% endblock %}
+
 {% block content %}
-    <h1>Community Blogs</h1>
+    <h2>Articles</h2>
 
     {% if user.is_authenticated %}
-
-        <div class="user-articles-section">
-            <h2 class="section-title">Your Articles</h2>
-            {% for article in user_articles %}
-                <a href="{% url 'blog:item' article.id %}" class="article-link">
-                    <div class="article-card">
-                        <h3>{{ article.title }}</h3>
-                    </div>
-                </a>
-            {% empty %}
-                <p>You haven't written any articles yet.</p>
-            {% endfor %}
-        </div>
+        <h3>Your Articles</h3>
+        {% for article in user_articles %}
+            <div>
+                <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
+                <p>Category: {{ article.category }}</p>
+                <p>{{ article.created_on }}</p>
+            </div>
+        {% empty %}
+            <p>You haven't written any articles yet.</p>
+        {% endfor %}
     {% endif %}
 
-    <div class="all-articles-section">
-        <h2 class="section-title">All Articles</h2>
-        {% for category, articles in category_grouping.items %}
-            <h3>{{ category }}</h3>
+    <h3>All Articles</h3>
+    {% for category, articles in grouped_articles.items %}
+        <h4>{{ category.name }}</h4>
+        <ul>
             {% for article in articles %}
-                <a href="{% url 'blog:item' article.id %}" class="article-link">
-                    <div class="article-card">
-                        <h3>{{ article.title }}</h3>
-                    </div>
-                </a>
+                <li><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></li>
             {% empty %}
-                <p>No articles in this category.</p>
+                <li>No articles in this category.</li>
             {% endfor %}
-        {% empty %}
-            <p>No articles available.</p>
-        {% endfor %}
-    </div>
+        </ul>
+    {% endfor %}
+
+
+    <hr>
+    {% if user.is_authenticated %}
+        <a href="{% url 'blog:article_create' %}">Create a new article</a>
+    {% endif %}
 {% endblock %}

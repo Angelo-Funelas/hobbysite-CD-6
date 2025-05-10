@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Article{% endblock %}
+
+{% block content %}
+    <h2>Edit Article: {{ article.title }}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ update_form.as_p }}
+        <button type="submit">Update Article</button>
+    </form>
+
+    <p><a href="{% url 'blog:article_detail' article.id %}">Back to Article</a></p>
+{% endblock %}
