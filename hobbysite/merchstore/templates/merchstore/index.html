@@ -2,26 +2,61 @@
 {% load static %}
 {% block title %}All Items{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static "merchstore/styles.css" %}">
+<link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
 {% endblock %}
 {% block content %}
 <article>
-    {% if products %}
-        {% for product in products %}
-            <a href="{{product.get_absolute_url}}"><div>
-                <img src="" class="product-img">
-                <div>
-                    <p>{{product.name}}</p>
-                    <p class="price">₱{{product.price}}</p>
-                    <p class="product-type-tag">{{product.product_type.name}}</p>
-                </div>
-            </div></a>
-        {% endfor %}
-    {% else %}
-        <h3>Sorry, no products found.</h3>
+    <div>
+        <h1>Merchandise Store</h1>
+        <h2>A Trusted Place to Buy & Sell</h2>
+        <p>From gadgets to furniture—find great deals or make extra cash today.</p>
+        <div>
+            <button>Browse Listings</button>
+            <button>List an Item</button>
+        </div>
+    </div>
+</article>
+<article>
+    {% if user.is_authenticated %}
+        <section>
+            <h3>Your Products</h3>
+            <div class="product-listings-container">
+                {% for product in user_products %}
+                    <a href="{{product.get_absolute_url}}" class="product-listing-card"><div>
+                        <img src="" class="product-img">
+                        <div>
+                            <p>{{product.name}}</p>
+                            <p class="price">₱{{product.price}}</p>
+                            <p class="product-type-tag">{{product.product_type.name}}</p>
+                        </div>
+                    </div></a>
+                {% empty %}
+                    <h3>Click here to sell your product</h3>
+                {% endfor %}
+            </div>
+        </section>
     {% endif %}
+    <section>
+        <h3>Products</h3>
+        <div class="product-listings-container">
+            {% if products %}
+                {% for product in products %}
+                    <a href="{{product.get_absolute_url}}" class="product-listing-card"><div>
+                        <img src="" class="product-img">
+                        <div>
+                            <p>{{product.name}}</p>
+                            <p class="price">₱{{product.price}}</p>
+                            <p class="product-type-tag">{{product.product_type.name}}</p>
+                        </div>
+                    </div></a>
+                {% endfor %}
+            {% else %}
+                <h3>Sorry, no products found.</h3>
+            {% endif %}
+        </div>
+    </section>
 </article>
 {% endblock %}
 {% block scripts %}
-<script src="{% static "merchstore/priceFormatter.js" %}"></script>
+<script src="{% static 'merchstore/priceFormatter.js' %}"></script>
 {% endblock  %}

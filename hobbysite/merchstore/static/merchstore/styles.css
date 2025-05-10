@@ -1,16 +1,9 @@
-article {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 250px);
-    grid-gap: 1rem;
-    width: 60vw;
-    margin: 0 auto;
-}
-article > a {
+.product-listing-card {
     color: black;
     font-size: 1.2rem;
     text-decoration: none;
 }
-article > a > div {
+.product-listing-card > div {
     background-color:rgb(255, 255, 255);
     aspect-ratio: calc(1/1.25);
     display: grid;
@@ -20,10 +13,10 @@ article > a > div {
     box-shadow: 0px 0px 25px 0px rgba(132,132,132,0.25);
     outline: 2px solid rgb(216, 216, 216);
 }
-article > a > div > div > p {
+.product-listing-card > div > div > p {
     margin: 5px 0;
 }
-article > a > div > div > p:nth-child(2) {
+.product-listing-card > div > div > p:nth-child(2) {
     color: var(--theme);
 }
 .product-type-tag {
@@ -67,11 +60,11 @@ main {
     padding-left: 1rem;
 }
 .purchase-buttons {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
 }
-button {
+.purchase-buttons > button {
     padding: 1rem 2rem;
     width: 100%;
     border: none;
@@ -80,9 +73,45 @@ button {
     background-color: var(--theme);
     cursor: pointer;
 }
-button:hover {
+.purchase-buttons > button:hover {
     filter: brightness(1.1);
 }
-button:nth-child(2) {
-    background-color: var(--theme);
+.purchase-buttons > button:nth-child(2) {
+    background-color: var(--accent);
+}
+.product-listings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: 1rem;
+    width: 60vw;
+    margin: 0 auto;
+}
+article:not(article:nth-child(1)) {
+    padding: 5rem;
+}
+article:nth-child(1) {
+    background-color: var(--accent);
+    height: 50vh;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+article:nth-child(1) > div > div {
+    display: inline-flex;
+}
+article:nth-child(1) > div > div > button {
+    margin: .5rem;
+    outline: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+article:nth-child(2) {
+    margin: 0 12rem;
+}
+main {
+    margin: 0;
 }

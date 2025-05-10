@@ -3,7 +3,8 @@ from .models import *
 
 def index(request):
     return render(request, 'merchstore/index.html', {
-        'products': Product.objects.all()
+        'user_products': Product.objects.filter(owner=request.user.profile) if request.user.is_authenticated else None,
+        'products': Product.objects.exclude(owner=request.user.profile) if request.user.is_authenticated else Product.objects.all()
     })
 
 def item(request, id):
