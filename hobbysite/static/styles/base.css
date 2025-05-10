@@ -133,6 +133,12 @@ nav > div:last-child > div:last-child > a {
     right: 0;
     top: 100%;
     width: 100%;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0px 5px 5px;
+}
+.profile-dropdown:hover {
+    border-radius: 5px 5px 0 0;
+    z-index: 2;
 }
 .profile-dropdown:hover > ul {
     display: block;
