@@ -31,7 +31,7 @@
                             <a href="{{thread.get_absolute_url}}">
                                 <div class="thread-container">
                                     <div class= "thread-name">
-                                        <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                        <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
                                         <h3> {{thread.title}} </h3>
                                     </div>
                                     {% if thread.image %}
@@ -56,7 +56,7 @@
                                 <a href="{{thread.get_absolute_url}}">
                                     <div class="thread-container">
                                         <div class= "thread-name">
-                                            <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                            <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
                                             <h3> {{thread.title}} </h3>
                                         </div>
                                         {% if thread.image %}
@@ -82,7 +82,7 @@
                             <a href="{{thread.get_absolute_url}}">
                                 <div class="thread-container">
                                     <div class= "thread-name">
-                                        <h3> {{thread.category}} <span> • {{thread.created_on}}</span> </h3>
+                                        <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
                                         <h3> {{thread.title}} </h3>
                                     </div>
                                     {% if thread.image %}

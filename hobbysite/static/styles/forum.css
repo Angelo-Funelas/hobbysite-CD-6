@@ -13,6 +13,9 @@ nav > div:first-child {
 nav > div:last-child {
     padding: .6rem 2rem;
 }
+nav > div:last-child > div:last-child > a {
+    border-radius: 10px;
+}
 .profile-dropdown {
     border-radius: 10px;
 }
@@ -59,7 +62,7 @@ main {
 }
 .sidebar h2 {
     color: var(--lightgrey);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 100;
     margin-bottom: 0.2rem;
     padding: 0;
@@ -113,7 +116,7 @@ main {
     display: block;
     padding: 0.2rem 1rem;
 }
-.thread-name span {
+.date-time {
     font-size: 0.6em;
     font-weight: 100;
     color: var(--lightgrey);
@@ -122,13 +125,118 @@ main {
     font-size: 1em;
     font-weight: 300;
 }
-.thread-name > h3:last-child {
+.thread-name > h3:nth-child(2) {
     font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.thread-name > a {
+    margin-top: 0;
+    color: var(--grey);
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+.thread-name > a:hover {
+    text-decoration: underline;
 }
 .thread-image img {
     width: 40%;
+    border-radius: 10px;
+}
+.thread-entry {
+    font-size: 0.8rem;
 }
 .category-header {
     font-size: 1.2em;
     font-weight: 200;
+}
+.thread-detail-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 0;
+}
+.back-home {
+    display: block;
+    color: var(--grey);
+    text-decoration: none;
+    margin: 1rem 0;
+}
+.back-home:hover {
+    text-decoration: underline;
+}
+.comments > h3 {
+    font-weight: bolder;
+    font-size: 1.1rem;
+}
+.comment-auth {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.comments img {
+    width: 2rem;
+    height: auto;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+}
+.comment-entry {
+    font-weight: 100;
+    margin-top: 0;
+    padding: 0 2.5rem;
+    font-size: 0.9rem;
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+}
+.comment-inp textarea {
+    width: 50%;
+    height: 3rem;
+    border-radius: 20px;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+.comment-btn {
+    height: 1.7rem;
+    background-color: var(--lightgrey);
+    color: black;
+    border-width: 1px;
+    border-color: #00000030;
+    border-radius: 5px;
+}
+.create-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.create-body input, textarea, select {
+    display: block;
+    margin: 0.8rem;
+}
+.create-body textarea {
+    width: 70%;
+    height: 3rem;
+    border-radius: 20px;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+.form-container {
+    width: 35%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1em;
+    margin-top: 2rem;
+}
+.submit-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+.submit-btn > button {
+    width: 4.5rem;
+    height: 2.7rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.212);
+}
+.update-img {
+    width: 50%;
+    border-radius: 0;
 }

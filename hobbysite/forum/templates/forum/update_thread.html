@@ -1,11 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %} {{ thread.title }} {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/forum.css' %}">
+{% endblock %}
+{% block nav %}
+    <div class = "forum-nav">
+        <a href="{% url 'forum:thread_list' %}"><h1>Forum</h1></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'forum:create_thread' %}" class="create-btn">Create</a>
+        {% endif %}
+    </div>
+{% endblock %}
 {% block content %}
-<a href="{% url 'forum:thread_list' %}">Forum Home</a>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ update_form.as_p }}
-        <button type="Submit">Update Thread</button>
-    </form>
+    <div class="create-body">
+        <div class="form-container">
+            <a class="back-home" href="{% url 'forum:thread_list' %}"> ← Forum Home</a>
+            <form class="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ update_form.as_p }}
+                {% if update_form.instance.image %}
+                    <p> Current Image: </p>
+                    <img src="{{ update_form.instance.image.url }}" alt="Current Image" class="update-img">
+                {% endif %}
+                <div class="submit-btn">
+                    <button type="Submit">Update Thread</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
