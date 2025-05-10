@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Commission Details{% endblock %}
 {% block content %}
+    {% if request.user.profile == commission.author %}
+        <a href="{% url 'commissions:commission_update' pk=commission.pk%}"><button>update commission details</button></a>
+    {% endif %}
     {% if jobs %}
         {% for job in jobs %}
             <div class="commission-block">
-                <p><h2>COMMISSION DETAILS: <i>{{job.commission.title }}</i></h2></p>
-                <p><b>Created on:</b> {{job.created_on}} <b>Modified on:</b> {{job.updated_on}}</p>
+                <p><h2>JOB DETAILS: <i>{{job.role }}</i></h2></p>
                 <p>{{ job.entry }}</p>
+                <p>Manpower Required: {{ job.manpower_required }}</p>
+                
             </div>
         {% endfor %}  
     {% else %}
@@ -14,4 +18,5 @@
             There are no jobs. 
         </div>
     {% endif %}    
+    <a href="{% url 'commissions:commission' %}"><button>return to commission list</button></a>
 {% endblock %}

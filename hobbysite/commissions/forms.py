@@ -6,19 +6,19 @@ class CreateCommissionForm(forms.ModelForm):
         model = Commission
         fields = ['title', 'description', 'status']
 
-class UpdateCommissionForm(forms.ModelForm):
-    class Meta:
-        model = Commission
-        fields = ['title', 'description', 'status']
-
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['entry', 'role', 'manpower_required', 'status']
+        fields = [ 'role', 'entry', 'manpower_required', 'status']
 
 class UpdateJobForm(forms.ModelForm):
+    role = forms.CharField(required=False)
+    entry = forms.CharField(required=False)
+    manpower_required = forms.IntegerField(required=False)
+    status = forms.ChoiceField(choices=Job.STATUS_CHOICES, required=False)
+
     class Meta:
         model = Job
-        fields = ['entry', 'role', 'manpower_required', 'status']
+        fields = ['role', 'entry', 'manpower_required', 'status']
 
 #class JobApplicationForm(forms.ModelForm):

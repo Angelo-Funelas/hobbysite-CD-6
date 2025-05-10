@@ -4,6 +4,12 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ commission_form.as_p }}
+    {% for job_form in job_forms %}
+    <p>Job {{ forloop.counter }}:</p>
+        {{ job_form.as_p }}
+    {% endfor %}
+    <p>New job:</p>
+    {{ new_job_form.as_p }}
     <button type="Submit">Post Commission</button>
 </form>
 {% endblock %}

@@ -30,7 +30,7 @@ class Job(models.Model):
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="jobs",)
     entry = models.CharField(max_length=255)
     role = models.CharField(max_length=255)
-    manpower_required = models.IntegerField()
+    manpower_required = models.PositiveIntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     STATUS_CHOICES = [
@@ -47,7 +47,7 @@ class Job(models.Model):
         #manpower_required in descending order, role in ascending order
 
 class JobApplication(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="jobs")
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="job_application")
     applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="applications")
     
     STATUS_CHOICES = [
