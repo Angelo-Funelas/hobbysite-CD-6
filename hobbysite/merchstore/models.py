@@ -19,7 +19,7 @@ class Product(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="products")
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=12)
-    status = models.CharField(max_length=32)
+    status = models.CharField(max_length=32, default="Available")
     
     def __str__(self):
         return self.name
