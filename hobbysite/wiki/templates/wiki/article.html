@@ -1,42 +1,42 @@
-{% extends "wiki/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
-    <div class="article-detail">
+    <div>
 
-        <a href="{% url 'wiki:articles_list' %}" class="back-button">
+        <a href="{% url 'wiki:articles_list' %}">
            &larr; Back to Articles
         </a>
 
         {% if request.user.is_authenticated and request.user.profile == article.author %}
-            <br><a href="{% url 'wiki:article_update' pk=article.pk %}" class="back-button">
+            <br><a href="{% url 'wiki:article_update' pk=article.pk %}">
                 Edit Article
             </a>
         {% endif %}
 
         {% if article.header_image %}
-            <div class="article-image">
+            <div>
                 <img src="{{ article.header_image.url }}" alt="{{ article.title }}"  style="max-width: 100%; height: auto;">
             </div>
         {% endif %}
 
-        <h1 class="title">{{ article.title }}</h1>
+        <h1>{{ article.title }}</h1>
 
-        <p class="article-meta">
+        <p>
             <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}<br>
             <strong>Author:</strong> {{ article.author }}
         </p>
 
-        <p class="highlight-box">
+        <p>
             Created On: {{ article.created_on|date:"F d, Y" }}<br>
             Last Updated: {{ article.updated_on|date:"F d, Y" }}
         </p>
 
-        <div class="article-entry">
+        <div>
             {{ article.entry|linebreaks }}
         </div>
 
-        <div class="related-articles">
+        <div>
             <h3>Read More from {{ article.category.name }}</h3>
             <ul>
                 {% for related_article in related_articles %}
@@ -49,7 +49,7 @@
             </ul>
         </div>
 
-        <div class="comment-form">
+        <div>
             {% if user.is_authenticated %}
                 <h4>Leave a Comment</h4>
                 <form method="POST">
@@ -62,11 +62,11 @@
             {% endif %}
         </div>
 
-        <div class="comments-section">
+        <div>
             <h3>Comments</h3>
 
             {% for comment in comments %}
-                <div class="comment">
+                <div>
                     <p><strong>{{ comment.author }}</strong> - {{ comment.created_on|date:"F d, Y" }}</p>
                     <p>{{ comment.entry }}</p>
                 </div>
