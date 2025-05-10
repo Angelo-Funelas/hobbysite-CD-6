@@ -4,10 +4,25 @@ from .models import ArticleCategory, Article, Comment
 from .forms import CommentForm, NewArticleForm, UpdateArticleForm
 
 def articles_list(request):
+    user_profile = request.user.profile if request.user.is_authenticated else None
+    all_articles = Article.objects.exclude(author=user_profile)
+
+    if user_profile:
+        user_articles = Article.objects.filter(author=user_profile)
+        all_articles = Article.objects.exclude(author=user_profile)
+    else:
+        user_articles = Article.objects.none()
+        all_articles = Article.objects.all()
+
+    categories = ArticleCategory.objects.all()
+    category_articles = {
+        category: all_articles.filter(category=category)
+        for category in categories
+    }
+
     return render(request, 'wiki/articles_list.html', {
-        'user_articles': Article.objects.filter(author=request.user.profile),
-        'all_articles': Article.objects.exclude(author=request.user.profile),
-        'categories': ArticleCategory.objects.all()
+        'user_articles': user_articles,
+        'category_articles': category_articles
     })
 
 def article_detail(request, pk): 
