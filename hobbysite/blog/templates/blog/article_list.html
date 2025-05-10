@@ -1,38 +1,57 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Articles{% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h2>Articles</h2>
 
     {% if user.is_authenticated %}
-        <h3>Your Articles</h3>
-        {% for article in user_articles %}
-            <div>
-                <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
-                <p>Category: {{ article.category }}</p>
-                <p>{{ article.created_on }}</p>
+        <div class="my-articles-container">
+            <h3>Your Articles</h3>
+            <div class="article-list-container">
+                {% for article in user_articles %}
+                    <div class="article-list-item">
+                        <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
+                        <p>Category: {{ article.category.name }}</p>
+                        <p>Created on: {{ article.created_on }}</p>
+                    </div>
+                {% empty %}
+                    <p>You haven't written any articles yet.</p>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                    <div class="create-article-button">
+                        <a href="{% url 'blog:article_create' %}">Create a New Article</a>
+                    </div>
+                {% endif %}
             </div>
-        {% empty %}
-            <p>You haven't written any articles yet.</p>
-        {% endfor %}
+        </div>
     {% endif %}
 
-    <h3>All Articles</h3>
-    {% for category, articles in grouped_articles.items %}
-        <h4>{{ category.name }}</h4>
-        <ul>
-            {% for article in articles %}
-                <li><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></li>
-            {% empty %}
-                <li>No articles in this category.</li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
-
+    <div class="all-articles-container">
+        <h3>All Articles</h3>
+        {% for category, articles in grouped_articles.items %}
+            <div class="category-container">
+                <h4>{{ category.name }}</h4>
+                <div class="article-list-container">
+                    {% for article in articles %}
+                        <div class="article-list-item">
+                            <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
+                            <p>Author: {{ article.author.display_name }}</p>
+                            <p>Category: {{ article.category.name }}</p>
+                            <p>Created on: {{ article.created_on }}</p>
+                        </div>
+                    {% empty %}
+                        <p>No articles in this category.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
     <hr>
-    {% if user.is_authenticated %}
-        <a href="{% url 'blog:article_create' %}">Create a new article</a>
-    {% endif %}
 {% endblock %}
