@@ -35,6 +35,8 @@ def commission(request):
 def commission_details(request, pk):
     commission_object = Commission.objects.get(pk=pk)
     jobs = commission_object.jobs.all()
+
+
     return render(request, 'commissions/commissions_detail.html', {
         'commission': commission_object,
         'jobs': jobs
@@ -71,7 +73,6 @@ def commission_create(request):
 #def job(request):
 
 #TODO
-#Make a commission lists view
 #Make a commission detail view
 #Make a commission create view
 #Make a commission update view
