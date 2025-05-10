@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 class ProductType(models.Model):
     name = models.CharField(max_length=255)
@@ -14,8 +15,11 @@ class ProductType(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True, related_name="products")
+    stock = models.PositiveIntegerField(default=0)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="products")
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=12)
+    status = models.CharField(max_length=32)
     
     def __str__(self):
         return self.name
@@ -25,3 +29,10 @@ class Product(models.Model):
     
     class Meta:
         ordering = ["name"] # order by name ascending order
+
+class Transanction():
+    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL)
+    amount = models.PositiveIntegerField()
+    status = models.CharField(max_length=32)
+    created_on = models.DateTimeField(auto_now_add=True)
