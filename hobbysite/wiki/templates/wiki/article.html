@@ -1,18 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ article.title }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+{% endblock %}
+
 {% block content %}
     <div>
 
-        <a href="{% url 'wiki:articles_list' %}">
+        <a href="{% url 'wiki:articles_list' %}" class="button">
            &larr; Back to Articles
         </a>
-
-        {% if request.user.is_authenticated and request.user.profile == article.author %}
-            <br><a href="{% url 'wiki:article_update' pk=article.pk %}">
-                Edit Article
-            </a>
-        {% endif %}
 
         {% if article.header_image %}
             <div>
@@ -20,28 +20,38 @@
             </div>
         {% endif %}
 
-        <h1>{{ article.title }}</h1>
+        <h1 class="article-title">{{ article.title }}</h1>
 
-        <p>
+        <p class="article-meta">
             <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}<br>
-            <strong>Author:</strong> {{ article.author }}
+            <strong>Author:</strong> {{ article.author }}<br>
+            <strong>Created On:</strong> {{ article.created_on|date:"F d, Y" }}<br>
+            <strong>Last Updated:</strong> {{ article.updated_on|date:"F d, Y" }}
         </p>
 
         <p>
-            Created On: {{ article.created_on|date:"F d, Y" }}<br>
-            Last Updated: {{ article.updated_on|date:"F d, Y" }}
+            
         </p>
+
+        {% if request.user.is_authenticated and request.user.profile == article.author %}
+            <br><a href="{% url 'wiki:article_update' pk=article.pk %}" class="button">
+                Edit Article
+            </a>
+        {% endif %}
 
         <div>
             {{ article.entry|linebreaks }}
         </div>
 
         <div>
-            <h3>Read More from {{ article.category.name }}</h3>
+            <h4>Read More from {{ article.category.name }}</h4>
             <ul>
                 {% for related_article in related_articles %}
-                    <li>
-                        <a href="{% url 'wiki:article_detail' pk=related_article.pk %}">{{ related_article.title }}</a>
+                    <li class="article-item">
+                        <a href="{{ article.get_absolute_url }}" class="article-link">{{ article.title }}</a>
+                        <p class="article-meta">Author: {{ article.author }}</p>
+                        <p class="article-meta">Published: {{ article.created_on|date:"F j, Y" }}</p>
+                        <p class="article-meta">Last Updated: {{ article.updated_on|date:"F j, Y" }}</p>
                     </li>
                 {% empty %}
                     <li>No related articles found.</li>
@@ -58,7 +68,7 @@
                     <button type="submit">Submit Comment</button>
                 </form>
             {% else %}
-                <p>You need to <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                <p class="article-meta">You need to <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
             {% endif %}
         </div>
 
@@ -66,12 +76,12 @@
             <h3>Comments</h3>
 
             {% for comment in comments %}
-                <div>
+                <div class="comment">
                     <p><strong>{{ comment.author }}</strong> - {{ comment.created_on|date:"F d, Y" }}</p>
                     <p>{{ comment.entry }}</p>
                 </div>
             {% empty %}
-                <p>No comments yet. Be the first to comment!</p>
+                <p class="article-meta">No comments yet. Be the first to comment!</p>
             {% endfor %}
         </div>
     </div>

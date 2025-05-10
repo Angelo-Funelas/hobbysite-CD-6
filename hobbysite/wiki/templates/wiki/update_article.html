@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+{% endblock %}
 
 {% block content %}
-    <a href="{% url 'wiki:articles_list' %}">
+    <a href="{% url 'wiki:articles_list' %}" class="button">
         &larr; Back to Articles
     </a>
 
-    <br>
-
-    <h2>Edit Article</h2>
+    <h2 class="section-title">Edit Article</h2>
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {{ article_form.as_p }}
