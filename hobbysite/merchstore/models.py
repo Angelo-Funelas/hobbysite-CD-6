@@ -51,6 +51,10 @@ class Product(models.Model):
     class Meta:
         ordering = ["name"] # order by name ascending order
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(null=False, upload_to='product_images/')
+
 class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="purchases")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="purchases")
