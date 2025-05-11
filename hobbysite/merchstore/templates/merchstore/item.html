@@ -2,7 +2,11 @@
 {% load static %}
 {% block title %}{{product.name}}{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
 {% endblock %}
 {% block content %}
 <article class="product-view">
