@@ -7,7 +7,8 @@ urlpatterns = [
     path('list/', commission, name="commission"),
     path('detail/<int:pk>/', commission_details, name="commission_details"),
     path('add/', commission_create, name="commission_create"),
-    path('<int:pk>/edit/', commission_update, name="commission_update")
+    path('<int:pk>/edit/', commission_update, name="commission_update"),
+    path('job/<int:job_id>/', job_application, name="job_application"),
 
 ]
 

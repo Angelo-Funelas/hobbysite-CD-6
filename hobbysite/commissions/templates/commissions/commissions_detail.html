@@ -12,8 +12,10 @@
                 <p>Maximum Manpower: {{ job.manpower_required }}, Current Manpower: {{ job.applied_count }}</p>
                 <p>Status: {{ job.status }}</p>
             </div>
-
             {% if owner %}
+                <a href="{% url 'commissions:job_application' job_id=job.id %}">test</a>
+            {% endif %}
+            <!-- {% if owner %}
                 {% for job_application in job_applications %}
                     {% if job_application.job.id == job.id %}
                         <p>Applicant: {{ job_application.applicant.display_name }}</p>
@@ -27,13 +29,15 @@
                         </form>
                     {% endif %}
                 {% endfor %}
-            {% else %}
+            {% else %} -->
+            <!-- {% endif %} -->
+            {% if not owner %}
                 <form method="POST">
                     {% csrf_token %}
                     {{ job_status.as_p }}
                     <input type="hidden" name="job_id" value="{{ job.id }}">
                     <button type="submit"
-                        {% if job.id in applied_job_ids or job.status == 'full' %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}>
+                        {% if job.id in applied_job_ids or job.status == 'full' or not user.is_authenticated %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}>
                         Apply
                     </button>
                 </form>

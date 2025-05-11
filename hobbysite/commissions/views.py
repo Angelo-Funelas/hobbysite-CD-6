@@ -57,19 +57,7 @@ def commission_details(request, pk):
 
     job_status = JobApplicationForm()
 
-    if not owner and request.method == "POST":
-        job_status = JobApplicationForm(request.POST)
-        if job_status.is_valid():
-            job_application = job_status.save(commit=False)
-            job_application.applicant = request.user.profile
-            job_application.status = "pending"
-            job_id = request.POST.get('job_id')
-            job = Job.objects.get(id=job_id)
-            job_application.job = job
-            job_application.save()
-            return redirect(request.path)
-
-    elif owner and request.method == "POST":
+    if owner and request.method == "POST":
         action = request.POST.get('action')  
         job_application_id = request.POST.get('job_application_id') 
         job_application = JobApplication.objects.get(id=job_application_id)
@@ -157,9 +145,29 @@ def commission_update(request, pk):
     
 def job_application(request, job_id):
     job = Job.objects.get(pk=job_id)
-    job_applicants = JobApplications.objects.filter(job=job)
+    commission = job.commission
+    owner = job.commission.author == request.user.profile if request.user.is_authenticated else False
+    job_applications = JobApplication.objects.filter(job=job)
+
+    if owner and request.method == "POST":
+        action = request.POST.get('action')  
+        job_application_id = request.POST.get('job_application_id') 
+        job_application = JobApplication.objects.get(id=job_application_id)
+        try:
+            if action == 'accept':
+                job_application.status = 'accepted'
+            elif action == 'reject':
+                job_application.status = 'rejected'
+            job_application.save()
+            return redirect(request.path)
+        except JobApplication.DoesNotExist:
+            pass
+    else:
+        job_status = JobApplicationForm()
 
     return render(request, 'commissions/commissions_job.html', {
         'job': job,
-        'job_applicants': job_applicants
+        'owner': owner,
+        'job_applications': job_applications,
+        'commission': commission,
     })
