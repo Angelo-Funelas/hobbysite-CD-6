@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'merchstore/index.html', {
@@ -11,3 +12,16 @@ def item(request, id):
     return render(request, 'merchstore/item.html', {
         'product': Product.objects.get(id=id)
     })
+
+@login_required
+def add(request):
+    return
+
+def edit(request):
+    return
+
+def cart(request):
+    return
+
+def transactions(request):
+    return
