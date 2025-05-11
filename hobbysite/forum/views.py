@@ -7,39 +7,28 @@ def thread_list(request):
     if request.user.is_authenticated:
         username = request.user.profile
         user_threads = Thread.objects.filter(author=username)
-        other_threads = Thread.objects.exclude(author=username)
+        threads = Thread.objects.exclude(author=username)
     
-        # Iterates through all categories and then groups them into respective dictionaries
-        categories = ThreadCategory.objects.all()
-        grouped_threads = []
-        for category in categories:
-            threads_in_category = other_threads.filter(category=category)
-            if threads_in_category.exists():
-                grouped_threads.append({
-                    'category': category,
-                    'threads': threads_in_category
-                })
-
-        return render(request, 'forum/thread_list.html', {
-            'user_threads': user_threads,
-            'other_threads': grouped_threads,
-            'username': username,
-            'categories': categories
-        })
+    else:
+        username = None
+        user_threads = None
+        threads = Thread.objects.all()
     
-    threads = Thread.objects.all()
+    # Iterates through all categories and then groups them into respective dictionaries
     categories = ThreadCategory.objects.all()
     grouped_threads = []
     for category in categories:
-            threads_in_category = threads.filter(category=category)
-            if threads_in_category.exists():
-                grouped_threads.append({
-                    'category': category,
-                    'threads': threads_in_category
-                })
-    
+        threads_in_category = threads.filter(category=category)
+        if threads_in_category.exists():
+            grouped_threads.append({
+                'category': category,
+                'threads': threads_in_category
+            })
+
     return render(request, 'forum/thread_list.html', {
+        'user_threads': user_threads,
         'all_threads': grouped_threads,
+        'username': username,
         'categories': categories
     })
 
