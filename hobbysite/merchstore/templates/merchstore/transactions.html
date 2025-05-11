@@ -18,18 +18,23 @@
     <h2>{{heading}}</h2>
     {% for profile, transactions in grouped_transactions.items %}
         <div class="buyer-container">
-            <p>{{profile.display_name}}</p>
+            <div>
+                <img src="{{ profile.profile_picture.url }}"><p>{{ profile.display_name }}</p>
+            </div>
             <div class="buyer-transactions">
                 {% for transaction in transactions %}
-                    <div>
-                        <img src="" alt="{{transaction.product.name}}">
+                    <a href="{{transaction.product.get_absolute_url}}">
+                        <img src="{% if transaction.product.images.first.image %}{{transaction.product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" alt="{{transaction.product.name}}">
                         <div>
                             <p>{{transaction.product.name}}</p>
                             <p>{{transaction.created_on}}</p>
-                            <p>{{transaction.get_status_display}}</p>
                             <p>{{transaction.amount}}x</p>
                         </div>
-                    </div>
+                        <div>
+                            <p class="price">₱{{transaction.total_price}}</p>
+                            <p>{{transaction.get_status_display}}</p>
+                        </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>

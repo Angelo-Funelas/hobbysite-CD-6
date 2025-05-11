@@ -103,9 +103,10 @@ def edit(request, id):
 def cart(request):
     grouped_transactions = {}
     for transaction in Transaction.objects.filter(buyer=request.user.profile):
-        if transaction.buyer not in grouped_transactions:
-            grouped_transactions[transaction.buyer] = []
-        grouped_transactions[transaction.buyer].append(transaction)
+        if transaction.product.owner not in grouped_transactions:
+            grouped_transactions[transaction.product.owner] = []
+        transaction.total_price = transaction.amount * transaction.product.price
+        grouped_transactions[transaction.product.owner].append(transaction)
     return render(request, 'merchstore/transactions.html', {
         "heading": "Your Cart",
         "grouped_transactions": grouped_transactions
@@ -117,6 +118,7 @@ def transactions(request):
     for transaction in Transaction.objects.filter(product__owner=request.user.profile):
         if transaction.buyer not in grouped_transactions:
             grouped_transactions[transaction.buyer] = []
+        transaction.total_price = transaction.amount * transaction.product.price
         grouped_transactions[transaction.buyer].append(transaction)
     return render(request, 'merchstore/transactions.html', {
         "heading": "Your Sales",

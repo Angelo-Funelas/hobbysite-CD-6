@@ -14,7 +14,7 @@
 {% endblock %}
 {% block content %}
 <article class="product-view">
-    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Home</a></div>
+    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Items</a></div>
     <div class="product-gallery">
         <div>
             <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">

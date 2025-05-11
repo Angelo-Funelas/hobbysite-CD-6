@@ -188,7 +188,7 @@ main {
 .purchase-buttons > button:nth-child(1), .purchase-buttons > a:nth-child(1), .purchase-buttons > a:nth-child(1) > button {
     background-color: var(--accent);
 }
-.purchase-buttons > a > button:disabled {
+.purchase-buttons button:disabled {
     background-color: rgb(189, 189, 189);
 }
 .product-listings-container {
