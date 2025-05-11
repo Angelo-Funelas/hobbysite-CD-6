@@ -28,12 +28,26 @@ def add(request):
         product.save()
         return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': product.id}))
     else:
-        return render(request, 'merchstore/add.html', {
+        return render(request, 'merchstore/add_edit.html', {
             "product_types": ProductType.objects.all()
         })
 
-def edit(request):
-    return
+def edit(request, id):
+    if request.method == "POST":
+        product = Product.objects.get(pk=id)
+        product.name = request.POST['name']
+        product.product_type = ProductType.objects.get(pk=request.POST['type'])
+        product.stock = request.POST['stock']
+        product.owner = request.user.profile
+        product.description = request.POST['description']
+        product.price = request.POST['price']
+        product.save()
+        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
+    else:
+        return render(request, 'merchstore/add_edit.html', {
+            "product": Product.objects.get(pk=id),
+            "product_types": ProductType.objects.all()
+        })
 
 def cart(request):
     return

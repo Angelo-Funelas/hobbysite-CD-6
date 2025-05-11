@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{product.name}}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+{% block content %}
+<article class="product-view">
+    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Home</a></div>
+    <img src="" class="">
+    <div>
+        <form class="item-form" action="
+            {% if product %}
+                {% url 'merchstore:edit' product.id %}
+            {% else %}
+                {% url 'merchstore:add' %}
+            {% endif %}
+        " method="post">
+            {% csrf_token %}
+            <input name="name" placeholder="Product Name" value="{{product.name}}">
+            <input name="price" placeholder="Price" value="{{product.price}}">
+            <input type="number" name="stock" placeholder="Stock" value="{{product.stock}}">
+            <select name="type">
+                {% for type in product_types %}
+                    <option value="{{type.id}}" {% if type.id == product.product_type.id %}selected{% endif %}>{{type.name}}</option>
+                {% endfor %}
+            </select>
+            <p>Description:</p>
+            <textarea name="description" placeholder="Product Description">{{product.description}}</textarea>
+            <div class="purchase-buttons">
+                <button>{% if product %}Save Listing{% else %}List Item{% endif %}</button>
+            </div>
+        </form>
+    </div>
+</article>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'merchstore/priceFormatter.js' %}"></script>
+{% endblock  %}

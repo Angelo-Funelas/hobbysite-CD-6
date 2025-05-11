@@ -16,9 +16,17 @@
         <p>
             {{product.description|linebreaksbr}}
         </p>
+        {% if not user.profile == product.owner %}
+        <input type="number" value="1">
+        {% endif %}
+        <p>{{product.stock}} pieces available</p>
         <div class="purchase-buttons">
-            <button>Buy Now</button>
-            <button>Add To Cart</button>
+            {% if user.profile == product.owner %}
+                <a href="{% url 'merchstore:edit' product.id %}"><button>Edit Listing</button></a>
+            {% else %}
+                <a href=""><button>Buy Now</button></a>
+                <a href=""><button>Add To Cart</button></a>
+            {% endif %}
         </div>
     </div>
 </article>

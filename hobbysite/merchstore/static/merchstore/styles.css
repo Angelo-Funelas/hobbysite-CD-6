@@ -90,11 +90,11 @@ main {
     padding-left: 1rem;
 }
 .purchase-buttons {
-    display: flex;
+    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
 }
-.purchase-buttons > button {
+.purchase-buttons > a > button, .purchase-buttons > button {
     padding: 1rem 2rem;
     width: 100%;
     border: none;
@@ -103,10 +103,13 @@ main {
     background-color: var(--theme);
     cursor: pointer;
 }
-.purchase-buttons > button:hover {
+.purchase-buttons > a:only-child, .purchase-buttons > button:only-child {
+    grid-column: 1 / span 2;
+}
+.purchase-buttons button:hover {
     filter: brightness(1.1);
 }
-.purchase-buttons > button:nth-child(2) {
+.purchase-buttons > a:nth-child(1) > button {
     background-color: var(--accent);
 }
 .product-listings-container {
