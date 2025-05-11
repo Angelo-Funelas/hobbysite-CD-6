@@ -22,7 +22,7 @@ def commission(request):
         applied_commissions = Commission.objects.filter(
         jobs__job_application__applicant=user_profile
         ).annotate(status_order=custom_order).distinct().order_by('status_order', 'created_on')
-        other_commissions = Commission.objects.exclude(author=user_profile).annotate(
+        other_commissions = Commission.objects.exclude(author=user_profile).exclude(jobs__job_application__applicant=user_profile).annotate(
             status_order=custom_order
         ).order_by('status_order', 'created_on')
 
@@ -39,10 +39,59 @@ def commission(request):
 
 def commission_details(request, pk):
     commission_object = Commission.objects.get(pk=pk)
+    owner = commission_object.author == request.user.profile if request.user.is_authenticated else False
     jobs = commission_object.jobs.all()
+    job_applications = JobApplication.objects.filter(job__in=jobs).select_related('job', 'applicant')
+    if request.user.is_authenticated:
+        applied_job_ids = JobApplication.objects.filter(
+            job__in=jobs, applicant=request.user.profile
+        ).values_list('job_id', flat=True)
+    else:
+        applied_job_ids = []
+    
+    for job in jobs:
+        job.applied_count = JobApplication.objects.filter(job=job, status='accepted').count()
+        if job.applied_count >= job.manpower_required:
+            job.status = "full"
+            job.save()
+
+    job_status = JobApplicationForm()
+
+    if not owner and request.method == "POST":
+        job_status = JobApplicationForm(request.POST)
+        if job_status.is_valid():
+            job_application = job_status.save(commit=False)
+            job_application.applicant = request.user.profile
+            job_application.status = "pending"
+            job_id = request.POST.get('job_id')
+            job = Job.objects.get(id=job_id)
+            job_application.job = job
+            job_application.save()
+            return redirect(request.path)
+
+    elif owner and request.method == "POST":
+        action = request.POST.get('action')  
+        job_application_id = request.POST.get('job_application_id') 
+        job_application = JobApplication.objects.get(id=job_application_id)
+        try:
+            if action == 'accept':
+                job_application.status = 'accepted'
+            elif action == 'reject':
+                job_application.status = 'rejected'
+            job_application.save()
+            return redirect(request.path)
+        except JobApplication.DoesNotExist:
+            pass
+    else:
+        job_status = JobApplicationForm()
+
     return render(request, 'commissions/commissions_detail.html', {
         'commission': commission_object,
-        'jobs': jobs
+        'jobs': jobs,
+        'job_applications': job_applications,
+        'applied_job_ids': applied_job_ids,
+        'owner': owner,
+        'job_status': job_status
     })
 
 @login_required
@@ -62,8 +111,7 @@ def commission_create(request):
         'commission_form': commission_form,
         })
 
-
-
+@login_required
 def commission_update(request, pk):
     commission_object = Commission.objects.get(pk=pk)
     jobs = Job.objects.filter(commission=commission_object)
@@ -86,10 +134,14 @@ def commission_update(request, pk):
                 job.author = request.user.profile
                 job.commission = commission
                 job.save()
+            elif any(new_job_form.cleaned_data.get(field) for field in new_job_form.cleaned_data):
+                new_job_form.add_error(None, "All fields are required to submit the job.")
+
             for job_form in job_forms:
                 job_form.save()
-                return redirect('commissions:commission_details', pk=pk)
-                
+
+            return redirect('commissions:commission_details', pk=pk)
+
     else:
         commission_form = CreateCommissionForm(instance=commission_object)
         job_forms = [
@@ -103,3 +155,11 @@ def commission_update(request, pk):
         'new_job_form': new_job_form,
     })
     
+def job_application(request, job_id):
+    job = Job.objects.get(pk=job_id)
+    job_applicants = JobApplications.objects.filter(job=job)
+
+    return render(request, 'commissions/commissions_job.html', {
+        'job': job,
+        'job_applicants': job_applicants
+    })

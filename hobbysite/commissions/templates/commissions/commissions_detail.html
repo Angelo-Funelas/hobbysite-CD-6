@@ -7,11 +7,37 @@
     {% if jobs %}
         {% for job in jobs %}
             <div class="commission-block">
-                <p><h2>JOB DETAILS: <i>{{job.role }}</i></h2></p>
-                <p>{{ job.entry }}</p>
-                <p>Manpower Required: {{ job.manpower_required }}</p>
-                
+                <p><h2>JOB ROLE: <i>{{ job.role }}</i></h2></p>
+                <p>{{ job.entry }}</p> 
+                <p>Maximum Manpower: {{ job.manpower_required }}, Current Manpower: {{ job.applied_count }}</p>
+                <p>Status: {{ job.status }}</p>
             </div>
+
+            {% if owner %}
+                {% for job_application in job_applications %}
+                    {% if job_application.job.id == job.id %}
+                        <p>Applicant: {{ job_application.applicant.display_name }}</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="job_application_id" value="{{ job_application.id }}">
+                            <button type="submit" name="action" value="accept" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %}>Accept</button>
+                            <button type="submit" name="action" value="reject" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %}>Reject</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ job_status.as_p }}
+                    <input type="hidden" name="job_id" value="{{ job.id }}">
+                    <button type="submit"
+                        {% if job.id in applied_job_ids or job.status == 'full' %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}>
+                        Apply
+                    </button>
+                </form>
+            {% endif %}
         {% endfor %}  
     {% else %}
         <div class="commission-block">

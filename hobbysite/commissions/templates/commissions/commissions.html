@@ -29,7 +29,7 @@
     <ol>
         {% for applied_commission in applied_commissions %}
             <div class="commission-block">
-            <p class="link-section"><a href="{{ user_commission.get_absolute_url }}" class="button">{{ applied_commission.title }}</a></p>
+            <p class="link-section"><a href="{{ applied_commission.get_absolute_url }}" class="button">{{ applied_commission.title }}</a></p>
             <p><b>Created on:</b> {{applied_commission.created_on}} <b>Modified on:</b> {{applied_commission.updated_on}}</p>
             <p>{{ applied_commission.description }}</p>
             <p>{{ applied_commission.status}}</p>
@@ -48,7 +48,7 @@
         <ol>
             {% for other_commission in other_commissions %}
                 <div class="commission-block">
-                <p class="link-section"><a href="{{ user_commission.get_absolute_url }}" class="button">{{ other_commission.title }}</a></p>
+                <p class="link-section"><a href="{{ other_commission.get_absolute_url }}" class="button">{{ other_commission.title }}</a></p>
                 <p><b>Created on:</b> {{other_commission.created_on}} <b>Modified on:</b> {{other_commission.updated_on}}</p>
                 <p>{{ other_commission.description }}</p>
                 <p>{{ other_commission.status}}</p>
