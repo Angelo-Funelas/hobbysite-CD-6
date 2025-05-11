@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="{% static "merchstore/styles.css" %}">
 {% endblock %}
 {% block content %}
-<a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a>
 <article class="product-view">
+    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a></div>
     <img src="" class="">
     <div>
         <h2>{{product.name}}</h2>
