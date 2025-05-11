@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'styles/forum.css' %}">
 {% endblock %}
 {% block nav %}
-    <div class = "forum-nav">
+    <div class="forum-nav">
         <a href="{%url 'forum:thread_list' %}"><h1>Forum</h1></a>
         {% if user.is_authenticated %}
             <a href="{% url 'forum:create_thread' %}" class="create-btn">Create</a>
@@ -18,54 +18,38 @@
             <h2>Categories</h2>
             <ul>
                 {% for category in categories %}
-                    <li><a href="#category-{{category.id}}"><span>{{ category.name }}</span></a></li>
+                    <li><a href="#category-{{ category.id }}"><span>{{ category.name }}</span></a></li>
                 {% endfor %}
             </ul>
         </div>
         <div class="forum-body">
             {% if user.is_authenticated %}
-                <div class="user-threads">
-                    <h2>{{ username }}'s Posts</h2>
+                <h2 class="forum-section-title">{{ username }}'s Posts</h2>
+                <div class="threads">
                     {% for thread in user_threads %}
                         <div class = "thread">
-                            <a href="{{thread.get_absolute_url}}">
+                            <a href="{{ thread.get_absolute_url }}">
                                 <div class="thread-container">
                                     <div class= "thread-name">
-                                        <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
-                                        <h3> {{thread.title}} </h3>
-                                    </div>
-                                    {% if thread.image %}
-                                        <div class="thread-image">
-                                            <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
-                                        </div>
-                                    {% endif %}
-                                    <div class="thread-entry">
-                                        <p> {{thread.entry|truncatewords:50}}</p>
+                                        <h3> {{ thread.category }} <span class="date-time"> • {{ thread.created_on }}</span> </h3>
+                                        <h3> {{ thread.title }} </h3>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     {% endfor %}
                 </div>
+                <h2 class="forum-section-title">Other Posts</h2>
                 <div class="threads">
-                    <h2>Other Posts</h2>
-                    {% for group in other_threads %}
+                    {% for group in all_threads %}
                         <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
                         {% for thread in group.threads %}
-                            <div class = "thread">
-                                <a href="{{thread.get_absolute_url}}">
+                            <div class="thread">
+                                <a href="{{ thread.get_absolute_url }}">
                                     <div class="thread-container">
-                                        <div class= "thread-name">
-                                            <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
-                                            <h3> {{thread.title}} </h3>
-                                        </div>
-                                        {% if thread.image %}
-                                            <div class="thread-image">
-                                                <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
-                                            </div>
-                                        {% endif %}
-                                        <div class="thread-entry">
-                                            <p> {{thread.entry|truncatewords:50}}</p>
+                                        <div class="thread-name">
+                                            <h3>{{ thread.category }}<span class="date-time"> • {{ thread.created_on }}</span></h3>
+                                            <h3>{{ thread.title }}</h3>
                                         </div>
                                     </div>
                                 </a>
@@ -74,30 +58,24 @@
                     {% endfor %}
                 </div>            
             {% else %}
-                <h2>Posts</h2>
-                {% for group in all_threads %}
-                    <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
-                    {% for thread in group.threads %}
-                        <div class = "thread">
-                            <a href="{{thread.get_absolute_url}}">
-                                <div class="thread-container">
-                                    <div class= "thread-name">
-                                        <h3> {{thread.category}} <span class="date-time"> • {{thread.created_on}}</span> </h3>
-                                        <h3> {{thread.title}} </h3>
-                                    </div>
-                                    {% if thread.image %}
-                                        <div class="thread-image">
-                                            <img src="{{ thread.image.url }}" alt="{{ thread.image }}">
+                <h2 class="forum-section-title">Posts</h2>
+                <div class="threads">
+                    {% for group in all_threads %}
+                        <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
+                        {% for thread in group.threads %}
+                            <div class = "thread">
+                                <a href="{{ thread.get_absolute_url }}">
+                                    <div class="thread-container">
+                                        <div class= "thread-name">
+                                            <h3>{{thread.category}}<span class="date-time"> • {{thread.created_on}}</span></h3>
+                                            <h3>{{thread.title}}</h3>
                                         </div>
-                                    {% endif %}
-                                    <div class="thread-entry">
-                                        <p> {{thread.entry|truncatewords:50}}</p>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
+                </div>
             {% endif %}
         </div>
     </div>
