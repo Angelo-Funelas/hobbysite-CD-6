@@ -23,9 +23,11 @@
         <div class="purchase-buttons">
             {% if user.profile == product.owner %}
                 <a href="{% url 'merchstore:edit' product.id %}"><button>Edit Listing</button></a>
-            {% else %}
+            {% elif product.stock > 0 %}
                 <a href=""><button>Buy Now</button></a>
                 <a href=""><button>Add To Cart</button></a>
+            {% else %}
+                <a><button disabled>Out of Stock</button></a>
             {% endif %}
         </div>
     </div>

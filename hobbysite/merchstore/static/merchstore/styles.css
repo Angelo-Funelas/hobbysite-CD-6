@@ -112,6 +112,9 @@ main {
 .purchase-buttons > a:nth-child(1) > button {
     background-color: var(--accent);
 }
+.purchase-buttons > a > button:disabled {
+    background-color: rgb(189, 189, 189);
+}
 .product-listings-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, max(220px));
