@@ -22,14 +22,14 @@
             <h3>Your Products</h3>
             <div class="product-listings-container">
                 {% for product in user_products %}
-                    <a href="{{product.get_absolute_url}}" class="product-listing-card"><div>
+                    <a href="{{product.get_absolute_url}}" class="product-listing-card">
                         <img src="" class="product-img">
-                        <div>
-                            <p>{{product.name}}</p>
-                            <p class="price">₱{{product.price}}</p>
-                            <p class="product-type-tag">{{product.product_type.name}}</p>
+                        <div class="product-listing-details">
+                            <p>{{product.name}}{{product.name}}{{product.name}}{{product.name}}{{product.name}}{{product.name}}</p>
+                            <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
+                            <div><p class="price">₱{{product.price}}</p></div>
                         </div>
-                    </div></a>
+                    </a>
                 {% empty %}
                     <h3>Click here to sell your product</h3>
                 {% endfor %}
@@ -41,14 +41,14 @@
         <div class="product-listings-container">
             {% if products %}
                 {% for product in products %}
-                    <a href="{{product.get_absolute_url}}" class="product-listing-card"><div>
+                    <a href="{{product.get_absolute_url}}" class="product-listing-card">
                         <img src="" class="product-img">
-                        <div>
+                        <div class="product-listing-details">
                             <p>{{product.name}}</p>
-                            <p class="price">₱{{product.price}}</p>
-                            <p class="product-type-tag">{{product.product_type.name}}</p>
+                            <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
+                            <div><p class="price">₱{{product.price}}</p></div>
                         </div>
-                    </div></a>
+                    </a>
                 {% endfor %}
             {% else %}
                 <h3>Sorry, no products found.</h3>
