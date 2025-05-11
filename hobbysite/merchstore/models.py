@@ -27,8 +27,7 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("merchstore:item", kwargs={"id": self.id})
     
-    def update_stock(self, new_stock):
-        self.stock = int(new_stock)
+    def update_status(self):
         if self.stock <= 0:
             self.status = "Out of stock"
         else:

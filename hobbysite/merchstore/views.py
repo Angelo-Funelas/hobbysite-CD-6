@@ -43,7 +43,7 @@ def edit(request, id):
         product.description = request.POST['description']
         product.price = request.POST['price']
         product.save()
-        product.update_stock(request.POST['stock'])
+        product.update_status()
         return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
     else:
         return render(request, 'merchstore/add_edit.html', {
@@ -53,14 +53,24 @@ def edit(request, id):
 
 @login_required
 def cart(request):
+    grouped_transactions = {}
+    for transaction in Transaction.objects.filter(buyer=request.user.profile):
+        if transaction.buyer not in grouped_transactions:
+            grouped_transactions[transaction.buyer] = []
+        grouped_transactions[transaction.buyer].append(transaction)
     return render(request, 'merchstore/product_list.html', {
-        "product": Product.objects.get(pk=id),
-        "product_types": ProductType.objects.all()
+        "heading": "Your Cart",
+        "grouped_transactions": grouped_transactions
     })
 
 @login_required
 def transactions(request):
+    grouped_transactions = {}
+    for transaction in Transaction.objects.filter(product__owner=request.user.profile):
+        if transaction.buyer not in grouped_transactions:
+            grouped_transactions[transaction.buyer] = []
+        grouped_transactions[transaction.buyer].append(transaction)
     return render(request, 'merchstore/product_list.html', {
-        "buyers": Profile.objects.filter(purchases__product__owner=request.user.profile).distinct(),
-        "transactions": Transaction.objects.filter(product__owner=request.user.profile)
+        "heading": "Your Sales",
+        "grouped_transactions": grouped_transactions
     })

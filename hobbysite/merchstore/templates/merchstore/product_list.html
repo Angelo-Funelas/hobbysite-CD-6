@@ -15,12 +15,12 @@
 {% endblock %}
 {% block content %}
 <section class="transactions">
-    <h2>Transactions</h2>
-    {% for buyer in buyers %}
+    <h2>{{heading}}</h2>
+    {% for profile, transactions in grouped_transactions.items %}
         <div class="buyer-container">
-            <p>{{buyer.display_name}}</p>
+            <p>{{profile.display_name}}</p>
             <div class="buyer-transactions">
-                {% for transaction in buyer.purchases.all %}
+                {% for transaction in transactions %}
                     <div>
                         <img src="" alt="{{transaction.product.name}}">
                         <div>
