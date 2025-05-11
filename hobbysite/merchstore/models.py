@@ -19,7 +19,12 @@ class Product(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="products")
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=12)
-    status = models.CharField(max_length=32, default="Available")
+    STATUS_CHOICES = (
+        ("available", "Available"),
+        ("on_sale", "On sale"),
+        ("out_of_stock", "Out of stock"),
+    )
+    status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="Available")
     
     def __str__(self):
         return self.name
@@ -41,5 +46,12 @@ class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="purchases")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="purchases")
     amount = models.PositiveIntegerField()
-    status = models.CharField(max_length=32)
+    STATUS_CHOICES = (
+        ("on_cart", "On Cart"),
+        ("to_pay", "To Pay"),
+        ("to_ship", "To Ship"),
+        ("to_receive", "To Receive"),
+        ("delievered", "Delivered"),
+    )
+    status = models.CharField(max_length=32, choices=STATUS_CHOICES)
     created_on = models.DateTimeField(auto_now_add=True)
