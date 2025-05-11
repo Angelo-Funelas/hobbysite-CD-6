@@ -17,7 +17,7 @@ def item(request, id):
         qty = int(request.POST["qty"])
         status = request.POST["status"]
         if not request.user.is_authenticated:
-            next_url = reverse('merchstore:item', kwargs={'id': id})
+            next_url = product.get_absolute_url()
             params = urlencode({
                 'qty': qty,
                 'status': request.POST["status"],
@@ -30,7 +30,7 @@ def item(request, id):
             transaction.save()
             return HttpResponseRedirect(reverse('merchstore:cart'))
         except ValueError:
-            return redirect('merchstore:item', id=product.id)
+            return redirect(product.get_absolute_url())
         
     qty = request.GET.get('qty')
     status = request.GET.get('status')
@@ -42,7 +42,7 @@ def item(request, id):
             transaction.save()
             return HttpResponseRedirect(reverse('merchstore:cart'))
         except ValueError:
-            return redirect('merchstore:item', id=product.id)
+            return redirect(product.get_absolute_url())
 
     return render(request, 'merchstore/item.html', {
         'product': product
@@ -60,7 +60,7 @@ def add(request):
         product = Product(name=name, product_type=product_type, stock=stock, owner=owner, description=description, price=price)
         product.save()
         product.update_status()
-        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': product.id}))
+        return redirect(product.get_absolute_url())
     else:
         return render(request, 'merchstore/add_edit.html', {
             "product_types": ProductType.objects.all()
@@ -70,7 +70,7 @@ def add(request):
 def edit(request, id):
     product = Product.objects.get(pk=id)
     if not request.user.profile == product.owner:
-        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
+        return redirect(product.get_absolute_url())
     if request.method == "POST":
         product.name = request.POST['name']
         product.stock = int(request.POST['stock'])
@@ -79,7 +79,7 @@ def edit(request, id):
         product.price = request.POST['price']
         product.save()
         product.update_status()
-        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
+        return redirect(product.get_absolute_url())
     else:
         return render(request, 'merchstore/add_edit.html', {
             "product": Product.objects.get(pk=id),
