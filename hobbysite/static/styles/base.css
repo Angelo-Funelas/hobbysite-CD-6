@@ -23,6 +23,11 @@ nav > div:first-child {
 nav > div:first-child p {
     margin: 0;
 }
+.nav-block-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 #app-links {
     text-decoration: none;
     list-style: none;
