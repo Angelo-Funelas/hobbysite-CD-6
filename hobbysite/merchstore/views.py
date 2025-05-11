@@ -32,12 +32,14 @@ def add(request):
             "product_types": ProductType.objects.all()
         })
 
+@login_required
 def edit(request, id):
+    product = Product.objects.get(pk=id)
+    if not request.user.profile == product.owner:
+        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
     if request.method == "POST":
-        product = Product.objects.get(pk=id)
         product.name = request.POST['name']
         product.product_type = ProductType.objects.get(pk=request.POST['type'])
-        product.owner = request.user.profile
         product.description = request.POST['description']
         product.price = request.POST['price']
         product.save()
