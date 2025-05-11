@@ -23,6 +23,7 @@ class ThreadAdmin(admin.ModelAdmin):
     search_fields = ('title', 'entry',)
     list_filter = ('created_on',)
 
+    # Allows for admin to view Comments under a Thread.
     inlines = [CommentInLine, ]
 
 class CommentAdmin(admin.ModelAdmin):
