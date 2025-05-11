@@ -12,7 +12,7 @@
         <p>From gadgets to furniture—find great deals or make extra cash today.</p>
         <div>
             <button>Browse Listings</button>
-            <button>List an Item</button>
+            <a href="{% url 'merchstore:add' %}"><button>List an Item</button></a>
         </div>
     </div>
 </article>
@@ -25,7 +25,7 @@
                     <a href="{{product.get_absolute_url}}" class="product-listing-card">
                         <img src="" class="product-img">
                         <div class="product-listing-details">
-                            <p>{{product.name}}{{product.name}}{{product.name}}{{product.name}}{{product.name}}{{product.name}}</p>
+                            <p>{{product.name}}</p>
                             <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
                             <div><p class="price">₱{{product.price}}</p></div>
                         </div>

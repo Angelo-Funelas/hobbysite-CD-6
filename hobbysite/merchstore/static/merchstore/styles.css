@@ -130,7 +130,7 @@ article:not(.hero) {
 .hero > div > div {
     display: inline-flex;
 }
-.hero > div > div > button {
+.hero > div > div button {
     margin: .5rem;
     outline: none;
     border: none;
@@ -142,4 +142,7 @@ article:nth-child(2) {
 }
 main {
     margin: 0;
+}
+.item-form input {
+    display: block;
 }

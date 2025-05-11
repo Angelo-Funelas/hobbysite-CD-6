@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 def index(request):
     return render(request, 'merchstore/index.html', {
@@ -15,7 +17,20 @@ def item(request, id):
 
 @login_required
 def add(request):
-    return
+    if request.method == "POST":
+        name = request.POST['name']
+        product_type = ProductType.objects.get(pk=request.POST['type'])
+        stock = request.POST['stock']
+        owner = request.user.profile
+        description = request.POST['description']
+        price = request.POST['price']
+        product = Product(name=name, product_type=product_type, stock=stock, owner=owner, description=description, price=price)
+        product.save()
+        return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': product.id}))
+    else:
+        return render(request, 'merchstore/add.html', {
+            "product_types": ProductType.objects.all()
+        })
 
 def edit(request):
     return
