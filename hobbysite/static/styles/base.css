@@ -147,6 +147,7 @@ nav > div:last-child > div:last-child > a {
 }
 .profile-dropdown:hover > ul {
     display: block;
+    overflow: hidden;
 }
 .profile-dropdown > ul > li {
     padding: 0 1em;
