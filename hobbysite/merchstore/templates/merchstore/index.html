@@ -13,7 +13,7 @@
     </div>
 {% endblock %}
 {% block content %}
-<article class="hero">
+<section class="hero">
     <div>
         <h1>Merchandise Store</h1>
         <h2>A Trusted Place to Buy & Sell</h2>
@@ -23,7 +23,7 @@
             <a href="{% url 'merchstore:add' %}"><button>List an Item</button></a>
         </div>
     </div>
-</article>
+</section>
 <article>
     {% if user.is_authenticated %}
         <section>

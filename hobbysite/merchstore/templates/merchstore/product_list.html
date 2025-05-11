@@ -4,6 +4,7 @@
 {% block head %}
     <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
     <link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'merchstore/styles/transactions.css' %}">
 {% endblock %}
 {% block nav %}
     <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
@@ -13,11 +14,27 @@
     </div>
 {% endblock %}
 {% block content %}
-<article>
-    {% for transaction in transactions %}
-        <p>{{transaction.product.name}}</p>
+<section class="transactions">
+    <h2>Transactions</h2>
+    {% for buyer in buyers %}
+        <div class="buyer-container">
+            <p>{{buyer.display_name}}</p>
+            <div class="buyer-transactions">
+                {% for transaction in buyer.purchases.all %}
+                    <div>
+                        <img src="" alt="{{transaction.product.name}}">
+                        <div>
+                            <p>{{transaction.product.name}}</p>
+                            <p>{{transaction.product.created_on}}</p>
+                            <p>{{transaction.amount}}</p>
+                            <p>{{transaction.status}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% endfor %}
-</article>
+</section>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'merchstore/priceFormatter.js' %}"></script>

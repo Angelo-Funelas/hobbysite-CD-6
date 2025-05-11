@@ -61,5 +61,6 @@ def cart(request):
 @login_required
 def transactions(request):
     return render(request, 'merchstore/product_list.html', {
+        "buyers": Profile.objects.filter(purchases__product__owner=request.user.profile).distinct(),
         "transactions": Transaction.objects.filter(product__owner=request.user.profile)
     })

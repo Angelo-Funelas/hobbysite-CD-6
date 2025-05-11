@@ -1,0 +1,8 @@
+.buyer-container {
+    background-color: white;
+    padding: 1rem;
+}
+.buyer-transactions > div {
+    border-top: 1px solid #cecece;
+    padding: 1rem;
+}
