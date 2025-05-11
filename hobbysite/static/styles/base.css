@@ -23,6 +23,11 @@ nav > div:first-child {
 nav > div:first-child p {
     margin: 0;
 }
+.nav-block-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 #app-links {
     text-decoration: none;
     list-style: none;
@@ -173,6 +178,7 @@ main {
     min-height: 100vh;
 }
 footer {
+    font-size: .8rem;
     background-color: #282a35;
     color: rgb(94, 98, 114);
     padding: 1rem 5rem;
@@ -184,8 +190,33 @@ footer > ul {
     justify-content: center;
 }
 footer > ul > li {
-    padding: 0 3rem;
+    padding: 0 1rem;
 }
 footer > ul > li + li {
     border-left: solid 1px white;
+}
+#loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000090;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#loader-container > div {
+  width: 60px;
+  aspect-ratio: 1;
+  --g: conic-gradient(from -90deg at 10px 10px, white 90deg,#0000 0);
+  background: var(--g), var(--g), var(--g);
+  background-size: 50% 50%;
+  animation: l18 1s infinite;
+}
+@keyframes l18 {
+   0%   {background-position:0     0, 10px 10px, 20px 20px}
+   33%  {background-position:-30px 0, 10px 10px, 20px 20px}
+   66%  {background-position:-30px 0, 10px 40px, 20px 20px}
+   100% {background-position:-30px 0, 10px 40px, 50px 20px}
 }
