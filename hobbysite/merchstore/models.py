@@ -34,10 +34,19 @@ class Product(models.Model):
     
     def update_status(self):
         if self.stock <= 0:
-            self.status = "Out of stock"
+            self.status = "out_of_stock"
         else:
-            self.status = "Available"
+            self.status = "available"
         self.save()
+        
+    def purchase(self, profile, qty, status):
+        if self.stock < qty:
+            raise ValueError("Out of stock.")
+        if self.owner == profile:
+            raise ValueError("You can't purchase your own product.")
+        self.stock -= qty
+        self.save()
+        self.update_status()
     
     class Meta:
         ordering = ["name"] # order by name ascending order
