@@ -70,7 +70,7 @@ def detailed_thread(request, thread_num):
 @login_required
 def create_thread(request):
     if request.method == "POST":
-        thread_form = ThreadForm(request.POST)
+        thread_form = ThreadForm(request.POST, request.FILES)
         thread = thread_form.save(commit=False)
         thread.author = request.user.profile
         thread.save()
