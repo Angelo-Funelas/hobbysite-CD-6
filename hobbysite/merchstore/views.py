@@ -37,11 +37,11 @@ def edit(request, id):
         product = Product.objects.get(pk=id)
         product.name = request.POST['name']
         product.product_type = ProductType.objects.get(pk=request.POST['type'])
-        product.stock = request.POST['stock']
         product.owner = request.user.profile
         product.description = request.POST['description']
         product.price = request.POST['price']
         product.save()
+        product.update_stock(request.POST['stock'])
         return HttpResponseRedirect(reverse('merchstore:item', kwargs={'id': id}))
     else:
         return render(request, 'merchstore/add_edit.html', {

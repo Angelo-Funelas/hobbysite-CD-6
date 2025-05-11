@@ -18,8 +18,8 @@
         " method="post">
             {% csrf_token %}
             <input name="name" placeholder="Product Name" value="{{product.name}}">
-            <input name="price" placeholder="Price" value="{{product.price}}">
-            <input type="number" name="stock" placeholder="Stock" value="{{product.stock}}">
+            <input type="number" name="price" placeholder="Price" value="{{product.price}}" step=".01" min="0">
+            <input type="number" name="stock" placeholder="Stock" value="{{product.stock}}" step="1" min="0">
             <select name="type">
                 {% for type in product_types %}
                     <option value="{{type.id}}" {% if type.id == product.product_type.id %}selected{% endif %}>{{type.name}}</option>

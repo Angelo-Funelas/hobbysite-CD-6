@@ -19,7 +19,7 @@
         {% if not user.profile == product.owner %}
         <input type="number" value="1">
         {% endif %}
-        <p>{{product.stock}} pieces available</p>
+        <p>{{product.stock}} pieces available ({{product.status}})</p> 
         <div class="purchase-buttons">
             {% if user.profile == product.owner %}
                 <a href="{% url 'merchstore:edit' product.id %}"><button>Edit Listing</button></a>
