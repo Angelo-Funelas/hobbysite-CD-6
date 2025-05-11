@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Transaction, ProductType
+from .models import Product, Transaction, ProductType, ProductImage
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -66,6 +66,18 @@ def add(request):
             "product_types": ProductType.objects.all()
         })
 
+def handle_images(product, files, count, to_delete):
+    for i in range(1, count+1):
+        image = files[f"image-{i}"]
+        product_image = ProductImage(product=product, image=image)
+        product_image.save()
+    for id in to_delete.split():
+        id = int(id)
+        try:
+            ProductImage.objects.get(pk=id).delete()
+        except:
+            pass
+        
 @login_required
 def edit(request, id):
     product = Product.objects.get(pk=id)
@@ -79,6 +91,7 @@ def edit(request, id):
         product.price = request.POST['price']
         product.save()
         product.update_status()
+        handle_images(product, request.FILES, int(request.POST['image_count']), request.POST['images_to_delete'])
         return redirect(product.get_absolute_url())
     else:
         return render(request, 'merchstore/add_edit.html', {

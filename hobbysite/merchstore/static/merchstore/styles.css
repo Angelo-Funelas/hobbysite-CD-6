@@ -6,9 +6,9 @@ body {
     font-size: .8rem;
     text-decoration: none;
     background-color:rgb(255, 255, 255);
-    aspect-ratio: calc(1/1.25);
+    aspect-ratio: calc(1/1.5);
     display: grid;
-    grid-template-rows: 60% 40%;
+    grid-template-rows: 70% 30%;
     border-radius: 6px;
     padding: 1rem;
     box-shadow: 0px 0px 25px 0px rgba(132,132,132,0.25);
@@ -30,8 +30,8 @@ body {
 .product-listing-details > p:first-child {
     display: -webkit-box;
     max-width: 100%;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -68,17 +68,10 @@ main {
 .product-view {
     display: grid;
     gap: 2rem;
-    grid-template-areas: 'a a'
-                         'b c';
+    grid-template-columns: 40% 60%;
 }
 .product-view > div:has(.nav-link) {
-    grid-area: a;
-}
-.product-view > img {
-    grid-area: b;
-}
-.product-view > div:nth-child(3) {
-    grid-area: c;
+    grid-column: 1 / span 2;
 }
 .product-view > div > p:nth-child(2) {
     color: var(--theme);
@@ -92,12 +85,93 @@ main {
 .product-view > div > p:last-child {
     padding-left: 1rem;
 }
+.product-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin: 0 auto;
+    outline: none;
+    border: none;
+}
+.product-gallery {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: 20rem 8rem;
+}
+.product-gallery > div:first-child {
+    position: relative;
+    overflow: hidden;
+}
+.product-gallery > div:first-child > img {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    background-color: transparent;
+}
+.product-gallery > div:first-child > img:first-child {
+    object-fit: cover;
+    filter: blur(10px);
+    scale: 1.1;
+}
+.product-gallery > div:first-child > img:nth-child(2) {
+    object-fit: contain;
+}
+.product-gallery > div:last-child {
+    padding: 1rem .25rem .25rem .25rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: flex;
+    gap: .2rem;
+}
+.product-gallery > div > div {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+}
+.product-gallery > div > div > img:first-child {
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+.product-gallery > div > div > img:nth-child(2) {
+    position: absolute;
+    height: 17px;
+    aspect-ratio: 1;
+    top: 4px;
+    background-color: #ff000085;
+    right: 4px;
+    padding: 4px;
+    border-radius: 4px;
+}
+.product-gallery > div > div > img:nth-child(2):hover {
+    background-color: red;
+    cursor: pointer;
+}
+#add-image-button {
+    cursor: pointer;
+    order: 9999;
+}
+#add-image-button:hover {
+    object-fit: 1.1;
+    scale: 1.1;
+}
 .purchase-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
+    text-align: center;
 }
-.purchase-buttons > a > button, .purchase-buttons > button {
+.purchase-buttons > a {
+    display: block;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.purchase-buttons > a > button, .purchase-buttons > button, .purchase-buttons > a {
     padding: 1rem 2rem;
     width: 100%;
     font-size: 1.5rem;
@@ -108,10 +182,10 @@ main {
 .purchase-buttons > a:only-child, .purchase-buttons > button:only-child {
     grid-column: 1 / span 2;
 }
-.purchase-buttons button:hover {
+.purchase-buttons button:hover, .purchase-buttons a:hover {
     filter: brightness(1.1);
 }
-.purchase-buttons > button:nth-child(1) {
+.purchase-buttons > button:nth-child(1), .purchase-buttons > a:nth-child(1), .purchase-buttons > a:nth-child(1) > button {
     background-color: var(--accent);
 }
 .purchase-buttons > a > button:disabled {
@@ -190,4 +264,7 @@ main {
 }
 section:not(.hero), article:not(:has(section)) {
     padding: 5vw;
+}
+.hidden {
+    display: none;
 }

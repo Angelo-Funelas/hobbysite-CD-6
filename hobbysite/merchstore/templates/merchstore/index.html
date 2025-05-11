@@ -31,7 +31,7 @@
             <div class="product-listings-container">
                 {% for product in user_products %}
                     <a href="{{product.get_absolute_url}}" class="product-listing-card">
-                        <img src="" class="product-img">
+                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
                         <div class="product-listing-details">
                             <p>{{product.name}}</p>
                             <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
@@ -50,7 +50,7 @@
             {% if products %}
                 {% for product in products %}
                     <a href="{{product.get_absolute_url}}" class="product-listing-card">
-                        <img src="" class="product-img">
+                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
                         <div class="product-listing-details">
                             <p>{{product.name}}</p>
                             <div><p class="product-type-tag">{{product.product_type.name}}</p></div>

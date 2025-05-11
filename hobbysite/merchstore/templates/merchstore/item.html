@@ -15,7 +15,17 @@
 {% block content %}
 <article class="product-view">
     <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a></div>
-    <img src="" class="">
+    <div class="product-gallery">
+        <div>
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
+        </div>
+        <div>
+            {% for image in product.images.all %}
+                <div><img src="{{image.image.url}}"></div>
+            {% endfor %}
+        </div>
+    </div>
     <div>
         <h2>{{product.name}}</h2>
         <p class="price">₱{{product.price}}</p>
@@ -34,7 +44,7 @@
         <p>{{product.stock}} pieces available ({{product.get_status_display}})</p> 
         <div class="purchase-buttons">
             {% if user.profile == product.owner %}
-                <a href="{% url 'merchstore:edit' product.id %}"><button>Edit Listing</button></a>
+                <a href="{% url 'merchstore:edit' product.id %}">Edit Listing</a>
             {% elif product.stock > 0 %}
                 <button data-status="to_ship">Buy Now</button>
                 <button data-status="on_cart">Add To Cart</button>
@@ -48,4 +58,5 @@
 {% block scripts %}
 <script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
 <script src="{% static 'merchstore/scripts/order.js' %}"></script>
+<script src="{% static 'merchstore/scripts/image_gallery.js' %}"></script>
 {% endblock  %}
