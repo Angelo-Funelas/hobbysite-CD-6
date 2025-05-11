@@ -93,7 +93,7 @@ def cart(request):
         if transaction.buyer not in grouped_transactions:
             grouped_transactions[transaction.buyer] = []
         grouped_transactions[transaction.buyer].append(transaction)
-    return render(request, 'merchstore/product_list.html', {
+    return render(request, 'merchstore/transactions.html', {
         "heading": "Your Cart",
         "grouped_transactions": grouped_transactions
     })
@@ -105,7 +105,7 @@ def transactions(request):
         if transaction.buyer not in grouped_transactions:
             grouped_transactions[transaction.buyer] = []
         grouped_transactions[transaction.buyer].append(transaction)
-    return render(request, 'merchstore/product_list.html', {
+    return render(request, 'merchstore/transactions.html', {
         "heading": "Your Sales",
         "grouped_transactions": grouped_transactions
     })
