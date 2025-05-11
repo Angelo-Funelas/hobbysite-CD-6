@@ -97,7 +97,6 @@ main {
 .purchase-buttons > a > button, .purchase-buttons > button {
     padding: 1rem 2rem;
     width: 100%;
-    border: none;
     font-size: 1.5rem;
     color: white;
     background-color: var(--theme);
@@ -138,10 +137,12 @@ article:not(.hero) {
 }
 .hero > div > div button {
     margin: .5rem;
-    outline: none;
-    border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
+}
+button {
+    outline: none;
+    border: none;
 }
 article:nth-child(2) {
     margin: 0 5vw;
@@ -151,4 +152,39 @@ main {
 }
 .item-form input {
     display: block;
+}
+.nav-block-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.nav-block-content h2 {
+    margin: 0;
+    text-align: left;
+}
+.nav-block-content > div {
+    padding: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+.nav-block-content > div > a > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: transparent;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+.nav-block-content > div > a > button:hover {
+    background-color: var(--accent);
+    border-radius: 5px;
+}
+.nav-block-content > div > a > button:hover > img {
+    scale: 1.1;
+}
+.nav-block-content > div > a > button > img {
+    height: 1.5rem;
+    background-color: transparent;
+    filter: invert(1) brightness(2);
 }

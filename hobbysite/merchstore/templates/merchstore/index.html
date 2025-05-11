@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}All Items{% endblock %}
+{% block title %}Merchandise Store - All Items{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <div>
+        <a href="{% url 'merchstore:transactions' %}"><button><img src="{% static 'merchstore/icons/package.svg' %}"></button></a>
+        <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
+    </div>
 {% endblock %}
 {% block content %}
 <article class="hero">
