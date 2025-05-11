@@ -51,8 +51,15 @@ def edit(request, id):
             "product_types": ProductType.objects.all()
         })
 
+@login_required
 def cart(request):
-    return
+    return render(request, 'merchstore/product_list.html', {
+        "product": Product.objects.get(pk=id),
+        "product_types": ProductType.objects.all()
+    })
 
+@login_required
 def transactions(request):
-    return
+    return render(request, 'merchstore/product_list.html', {
+        "transactions": Transaction.objects.filter(product__owner=request.user.profile)
+    })

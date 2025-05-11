@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Merchandise Store - Transactions{% endblock %}
+{% block head %}
+    <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <div>
+        <a href="{% url 'merchstore:transactions' %}"><button><img src="{% static 'merchstore/icons/package.svg' %}"></button></a>
+        <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
+    </div>
+{% endblock %}
+{% block content %}
+<article>
+    {% for transaction in transactions %}
+        <p>{{transaction.product.name}}</p>
+    {% endfor %}
+</article>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'merchstore/priceFormatter.js' %}"></script>
+{% endblock  %}

@@ -38,9 +38,9 @@ class Product(models.Model):
     class Meta:
         ordering = ["name"] # order by name ascending order
 
-class Transanction():
-    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL)
+class Transaction(models.Model):
+    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="purchases")
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="purchases")
     amount = models.PositiveIntegerField()
     status = models.CharField(max_length=32)
     created_on = models.DateTimeField(auto_now_add=True)
