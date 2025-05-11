@@ -25,15 +25,19 @@
             {{product.description|linebreaksbr}}
         </p>
         {% if not user.profile == product.owner %}
-        <input type="number" value="1" min="0" max="{{product.stock}}">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input name="status" type="text" id="order-status" hidden>
+            <input name="qty" type="number" value="{% if product.stock > 0 %}1{% else %}0{% endif %}" min="0" max="{{product.stock}}">
+        </form>
         {% endif %}
-        <p>{{product.stock}} pieces available ({{product.status}})</p> 
+        <p>{{product.stock}} pieces available ({{product.get_status_display}})</p> 
         <div class="purchase-buttons">
             {% if user.profile == product.owner %}
                 <a href="{% url 'merchstore:edit' product.id %}"><button>Edit Listing</button></a>
             {% elif product.stock > 0 %}
-                <a href=""><button>Buy Now</button></a>
-                <a href=""><button>Add To Cart</button></a>
+                <button data-status="to_ship">Buy Now</button>
+                <button data-status="on_cart">Add To Cart</button>
             {% else %}
                 <a><button disabled>Out of Stock</button></a>
             {% endif %}
@@ -42,5 +46,6 @@
 </article>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'merchstore/priceFormatter.js' %}"></script>
+<script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
+<script src="{% static 'merchstore/scripts/order.js' %}"></script>
 {% endblock  %}

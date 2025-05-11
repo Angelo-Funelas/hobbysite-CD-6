@@ -25,9 +25,9 @@
                         <img src="" alt="{{transaction.product.name}}">
                         <div>
                             <p>{{transaction.product.name}}</p>
-                            <p>{{transaction.product.created_on}}</p>
-                            <p>{{transaction.amount}}</p>
-                            <p>{{transaction.status}}</p>
+                            <p>{{transaction.created_on}}</p>
+                            <p>{{transaction.get_status_display}}</p>
+                            <p>{{transaction.amount}}x</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -37,5 +37,5 @@
 </section>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'merchstore/priceFormatter.js' %}"></script>
+<script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
 {% endblock  %}
