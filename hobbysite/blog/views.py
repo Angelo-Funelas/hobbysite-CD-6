@@ -27,7 +27,7 @@ def article_list(request):
 def article_detail(request, article_id):
     article = Article.objects.get(id=article_id)
     other_articles = Article.objects.filter(author=article.author).exclude(id=article_id)[:4]
-    comments = article.comments.order_by('created_on')
+    comments = article.blog_comments.order_by('created_on')
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
