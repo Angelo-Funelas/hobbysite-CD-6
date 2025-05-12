@@ -1,29 +1,25 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
-class PostCategory(models.Model):
+class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse('forum:threads_in_category', args=[self.name])
-
-    # This function gets the latest created within the category by accessing the foreign key connected to the Post model.
-    def latest_post(self):
-        return self.posts.order_by('-created_on')[0]
-
+    
     class Meta:
-        verbose_name = 'Post Category'
-        verbose_name_plural = 'Post Categories'
-        ordering = ["name"]
+        verbose_name = 'Thread Category'
+        verbose_name_plural = 'Thread Categories'
+        ordering = ["name"] # Sorted by name in ascending order
 
-class Post(models.Model):
+class Thread(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True)
     entry = models.TextField()
+    image = models.ImageField(upload_to='forum/images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -32,8 +28,20 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('forum:detailed_thread', args=[str(self.id)])
-    
+
     class Meta:
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
-        ordering = ["-created_on"]
+        verbose_name = 'Thread'
+        verbose_name_plural = 'Threads'
+        ordering = ["-created_on"] # Sorted by creation time in descending order
+
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ["created_on"] # Sorted by creation time in ascending order
