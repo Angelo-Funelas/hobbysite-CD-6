@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import *
+from .models import Commission, Job, JobApplication
 from django.contrib.auth.decorators import login_required
 from django.db.models import Case, When, Value, IntegerField
-from .forms import *
+from .forms import CreateJobForm, CreateCommissionForm, UpdateJobForm, JobApplicationForm
 
 
 def commission(request):

@@ -35,19 +35,19 @@
                     </p>
                     <p>Maximum Manpower: {{ job.manpower_required }}, Current Manpower: {{ job.applied_count }}</p>
                     <p>Status: {{ job.status }}</p>
+                    {% if not owner %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ job_status.as_p }}
+                            <input type="hidden" name="job_id" value="{{ job.id }}">
+                            <button type="submit"
+                                {% if job.id in applied_job_ids or job.status == 'full' or not user.is_authenticated %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}
+                                class="button">
+                                Apply
+                            </button>
+                        </form>
+                    {% endif %}
                 </div>
-                {% if not owner %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ job_status.as_p }}
-                        <input type="hidden" name="job_id" value="{{ job.id }}">
-                        <button type="submit"
-                            {% if job.id in applied_job_ids or job.status == 'full' or not user.is_authenticated %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}
-                            class="button">
-                            Apply
-                        </button>
-                    </form>
-                {% endif %}
             {% endfor %}  
         {% else %}
             <div class="job-block">

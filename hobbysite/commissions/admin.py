@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Commission, Job, JobApplication
 from django.contrib.auth.decorators import login_required
 
 
