@@ -12,14 +12,14 @@ class ThreadCategory(models.Model):
     class Meta:
         verbose_name = 'Thread Category'
         verbose_name_plural = 'Thread Categories'
-        ordering = ["name"]
+        ordering = ["name"] # Sorted by name in ascending order
 
 class Thread(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True)
     entry = models.TextField()
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='forum/images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -32,7 +32,7 @@ class Thread(models.Model):
     class Meta:
         verbose_name = 'Thread'
         verbose_name_plural = 'Threads'
-        ordering = ["-created_on"]
+        ordering = ["-created_on"] # Sorted by creation time in descending order
 
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
@@ -44,4 +44,4 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
-        ordering = ["created_on"]
+        ordering = ["created_on"] # Sorted by creation time in ascending order

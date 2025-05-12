@@ -32,9 +32,9 @@ def thread_list(request):
         'categories': categories
     })
 
-def detailed_thread(request, thread_num):
-    chosen_thread = Thread.objects.get(id=thread_num)
-    other_threads = Thread.objects.filter(category=chosen_thread.category).exclude(id=thread_num)[:4]
+def detailed_thread(request, id):
+    chosen_thread = Thread.objects.get(id=id)
+    other_threads = Thread.objects.filter(category=chosen_thread.category).exclude(id=id)[:4]
     comments = Comment.objects.filter(thread=chosen_thread)
     categories = ThreadCategory.objects.all()
 
@@ -44,7 +44,7 @@ def detailed_thread(request, thread_num):
         new_comment.author = request.user.profile
         new_comment.thread = chosen_thread
         new_comment.save()
-        return redirect('forum:detailed_thread', thread_num)
+        return redirect(chosen_thread.get_absolute_url())
 
     comment_form = CommentForm()
 
@@ -63,7 +63,7 @@ def create_thread(request):
         thread = thread_form.save(commit=False)
         thread.author = request.user.profile
         thread.save()
-        return redirect('forum:detailed_thread', thread.id)
+        return redirect(thread.get_absolute_url())
     
     thread_form = ThreadForm()
 
@@ -72,12 +72,12 @@ def create_thread(request):
     })
 
 @login_required
-def update_thread(request, thread_num):
-    chosen_thread = Thread.objects.get(id=thread_num)
+def update_thread(request, id):
+    chosen_thread = Thread.objects.get(id=id)
     if request.method == "POST":
         update_form = ThreadForm(request.POST, request.FILES, instance=chosen_thread)
         update_form.save()
-        return redirect('forum:detailed_thread', chosen_thread.id)
+        return redirect(chosen_thread.get_absolute_url())
     
     update_form = ThreadForm(instance=chosen_thread)
 
