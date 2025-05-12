@@ -58,6 +58,18 @@ def item(request, id):
         'product': product
     })
 
+def handle_images(product, files, count, to_delete):
+    for i in range(1, count+1):
+        image = files[f"image-{i}"]
+        product_image = ProductImage(product=product, image=image)
+        product_image.save()
+    for id in to_delete.split():
+        id = int(id)
+        try:
+            ProductImage.objects.get(pk=id).delete()
+        except:
+            pass
+        
 @login_required
 def add(request):
     if request.method == "POST":
@@ -70,23 +82,12 @@ def add(request):
         product = Product(name=name, product_type=product_type, stock=stock, owner=owner, description=description, price=price)
         product.save()
         product.update_status()
+        handle_images(product, request.FILES, int(request.POST['image_count']), request.POST['images_to_delete'])
         return redirect(product.get_absolute_url())
     else:
         return render(request, 'merchstore/add_edit.html', {
             "product_types": ProductType.objects.all()
         })
-
-def handle_images(product, files, count, to_delete):
-    for i in range(1, count+1):
-        image = files[f"image-{i}"]
-        product_image = ProductImage(product=product, image=image)
-        product_image.save()
-    for id in to_delete.split():
-        id = int(id)
-        try:
-            ProductImage.objects.get(pk=id).delete()
-        except:
-            pass
         
 @login_required
 def edit(request, id):
