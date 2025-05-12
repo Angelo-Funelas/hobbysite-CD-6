@@ -157,9 +157,7 @@ def job_application(request, job_id):
             return redirect(request.path)
         except JobApplication.DoesNotExist:
             pass
-    else:
-        job_status = JobApplicationForm()
-
+        
     return render(request, 'commissions/commissions_job.html', {
         'job': job,
         'owner': owner,
