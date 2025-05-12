@@ -1,26 +1,89 @@
-{% extends "wiki/base.html" %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ article.title }}{% endblock %}
-{% block content %}
-    <div class="article-detail">
 
-        <a href="{% url 'wiki:articles_list' %}" class="back-button">
+{% block head %}
+    <link rel="stylesheet" href="{% static 'wiki/styles/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'home/icons/wiki.png' %}">
+{% endblock %}
+
+{% block content %}
+    <div>
+
+        <a href="{% url 'wiki:articles_list' %}" class="button">
            &larr; Back to Articles
         </a>
 
-        <h1 class="title">{{ article.title }}</h1>
+        {% if article.header_image %}
+            <div>
+                <img src="{{ article.header_image.url }}" alt="{{ article.title }}"  style="max-width: 100%; height: auto;">
+            </div>
+        {% endif %}
+
+        <h1 class="article-title">{{ article.title }}</h1>
 
         <p class="article-meta">
-            <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}
+            <strong>Category:</strong> {{ article.category.name|default:"Uncategorized" }}<br>
+            <strong>Author:</strong> {{ article.author }}<br>
+            <strong>Created On:</strong> {{ article.created_on|date:"F d, Y" }}<br>
+            <strong>Last Updated:</strong> {{ article.updated_on|date:"F d, Y" }}
         </p>
 
-        <p class="highlight-box">
-            Created On: {{ article.created_on|date:"F d, Y" }}<br>
-            Last Updated: {{ article.updated_on|date:"F d, Y" }}
+        <p>
+            
         </p>
 
-        <div class="article-entry">
+        {% if request.user.is_authenticated and request.user.profile == article.author %}
+            <br><a href="{% url 'wiki:article_update' id=article.id %}" class="button">
+                Edit Article
+            </a>
+        {% endif %}
+
+        <div>
             {{ article.entry|linebreaks }}
+        </div>
+
+        <div>
+            <h4>Read More from {{ article.category.name }}</h4>
+            <ul>
+                {% for related_article in related_articles %}
+                    <li class="article-item">
+                        <a href="{{ related_article.get_absolute_url }}" class="article-link">{{ related_article.title }}</a>
+                        <p class="article-meta">Author: {{ related_article.author }}</p>
+                        <p class="article-meta">Published: {{ related_article.created_on|date:"F j, Y" }}</p>
+                        <p class="article-meta">Last Updated: {{ related_article.updated_on|date:"F j, Y" }}</p>
+                    </li>
+                {% empty %}
+                    <li>No related articles found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            {% if user.is_authenticated %}
+                <h4>Leave a Comment</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit">Submit Comment</button>
+                </form>
+            {% else %}
+                <p class="article-meta">You need to <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h3>Comments</h3>
+
+            {% for comment in comments %}
+                <div class="comment">
+                    <p><strong>{{ comment.author }}</strong> - {{ comment.created_on|date:"F d, Y" }}</p>
+                    <p>{{ comment.entry }}</p>
+                </div>
+            {% empty %}
+                <p class="article-meta">No comments yet. Be the first to comment!</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

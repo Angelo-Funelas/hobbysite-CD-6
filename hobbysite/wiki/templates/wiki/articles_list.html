@@ -1,39 +1,58 @@
-{% extends "wiki/base.html" %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block title %}Articles List{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'wiki/styles/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'home/icons/wiki.png' %}">
+{% endblock %}
+
 {% block content %}
     <h1 class="title">Online Wiki</h1>
 
-    <h2 class="section-title">Categories</h2>
-    {% if categories %}
+    <a href="{% url 'wiki:article_create' %}" class="button">Create New Article</a>
+
+    {% if user_articles %}
+    <section>
+        <h2 class="section-title">Your Articles</h2>
         <ul>
-            {% for category in categories %}
-                <li class="category-item">
-                    <strong>{{ category.name }}</strong> — {{ category.description }}
+            {% for article in user_articles %}
+                <li class="article-item">
+                    <a href="{{ article.get_absolute_url }}" class="article-link">{{ article.title }}</a>
+                    <p class="article-meta">Category: {{ article.category }}</p>
+                    <p class="article-meta">Published: {{ article.created_on|date:"F j, Y" }}</p>
+                    <p class="article-meta">Last Updated: {{ article.updated_on|date:"F j, Y" }}</p>
                 </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <p>No categories available.</p>
+    </section>
     {% endif %}
 
-    <h2 class="section-title">Articles</h2>
-    {% if articles %}
-        <ul>
-            {% for article in articles %}
-                <li class="article-item">
-                    <a href="{{ article.get_absolute_url }}" class="article-link">
-                        {{ article.title }}
-                    </a>
-                    <div class="article-meta">
-                        Category: <strong>{{ article.category.name }}</strong><br>
-                        Created on: {{ article.created_on|date:"F d, Y" }} | 
-                        Last updated: {{ article.updated_on|date:"F d, Y" }}
-                    </div>
-                </li>
+    <section>
+        <h2 class="section-title">All Articles</h2>
+        {% if category_articles %}
+            {% for category, articles in category_articles.items %}
+                <h3 class="category-title">{{ category.name }}</h3>
+                <p class="article-meta">{{ category.description }}</p>
+                {% if articles %}
+                    <ul>
+                    {% for article in articles %}
+                        <li class="article-item">
+                            <a href="{{ article.get_absolute_url }}" class="article-link">{{ article.title }}</a>
+                            <p class="article-meta">Author: {{ article.author }}</p>
+                            <p class="article-meta">Published: {{ article.created_on|date:"F j, Y" }}</p>
+                            <p class="article-meta">Last Updated: {{ article.updated_on|date:"F j, Y" }}</p>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="article-meta">No articles in this category.</p>
+                {% endif %}
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>No articles available.</p>
-    {% endif %}
+        {% else %}
+            <p class="article-meta">No categories or articles available.</p>
+        {% endif %}
+    </section>
+    
 {% endblock %}

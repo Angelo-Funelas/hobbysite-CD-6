@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import *
+from .models import ArticleCategory, Article, Comment
+
+class CommentInline(admin.StackedInline):
+    model = Comment
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     model = ArticleCategory
@@ -8,8 +11,14 @@ class ArticleCategoryAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
-    list_display = ('title', 'category', 'created_on', 'updated_on',)
-    list_filter = ('category',)
+    list_display = ('title', 'author', 'category', 'created_on', 'updated_on',)
+    list_filter = ('category', 'author',)
+    inlines = [CommentInline,]
+
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
+    list_display = ('author', 'article', 'entry', 'created_on', 'updated_on',)
 
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Comment, CommentAdmin)
