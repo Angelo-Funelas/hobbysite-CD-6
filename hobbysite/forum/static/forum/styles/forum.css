@@ -11,6 +11,9 @@ html {
 nav > div:last-child {
     padding: .6rem 2rem;
 }
+.nav-block-content {
+    display: block;
+}
 .forum-nav {
     display: grid;
     grid-template-columns: auto 1fr;
