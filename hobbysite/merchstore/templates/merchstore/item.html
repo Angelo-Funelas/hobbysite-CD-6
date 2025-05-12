@@ -1,21 +1,92 @@
-{% extends "merchstore/base.html" %}
-{% block title %}{{product.name}}{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Merchandise Store - {{product.name}}{% endblock %}
+{% block head %}
+    <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'merchstore/styles/styles.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <div>
+        <a href="{% url 'merchstore:transactions' %}"><button><img src="{% static 'merchstore/icons/package.svg' %}"></button></a>
+        <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
+    </div>
+{% endblock %}
 {% block content %}
-<a href="{% url 'merchstore:index' %}" class="nav-link">< Go back</a>
 <article class="product-view">
-    <img src="" class="">
+    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Items</a></div>
+    <div class="product-gallery">
+        <div>
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+        </div>
+        <div>
+            {% for image in product.images.all %}
+                <div><img src="{{image.image.url}}"></div>
+            {% endfor %}
+        </div>
+    </div>
     <div>
         <h2>{{product.name}}</h2>
+        <p>{{product.sales}} Sold</p>
         <p class="price">₱{{product.price}}</p>
         <p class="product-type-tag">{{product.product_type.name}}</p>
         <p>Description:</p>
         <p>
             {{product.description|linebreaksbr}}
         </p>
+        {% if not user.profile == product.owner %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <input name="status" type="text" id="order-status" hidden>
+            <input name="qty" type="number" value="{% if product.stock > 0 %}1{% else %}0{% endif %}" min="0" max="{{product.stock}}">
+        </form>
+        {% endif %}
+        <p>{{product.stock}} pieces available ({{product.get_status_display}})</p> 
         <div class="purchase-buttons">
-            <button>Buy Now</button>
-            <button>Add To Cart</button>
+            {% if user.profile == product.owner %}
+                <a href="{% url 'merchstore:edit' product.id %}">Edit Listing</a>
+            {% elif product.stock > 0 %}
+                <button data-status="to_ship">Buy Now</button>
+                <button data-status="on_cart">Add To Cart</button>
+            {% else %}
+               <button disabled>Out of Stock</button>
+            {% endif %}
         </div>
     </div>
 </article>
+<section id="seller-products">
+    <div>
+        <h2>Seller's Products</h2>
+        <div class="product-listings-container">
+            {% for product in product.owner.products.all|slice:":5" %}
+                <a href="{{product.get_absolute_url}}" class="product-listing-card">
+                    <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="product-img">
+                    <div class="product-listing-details">
+                        <p>{{product.name}}</p>
+                        <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
+                        <div><p class="price">₱{{product.price}}</p></div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section id="seller-details">
+    <div>
+        <img src="{{ product.owner.profile_picture.url }}" alt="{{ product.owner.display_name }}">
+        <div>
+            <div>
+                <p>{{product.owner.display_name}}</p>
+                <p>Joined {{product.owner.user.date_joined}}</p>
+                <p>{{product.owner.products.count}} Products</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
+{% block scripts %}
+<script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
+<script src="{% static 'merchstore/scripts/order.js' %}"></script>
+<script src="{% static 'merchstore/scripts/image_gallery.js' %}"></script>
+{% endblock  %}

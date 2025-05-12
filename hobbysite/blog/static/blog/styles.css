@@ -1,0 +1,234 @@
+:root {
+    --theme: #0091c8;
+    --accent: #62c7ff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #282a35;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3, h4 {
+    color: #282a35;
+}
+
+.article-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.article-list-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 800px;
+}
+
+.article-list-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-list-item h4 {
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--theme);
+}
+
+.article-list-item p {
+    margin: 10px 0;
+    color: #444;
+}
+
+.article-list-item a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+.article-list-item a:hover {
+    text-decoration: underline;
+}
+
+.comment {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.comment strong {
+    color: #282a35;
+}
+
+.comment p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form button {
+    background-color: var(--theme);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: var(--accent);
+}
+
+.article-detail img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.article-detail .entry {
+    margin-bottom: 20px;
+}
+
+.related-articles ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.related-articles li {
+    margin: 10px 0;
+}
+
+.related-articles a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+.related-articles a:hover {
+    text-decoration: underline;
+}
+
+a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.empty-message {
+    color: #777;
+    font-style: italic;
+}
+
+.my-articles-container,
+.all-articles-container {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 925px;
+    width: 90%;
+}
+
+.category-container {
+    margin-bottom: 20px;
+}
+
+.create-article-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.create-article-button a {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--theme);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-article-button a:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.related-articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Automatically adjust columns based on available space */
+    gap: 20px; /* Adds space between the boxes */
+    margin-bottom: 30px;
+}
+
+.related-article-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.related-article-box:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.related-article-box h4 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: var(--theme);
+}
+
+.related-article-box p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.related-article-box a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+.related-article-box a:hover {
+    text-decoration: underline;
+}
+

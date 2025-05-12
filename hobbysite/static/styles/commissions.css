@@ -1,0 +1,116 @@
+:root {
+    --theme: #0091c8;
+    --accent: #62c7ff;
+    --grey: rgb(76, 74, 74);
+    --lightgrey: rgb(172, 164, 164);
+    --lighthover: #eaeaea9a;
+}
+h2 {
+    font-weight: 700;
+}
+div.header-block{
+    background-color: var(--theme);
+}
+h1.title {
+    text-align: center;
+    color: white;
+    margin:0;
+    padding:20px;
+}
+h3.title {
+    text-align: center;
+    color: white;
+    margin:0;
+}
+div.button-main{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;  
+    padding: 8px;
+}
+hr.line-break{
+    border-color: var(--accent);
+}
+h3.subtitle {
+    margin: 20px;
+}
+main { 
+    margin: 0 auto;
+    max-width: 1200px;
+    text-align: justify;
+}
+div.body-block {
+    overflow: hidden;
+    border-color: var(--theme);
+    border-radius: 8px;
+    border: 1px;
+    background-color: white;
+    margin: 16px;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+div.job-block {
+    border-radius: 8px;
+    border: 1px solid var(--theme);
+    background-color: white;
+    margin: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(134, 147, 121, 0.1);
+}
+div.new-job-block {
+    border-radius: 8px;
+    border: 1px solid var(--theme);
+    background-color: var(--lighthover);
+    margin: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(134, 147, 121, 0.1);
+}
+div.commission-block {
+    border-radius: 8px;
+    border: 1px solid var(--theme);
+    background-color: #bae1f6;
+    margin: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(134, 147, 121, 0.1);
+}
+
+.job-button {
+    padding: 1px;
+    border-radius: 4px;
+    background-color: var(--accent);
+    text-align: center;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+}
+.job-button:hover {
+    background-color: var(--lighthover);
+}
+.button {
+    background-color: var(--accent);
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+}
+.button:hover
+{
+    background-color: var(--lighthover);
+}
+a {
+    color: white;
+    text-decoration: none;
+}  

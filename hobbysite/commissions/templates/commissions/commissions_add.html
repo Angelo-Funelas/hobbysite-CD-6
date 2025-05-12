@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create Commission{% endblock %}
+{% block head %}
+<link rel="shortcut icon" href="{% static 'home/icons/commission.png' %}">
+<link rel="stylesheet" href="{% static 'styles/commissions.css' %}">
+{% endblock %} 
+{% block content %}
+<div class="body-block">
+    <div class="commission-block">
+        <h1>Create a commission:</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ commission_form.as_p }}
+            <button type="Submit" class="button">Post Commission</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

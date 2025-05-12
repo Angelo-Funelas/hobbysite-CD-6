@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Merchandise Store - Transactions{% endblock %}
+{% block head %}
+    <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'merchstore/styles/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'merchstore/styles/transactions.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <div>
+        <a href="{% url 'merchstore:transactions' %}"><button><img src="{% static 'merchstore/icons/package.svg' %}"></button></a>
+        <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
+    </div>
+{% endblock %}
+{% block content %}
+<section class="transactions">
+    <h2>{{heading}}</h2>
+    {% for profile, transactions in grouped_transactions.items %}
+        <div class="buyer-container">
+            <div>
+                <img src="{{ profile.profile_picture.url }}"><p>{{ profile.display_name }}</p>
+            </div>
+            <div class="buyer-transactions">
+                {% for transaction in transactions %}
+                    <a href="{{transaction.product.get_absolute_url}}">
+                        <img src="{% if transaction.product.images.first.image %}{{transaction.product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" alt="{{transaction.product.name}}">
+                        <div>
+                            <p>{{transaction.product.name}}</p>
+                            <p>{{transaction.created_on}}</p>
+                            <p>{{transaction.amount}}x</p>
+                        </div>
+                        <div>
+                            <p class="price">₱{{transaction.total_price}}</p>
+                            <p>{{transaction.get_status_display}}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
+{% endblock  %}
