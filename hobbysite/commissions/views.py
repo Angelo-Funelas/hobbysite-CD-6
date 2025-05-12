@@ -29,7 +29,9 @@ def commission(request):
     else:
         user_commissions = Commission.objects.none()
         applied_commissions = Commission.objects.none()
-        other_commissions = Commission.objects.all()
+        other_commissions = Commission.objects.all().annotate(
+            status_order=custom_order
+        ).order_by('status_order', 'created_on')
 
     return render(request, 'commissions/commissions.html', {
         'user_commissions': user_commissions,
@@ -114,7 +116,8 @@ def commission_update(request, id):
 
         if commission_form.is_valid() and all([jf.is_valid() for jf in job_forms]) and new_job_form.is_valid():
             commission = commission_form.save(commit=False)
-            commission_form.save()
+            commission.status = request.POST["commission_status"]
+            commission.save()
             if all(new_job_form.cleaned_data.get(field) for field in new_job_form.cleaned_data):
                 job = new_job_form.save(commit=False)
                 job.author = request.user.profile
@@ -138,6 +141,7 @@ def commission_update(request, id):
     return render(request, 'commissions/commissions_update.html', {
         'commission_form': commission_form,
         'job_forms': job_forms,
+        'commission': commission_object,
         'new_job_form': new_job_form,
     })
     

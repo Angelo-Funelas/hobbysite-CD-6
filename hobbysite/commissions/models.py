@@ -15,7 +15,7 @@ class Commission(models.Model):
         ('completed', 'Completed'),
         ('discontinued', 'Discontinued'),
     ]
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     def __str__(self):
         return self.title
