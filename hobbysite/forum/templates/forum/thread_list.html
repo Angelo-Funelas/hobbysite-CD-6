@@ -1,51 +1,83 @@
-<!-- This html file displays all the post/thread categories and a teaser of the latest post underneath it. -->
-{% extends 'forum/base.html' %}
-{% block head %}
-    <style>
-        a{
-            text-decoration: none;
-            color: black;
-        }
-        a:hover{
-            text-decoration: underline;
-        }
-        .thread-list-name > h2{
-            font-size: 3.2rem;
-            padding: 0px;
-            margin: 0px;
-        }
-        .thread-list-name > p{
-            font-size: 1.5rem;
-            padding: 0px;
-            margin: 0px;
-        }
-        .thread-category-latest > p{
-            padding: 0px;
-            margin: 0px;
-        }
-        .thread-category-latest > h3{
-            padding: 0px;
-            margin: 0px;
-        }
-        .thread-category-latest > h4{
-            padding: 0px;
-            margin: 0px;
-        }
-    </style>
-{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
 {% block title %} Forum Menu {% endblock %}
+{% block head %}
+<link rel="shortcut icon" href="{% static 'home/icons/blog.png' %}">
+    <link rel="stylesheet" href="{% static 'forum/styles/forum.css' %}">
+{% endblock %}
+{% block nav %}
+    <div class="forum-nav">
+        <a href="{%url 'forum:thread_list' %}"><h1>Forum</h1></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'forum:create_thread' %}" class="create-btn">Create</a>
+        {% endif %}
+    </div>
+{% endblock %}
 {% block content %}
-    {% for thread in threads %}
-        <div class = "thread-list">
-            <div class= "thread-list-name">
-                <h2> <a href="{{thread.get_absolute_url}}"> {{ thread.name }} </a> </h2>
-                <p> {{ thread.description}} </p>
-            </div>
-            <div class="thread-category-latest">
-                <h3> Latest Post: </h3>
-                <h4> <a href="{{thread.latest_post.get_absolute_url}}">{{ thread.latest_post.title }}</a> </h4>
-                <p> Created: {{ thread.latest_post.created_on }}, Last Updated: {{ thread.latest_post.updated_on }} </p>
-            </div>
+    <div class="thread-list-main">
+        <div class="sidebar">
+            <h2>Categories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="#category-{{ category.id }}"><span>{{ category.name }}</span></a></li>
+                {% endfor %}
+            </ul>
         </div>
-    {% endfor %}
+        <div class="forum-body">
+            {% if user.is_authenticated %}
+                <h2 class="forum-section-title">{{ user_profile }}'s Posts</h2>
+                <div class="threads">
+                    {% for thread in user_threads %}
+                        <div class = "thread">
+                            <a href="{{ thread.get_absolute_url }}">
+                                <div class="thread-container">
+                                    <div class= "thread-name">
+                                        <h3> {{ thread.category }} <span class="date-time"> • {{ thread.created_on }}</span> </h3>
+                                        <h3> {{ thread.title }} </h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <h2 class="forum-section-title">Other Posts</h2>
+                <div class="threads">
+                    {% for group in all_threads %}
+                        <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
+                        {% for thread in group.threads %}
+                            <div class="thread">
+                                <a href="{{ thread.get_absolute_url }}">
+                                    <div class="thread-container">
+                                        <div class="thread-name">
+                                            <h3>{{ thread.category }}<span class="date-time"> • {{ thread.created_on }}</span></h3>
+                                            <h3>{{ thread.title }}</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>            
+            {% else %}
+                <h2 class="forum-section-title">Posts</h2>
+                <div class="threads">
+                    {% for group in all_threads %}
+                        <h2 class="category-header" id="category-{{ group.category.id }}">{{ group.category.name }}</h2>
+                        {% for thread in group.threads %}
+                            <div class = "thread">
+                                <a href="{{ thread.get_absolute_url }}">
+                                    <div class="thread-container">
+                                        <div class= "thread-name">
+                                            <h3>{{thread.category}}<span class="date-time"> • {{thread.created_on}}</span></h3>
+                                            <h3>{{thread.title}}</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

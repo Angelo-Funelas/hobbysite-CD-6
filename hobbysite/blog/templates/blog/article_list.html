@@ -1,16 +1,57 @@
-{% extends 'blog/base.html' %}
-{% block title %}Article List{% endblock title %}
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Articles{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>Community Blogs</h1>
-    {% for article in articles %}
-        <a href="{% url 'blog:item' article.id %}" class="article-link">
-            <div class="article-card">
-                <h3>{{ article.title }}</h3>
-                <p class="category">{{ article.category.name }}</p>
-                <p class="last-update">Last updated: {{ article.updated_on }}</p>
+    {% if user.is_authenticated %}
+        <div class="my-articles-container">
+            <h3>Your Articles</h3>
+            <div class="article-list-container">
+                {% for article in user_articles %}
+                    <div class="article-list-item">
+                        <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
+                        <p>Category: {{ article.category.name }}</p>
+                        <p>Created on: {{ article.created_on }}</p>
+                    </div>
+                {% empty %}
+                    <p>You haven't written any articles yet.</p>
+                {% endfor %}
+
+                <div class="create-article-button">
+                    <a href="{% url 'blog:article_create' %}">Create a New Article</a>
+                </div>
             </div>
-        </a>
-    {% empty %}
-        <p>No articles available.</p>
-    {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="all-articles-container">
+        <h3>All Articles</h3>
+        {% for category, articles in grouped_articles.items %}
+            {% if articles.all %}
+                <div class="category-container">
+                    <h4>{{ category.name }}</h4>
+                    <div class="article-list-container">
+                        {% for article in articles %}
+                            <div class="article-list-item">
+                                <h4><a href="{% url 'blog:article_detail' article.id %}">{{ article.title }}</a></h4>
+                                <p>Author: {{ article.author.display_name }}</p>
+                                <p>Category: {{ article.category.name }}</p>
+                                <p>Created on: {{ article.created_on }}</p>
+                            </div>
+                        {% empty %}
+                            <p>No articles in this category.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <hr>
 {% endblock %}

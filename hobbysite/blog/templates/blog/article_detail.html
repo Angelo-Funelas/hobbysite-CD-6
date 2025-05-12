@@ -1,14 +1,83 @@
-{% extends 'blog/base.html' %}
+{% extends 'base.html' %}
+
+{% load static %}
+
 {% block title %}{{ article.title }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+{% endblock %}
+
 {% block content %}
-    {% if article %}
+    <div class="all-articles-container">
         <h2>{{ article.title }}</h2>
-        <p><strong>Category: </strong> {{ article.category }}</p>
-        <p>{{ article.entry }}</p>
-        <p><small>Created on: {{ article.created_on }}</small></p>
-        <p><small>Last updated on: {{ article.updated_on }}</small></p>
-    {% else %}
-        <h2>Article Not Found</h2>
-        <p>The requested article does not exist.</p>
-    {% endif %}
+
+        {% if article.header_image %}
+            <img src="{{ article.header_image.url }}" alt="Header Image" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        {% endif %}
+
+        <p><strong>Category:</strong> {{ article.category.name }}</p>
+        <div class="article-detail entry">
+            <p>{{ article.entry }}</p>
+            <p><small>Created on: {{ article.created_on }}</small></p>
+            <p><small>Last updated on: {{ article.updated_on }}</small></p>
+        </div>
+
+        {% if user.is_authenticated and article.author == user.profile %}
+            <div class="create-article-button">
+                <a href="{% url 'blog:article_update' article.id %}">Edit Article</a>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        <h3>Related Articles</h3>
+        <h5>From the same author</h5>
+        <div class="related-articles">
+            {% for related_article in other_articles %}
+                <div class="related-article-box">
+                    <h4><a href="{% url 'blog:article_detail' related_article.id %}">{{ related_article.title }}</a></h4>
+                    <p><strong>Category:</strong> {{ related_article.category.name }}</p>
+                    <p><small>Created on: {{ related_article.created_on }}</small></p>
+                    <p><small>Updated on: {{ related_article.updated_on }}</small></p>
+                </div>
+            {% empty %}
+                <p>No related articles found.</p>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        <h3>Comments</h3>
+        {% for comment in comments %}
+            <div class="article-list-item comment" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
+                <img src="{{ comment.author.profile_picture.url }}" alt="Profile Picture"
+                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <div>
+                    <strong>{{ comment.author.display_name }}</strong> ({{ comment.created_on }})<br>
+                    <p>{{ comment.entry }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-message">No comments yet.</p>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <h3>Leave a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    {{ comment_form.entry }}
+                    {% if comment_form.entry.errors %}
+                        <div class="form-error">{{ comment_form.entry.errors }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit">Post Comment</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+        {% endif %}
+
+        <p style="margin-top: 30px;"><a href="{% url 'blog:index' %}">Back to Articles</a></p>
+    </div>
 {% endblock %}
