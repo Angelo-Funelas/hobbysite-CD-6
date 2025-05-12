@@ -26,7 +26,7 @@ def articles_list(request):
 def article_detail(request, id): 
     article = Article.objects.get(id=id)
     related_articles = Article.objects.filter(category=article.category).exclude(id=id)[:2]
-    comments = article.comment_set.all().order_by('-created_on')
+    comments = article.wiki_comments.all().order_by('-created_on')
     
     if request.method == "POST" and request.user.is_authenticated:
         comment_form = CommentForm(request.POST)
