@@ -41,7 +41,6 @@ def commission_details(request, pk):
     commission_object = Commission.objects.get(pk=pk)
     owner = commission_object.author == request.user.profile if request.user.is_authenticated else False
     jobs = commission_object.jobs.all()
-    job_applications = JobApplication.objects.filter(job__in=jobs).select_related('job', 'applicant')
 
     if request.user.is_authenticated:
         applied_job_ids = JobApplication.objects.filter(
@@ -76,7 +75,6 @@ def commission_details(request, pk):
     return render(request, 'commissions/commissions_detail.html', {
         'commission': commission_object,
         'jobs': jobs,
-        'job_applications': job_applications,
         'applied_job_ids': applied_job_ids,
         'owner': owner,
         'job_status': job_status,
