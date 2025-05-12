@@ -24,6 +24,8 @@ class Commission(models.Model):
         return reverse('commissions:commission_details', args=[self.pk])
 
     class Meta:
+        verbose_name = 'Commission'
+        verbose_name_plural = 'Commissions'
         ordering = ["created_on"] # Sorted by creation date in ascending order
 
 class Job(models.Model):
@@ -43,6 +45,8 @@ class Job(models.Model):
         return self.role
 
     class Meta:
+        verbose_name = 'Job'
+        verbose_name_plural = 'Jobs'
         ordering = ["-status","-manpower_required", "role"] 
 
 class JobApplication(models.Model):
@@ -59,4 +63,6 @@ class JobApplication(models.Model):
     applied_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        verbose_name = 'Job Application'
+        verbose_name_plural = 'Job Applications'
         ordering = ['applied_on']
