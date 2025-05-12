@@ -95,7 +95,7 @@ def commission_create(request):
 
     return render(request, 'commissions/commissions_add.html', {
         'commission_form': commission_form,
-        })
+    })
 
 @login_required
 def commission_update(request, id):
