@@ -4,3 +4,4 @@ __pycache__
 hobbysite/media/**
 !hobbysite/media/profile_pictures/
 !hobbysite/media/profile_pictures/default.png
+.env
