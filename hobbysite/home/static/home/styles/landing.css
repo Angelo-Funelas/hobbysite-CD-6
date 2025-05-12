@@ -8,6 +8,7 @@ nav > div:last-child {
 section:first-child {
     padding: 1rem;
     margin: 0;
+    background-color: #e2e7ea;
     background-size: cover;
     background-position: top;
     height: 70vh;
