@@ -11,25 +11,25 @@ class ThreadCategoryAdmin(admin.ModelAdmin):
     model = ThreadCategory
 
     list_display = ('name', 'description',)
-    search_fields = ('name', )
+    search_fields = ('name',)
 
     # Allows for admin to view Threads under a ThreadCategory.
-    inlines = [ThreadInLine, ]
+    inlines = (ThreadInLine, )
 
 class ThreadAdmin(admin.ModelAdmin):
     model = Thread
 
-    list_display = ('title', 'author', 'category', 'created_on', 'updated_on', 'id', )
+    list_display = ('title', 'author', 'category', 'created_on', 'updated_on', 'id',)
     search_fields = ('title', 'entry',)
     list_filter = ('created_on',)
 
     # Allows for admin to view Comments under a Thread.
-    inlines = [CommentInLine, ]
+    inlines = (CommentInLine, )
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
 
-    list_display = ('author', 'thread', 'entry', 'created_on')
+    list_display = ('author', 'thread', 'entry', 'created_on',)
 
 admin.site.register(ThreadCategory, ThreadCategoryAdmin)
 admin.site.register(Thread, ThreadAdmin)
