@@ -43,3 +43,37 @@ form button {
     padding: .4rem 1.5rem;
     margin-bottom: 1rem;
 }
+section.dashboard {
+    margin-top: 4rem;
+    background: rgb(248, 248, 248);
+    padding: 1rem;
+}
+section.dashboard > div + div {
+    border-top: 1px solid rgb(148, 148, 148);
+}
+section.dashboard ul {
+    list-style: none;
+}
+section.dashboard li a {
+    color: black;
+    background-color: white;
+    padding: .1rem 2rem;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    text-decoration: none;
+}
+section.dashboard li a:hover {
+    background-color: rgb(219, 219, 219);
+}
+section.dashboard li a > p:nth-child(2) {
+    text-align: right;
+    color: rgb(104, 104, 104);
+}
+section.dashboard li a > p:nth-child(1) > span {
+    font-size: .8em;
+    color: rgb(104, 104, 104);
+    outline: 1px solid rgb(123, 123, 123);
+    padding: .1em .4em;
+    margin-left: .4em;
+    border-radius: 2px;
+}

@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Profile
+from merchstore.models import Transaction
+from commissions.models import Commission
 from django.contrib import messages
 
 @login_required
@@ -21,7 +23,15 @@ def index(request):
         profile.save()
         return HttpResponseRedirect(reverse('index'))
     else:
-        return render(request, "user_management/profile.html")
+        return render(request, "user_management/profile.html", {
+            "purchases": Transaction.objects.filter(buyer=request.user.profile).order_by('-created_on'),
+            "sales": Transaction.objects.filter(product__owner=request.user.profile).order_by('-created_on'),
+            "wiki_articles": request.user.profile.wiki_articles.all().order_by('-created_on'),
+            "blog_articles": request.user.profile.blog_articles.all().order_by('-created_on'),
+            "threads": request.user.profile.threads.all().order_by('-created_on'),
+            "commissions_created": Commission.objects.filter(author=request.user.profile).order_by('-created_on'),
+            "commissions_joined": Commission.objects.filter(jobs__job_application__applicant=request.user.profile).order_by('-created_on'),
+        })
         
 def register(request):
     if request.method == 'GET':
