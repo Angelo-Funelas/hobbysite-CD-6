@@ -7,9 +7,18 @@ from urllib.parse import urlencode, quote
 from django.db.models import Sum
 
 def index(request):
+    user_profile = request.user.profile if request.user.is_authenticated else None
+    
+    if user_profile:
+        user_products = Product.objects.filter(owner=user_profile)
+        all_products = Product.objects.exclude(owner=user_profile)
+    else:
+        user_products = None
+        all_products = Product.objects.all()
+        
     return render(request, 'merchstore/index.html', {
-        'user_products': Product.objects.filter(owner=request.user.profile) if request.user.is_authenticated else None,
-        'products': Product.objects.exclude(owner=request.user.profile) if request.user.is_authenticated else Product.objects.all()
+        'user_products': user_products,
+        'products': all_products
     })
 
 def item(request, id):
