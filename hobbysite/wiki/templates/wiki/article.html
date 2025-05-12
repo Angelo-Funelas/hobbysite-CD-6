@@ -34,7 +34,7 @@
         </p>
 
         {% if request.user.is_authenticated and request.user.profile == article.author %}
-            <br><a href="{% url 'wiki:article_update' pk=article.pk %}" class="button">
+            <br><a href="{% url 'wiki:article_update' id=article.id %}" class="button">
                 Edit Article
             </a>
         {% endif %}
