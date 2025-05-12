@@ -262,9 +262,68 @@ main {
     background-color: transparent;
     filter: invert(1) brightness(2);
 }
-section:not(.hero), article:not(:has(section)) {
+article:not(:has(section)) {
     padding: 5vw;
+}
+section:not(.hero) {
+    padding: 1vw 5vw;
+}
+section:not(.hero):first-child {
+    padding-top: 5vw;
+}
+section:not(.hero):last-child {
+    margin-bottom: 10vw;
 }
 .hidden {
     display: none;
+}
+#seller-details > div > img {
+    display: block;
+    height: 100%;
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+#seller-details > div {
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 100%;
+    height: 5rem;
+    overflow: hidden;
+    padding: 2rem;
+    box-shadow: 0px 2px 1px 1px rgba(132,132,132,0.2);
+}
+#seller-details > div > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#seller-details > div > div > div {
+    border-left: 1px solid rgb(145, 145, 145);
+    padding-left: 1rem;
+    margin-left: 1rem;
+}
+#seller-details > div > div > div > p {
+    margin: 0;
+}
+#seller-details > div > div > div > p:nth-child(1) {
+    font-weight: bold;
+}
+#seller-details > div > div > div > p:nth-child(2) {
+    margin-bottom: 1rem;
+    font-size: .8em;
+    color: rgb(145, 145, 145);
+}
+#seller-products > div {
+    background-color: white;
+    overflow: hidden;
+    padding: 2rem;
+    box-shadow: 0px 2px 1px 1px rgba(132,132,132,0.2);
+}
+#seller-products > div > div {
+    grid-template-columns: repeat(auto-fill, max(180px));
+}
+#seller-products > div > div > a > .product-listing-details > p:first-child {
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
 }

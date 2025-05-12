@@ -54,6 +54,35 @@
         </div>
     </div>
 </article>
+<section id="seller-products">
+    <div>
+        <h2>Seller's Products</h2>
+        <div class="product-listings-container">
+            {% for product in product.owner.products.all|slice:":5" %}
+                <a href="{{product.get_absolute_url}}" class="product-listing-card">
+                    <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
+                    <div class="product-listing-details">
+                        <p>{{product.name}}</p>
+                        <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
+                        <div><p class="price">₱{{product.price}}</p></div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section id="seller-details">
+    <div>
+        <img src="{{ product.owner.profile_picture.url }}" alt="{{ product.owner.display_name }}">
+        <div>
+            <div>
+                <p>{{product.owner.display_name}}</p>
+                <p>Joined {{product.owner.user.date_joined}}</p>
+                <p>{{product.owner.products.count}} Products</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
