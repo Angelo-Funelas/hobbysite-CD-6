@@ -16,8 +16,8 @@ class ThreadCategory(models.Model):
 
 class Thread(models.Model):
     title = models.CharField(max_length=255)
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="threads")
+    category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True, related_name="threads")
     entry = models.TextField()
     image = models.ImageField(upload_to='forum/images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
