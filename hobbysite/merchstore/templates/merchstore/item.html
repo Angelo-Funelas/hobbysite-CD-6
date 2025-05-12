@@ -17,8 +17,8 @@
     <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Items</a></div>
     <div class="product-gallery">
         <div>
-            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
-            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
         </div>
         <div>
             {% for image in product.images.all %}
@@ -28,6 +28,7 @@
     </div>
     <div>
         <h2>{{product.name}}</h2>
+        <p>{{product.purchases.all.count}} Sold</p>
         <p class="price">₱{{product.price}}</p>
         <p class="product-type-tag">{{product.product_type.name}}</p>
         <p>Description:</p>
@@ -60,7 +61,7 @@
         <div class="product-listings-container">
             {% for product in product.owner.products.all|slice:":5" %}
                 <a href="{{product.get_absolute_url}}" class="product-listing-card">
-                    <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
+                    <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="product-img">
                     <div class="product-listing-details">
                         <p>{{product.name}}</p>
                         <div><p class="product-type-tag">{{product.product_type.name}}</p></div>

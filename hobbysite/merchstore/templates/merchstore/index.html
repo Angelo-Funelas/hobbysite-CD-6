@@ -15,12 +15,18 @@
 {% block content %}
 <section class="hero">
     <div>
-        <h1>Merchandise Store</h1>
-        <h2>A Trusted Place to Buy & Sell</h2>
-        <p>From gadgets to furniture—find great deals or make extra cash today.</p>
+        <div style="background-image: url('{% static 'merchstore/images/hero-banner.png' %}')"></div>
+        <div style="background-image: url('{% static 'merchstore/images/hero-banner.png' %}')"></div>
+    </div>
+    <div>
         <div>
-            <button>Browse Listings</button>
-            <a href="{% url 'merchstore:add' %}"><button>List an Item</button></a>
+            <h1>Merchandise Store</h1>
+            <h2>A Trusted Place to Buy & Sell</h2>
+            <p>From gadgets to furniture—find great deals or make extra cash today.</p>
+            <div>
+                <button>Browse Listings</button>
+                <a href="{% url 'merchstore:add' %}"><button>List an Item</button></a>
+            </div>
         </div>
     </div>
 </section>
@@ -31,7 +37,7 @@
             <div class="product-listings-container">
                 {% for product in user_products %}
                     <a href="{{product.get_absolute_url}}" class="product-listing-card">
-                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
+                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="product-img">
                         <div class="product-listing-details">
                             <p>{{product.name}}</p>
                             <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
@@ -50,7 +56,7 @@
             {% if products %}
                 {% for product in products %}
                     <a href="{{product.get_absolute_url}}" class="product-listing-card">
-                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="product-img">
+                        <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="product-img">
                         <div class="product-listing-details">
                             <p>{{product.name}}</p>
                             <div><p class="product-type-tag">{{product.product_type.name}}</p></div>
@@ -66,5 +72,6 @@
 </article>
 {% endblock %}
 {% block scripts %}
+<script src="{% static 'merchstore/scripts/index.js' %}"></script>
 <script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
 {% endblock  %}

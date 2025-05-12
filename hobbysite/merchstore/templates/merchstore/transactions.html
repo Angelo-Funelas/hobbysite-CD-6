@@ -24,7 +24,7 @@
             <div class="buyer-transactions">
                 {% for transaction in transactions %}
                     <a href="{{transaction.product.get_absolute_url}}">
-                        <img src="{% if transaction.product.images.first.image %}{{transaction.product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" alt="{{transaction.product.name}}">
+                        <img src="{% if transaction.product.images.first.image %}{{transaction.product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" alt="{{transaction.product.name}}">
                         <div>
                             <p>{{transaction.product.name}}</p>
                             <p>{{transaction.created_on}}</p>

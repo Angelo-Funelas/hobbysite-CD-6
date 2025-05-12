@@ -73,7 +73,7 @@ main {
 .product-view > div:has(.nav-link) {
     grid-column: 1 / span 2;
 }
-.product-view > div > p:nth-child(2) {
+.product-view > div > p:nth-child(3) {
     color: var(--theme);
     font-size: 2rem;
     font-weight: bold;
@@ -202,14 +202,35 @@ main {
     padding: 1rem;
     color: white;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero > div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.hero > div:first-child {
+    display: grid;
+    grid-template-rows: repeat(2, 50%);
+}
+.hero > div:first-child > div {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: 0 0;
+    background-repeat: repeat-x;
+}
+.hero > div:last-child {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(21deg,rgba(255, 255, 255, 0.526) 0%, rgba(76, 157, 212, 0.4) 50%);
+    filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.5));
 }
-.hero > div > div {
-    display: inline-flex;
-}
-.hero > div > div button {
+.hero > div:last-child > div button {
     margin: .5rem;
     padding: 0.5rem 1rem;
     cursor: pointer;

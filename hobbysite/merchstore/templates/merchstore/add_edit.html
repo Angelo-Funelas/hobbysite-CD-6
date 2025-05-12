@@ -17,12 +17,12 @@
     <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Items</a></div>
     <div class="product-gallery">
         <div>
-            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
-            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
         </div>
         <div>
             {% for image in product.images.all %}
-                <div><img src="{% if image.image %}{{image.image.url}}{% else %}{% static 'merchstore/icons/noimage.png' %}{% endif %}"><img src="{% static 'merchstore/icons/delete.svg' %}" data-obj_id="{{image.id}}"></div>
+                <div><img src="{% if image.image %}{{image.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}"><img src="{% static 'merchstore/icons/delete.svg' %}" data-obj_id="{{image.id}}"></div>
             {% endfor %}
             <img src="{% static 'merchstore/icons/add.svg' %}" id="add-image-button">
         </div>
