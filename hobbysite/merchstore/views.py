@@ -53,7 +53,7 @@ def item(request, id):
             return HttpResponseRedirect(reverse('merchstore:cart'))
         except ValueError:
             return redirect(product.get_absolute_url())
-    product.sales = product.purchases.aggregate(Sum('amount'))['amount__sum']
+    product.sales = product.purchases.aggregate(Sum('amount'))['amount__sum'] or 0
     return render(request, 'merchstore/item.html', {
         'product': product
     })
