@@ -24,13 +24,13 @@
             <h2>A Trusted Place to Buy & Sell</h2>
             <p>From gadgets to furniture—find great deals or make extra cash today.</p>
             <div>
-                <button>Browse Listings</button>
+                <a href="#products"><button>Browse Listings</button></a>
                 <a href="{% url 'merchstore:add' %}"><button>List an Item</button></a>
             </div>
         </div>
     </div>
 </section>
-<article>
+<article id="products">
     {% if user.is_authenticated %}
         <section>
             <h3>Your Products</h3>
