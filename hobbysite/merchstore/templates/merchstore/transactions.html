@@ -38,6 +38,10 @@
                 {% endfor %}
             </div>
         </div>
+    {% empty %}
+        <div>
+            <p>No Transactions Available.</p>
+        </div>
     {% endfor %}
 </section>
 {% endblock %}
