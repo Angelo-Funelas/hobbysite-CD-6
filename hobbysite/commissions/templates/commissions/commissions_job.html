@@ -31,9 +31,9 @@
                         <form method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="job_application_id" value="{{ job_application.id }}">
-                            <button type="submit" name="action" value="accept" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            <button type="submit" name="action" value="accepted" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
                             disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %} class="button">Accept</button>
-                            <button type="submit" name="action" value="reject" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            <button type="submit" name="action" value="rejected" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
                             disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %} class="button">Reject</button>
                         </form>
                         {% endif %}
@@ -46,7 +46,7 @@
             {% endif %}
         {% endif %}
         <div class="button-main">
-            <a href="{% url 'commissions:commission_details' pk=commission.pk %}"><button class="button">return to commission</button></a>
+            <a href="{% url 'commissions:commission_details' id=commission.id %}"><button class="button">return to commission</button></a>
         </div>
     </div>
 {% endblock %}

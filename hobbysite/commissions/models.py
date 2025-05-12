@@ -21,7 +21,7 @@ class Commission(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('commissions:commission_details', args=[self.pk])
+        return reverse('commissions:commission_details', args=[self.id])
 
     class Meta:
         verbose_name = 'Commission'
@@ -67,5 +67,5 @@ class JobApplication(models.Model):
         verbose_name = 'Job Application'
         verbose_name_plural = 'Job Applications'
         ordering = ['applied_on']# sorted by status (Pending first, then Accepted, then Rejected), 
-        #then Applied On, in descending order. Custom sorting for status is under admin.py
+        #then Applied On, in descending order. Custom sorting for status is under admin.py.
 

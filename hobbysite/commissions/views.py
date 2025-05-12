@@ -37,8 +37,8 @@ def commission(request):
         'other_commissions': other_commissions,
     })
 
-def commission_details(request, pk):
-    commission_object = Commission.objects.get(pk=pk)
+def commission_details(request, id):
+    commission_object = Commission.objects.get(id=id)
     owner = commission_object.author == request.user.profile if request.user.is_authenticated else False
     jobs = commission_object.jobs.all()
 
@@ -89,7 +89,7 @@ def commission_create(request):
             commission.author = request.user.profile
             commission.save()
             
-            return redirect('commissions:commission_details', pk=commission.pk)
+            return redirect('commissions:commission_details', id=commission.id)
         
     commission_form = CreateCommissionForm()
 
@@ -98,12 +98,12 @@ def commission_create(request):
         })
 
 @login_required
-def commission_update(request, pk):
-    commission_object = Commission.objects.get(pk=pk)
+def commission_update(request, id):
+    commission_object = Commission.objects.get(id=id)
     jobs = Job.objects.filter(commission=commission_object)
 
     if commission_object.author != request.user.profile:
-        return redirect('commission:commissions_detail', pk=pk)
+        return redirect('commission:commissions_detail', id=id)
 
     if request.method == 'POST':
         commission_form = CreateCommissionForm(request.POST, request.FILES, instance=commission_object)
@@ -126,7 +126,7 @@ def commission_update(request, pk):
             for job_form in job_forms:
                 job_form.save()
 
-            return redirect('commissions:commission_details', pk=pk)
+            return redirect('commissions:commission_details', id=id)
 
     else:
         commission_form = CreateCommissionForm(instance=commission_object)
@@ -142,7 +142,7 @@ def commission_update(request, pk):
     })
     
 def job_application(request, job_id):
-    job = Job.objects.get(pk=job_id)
+    job = Job.objects.get(id=job_id)
     commission = job.commission
     owner = job.commission.author == request.user.profile if request.user.is_authenticated else False
     job_applications = JobApplication.objects.filter(job=job)
@@ -152,10 +152,7 @@ def job_application(request, job_id):
         job_application_id = request.POST.get('job_application_id') 
         job_application = JobApplication.objects.get(id=job_application_id)
         try:
-            if action == 'accept':
-                job_application.status = 'accepted'
-            elif action == 'reject':
-                job_application.status = 'rejected'
+            job_application.status = action
             job_application.save()
             return redirect(request.path)
         except JobApplication.DoesNotExist:
