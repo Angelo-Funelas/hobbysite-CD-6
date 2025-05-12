@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Merchandise Store - {% if product %}Edit {{product.name}}{% else %}New Listing{% endif %}{% endblock %}
+{% block head %}
+    <link rel="shortcut icon" href="{% static 'merchstore/icons/cart.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'merchstore/styles/styles.css' %}">
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'merchstore:index' %}"><h2>Merchandise Store</h2></a>
+    <div>
+        <a href="{% url 'merchstore:transactions' %}"><button><img src="{% static 'merchstore/icons/package.svg' %}"></button></a>
+        <a href="{% url 'merchstore:cart' %}"><button><img src="{% static 'merchstore/icons/cart.svg' %}"></button></a>
+    </div>
+{% endblock %}
+{% block content %}
+<article class="product-view">
+    <div><a href="{% url 'merchstore:index' %}" class="nav-link">< Items</a></div>
+    <div class="product-gallery">
+        <div>
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+            <img src="{% if product.images.first.image %}{{product.images.first.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}" class="">
+        </div>
+        <div>
+            {% for image in product.images.all %}
+                <div><img src="{% if image.image %}{{image.image.url}}{% else %}{% static 'merchstore/images/noimage.png' %}{% endif %}"><img src="{% static 'merchstore/icons/delete.svg' %}" data-obj_id="{{image.id}}"></div>
+            {% endfor %}
+            <img src="{% static 'merchstore/icons/add.svg' %}" id="add-image-button">
+        </div>
+    </div>
+    <div>
+        <form class="item-form" action="{% if product %}{% url 'merchstore:edit' product.id %}{% else %}{% url 'merchstore:add' %}{% endif %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input name="name" placeholder="Product Name" value="{{product.name}}" required>
+            <input type="number" name="price" placeholder="Price" value="{{product.price}}" step=".01" min="0" required>
+            <input type="number" name="stock" placeholder="Stock" value="{{product.stock}}" step="1" min="0" required>
+            <select name="type" required>
+                {% for type in product_types %}
+                    <option value="{{type.id}}" {% if type.id == product.product_type.id %}selected{% endif %}>{{type.name}}</option>
+                {% endfor %}
+            </select>
+            <p>Description:</p>
+            <textarea name="description" placeholder="Product Description">{{product.description}}</textarea>
+            <div class="purchase-buttons">
+                {% if product %}
+                    <a href="{{product.get_absolute_url}}">Cancel</a>
+                    <button>Save Listing</button>
+                {% else %}
+                    <button>List Item</button>
+                {% endif %}
+            </div>
+            <div class="image-inputs hidden">
+                <input type="text" name="images_to_delete" id="images-to-delete" hidden>
+                <input type="number" name="image_count" id="image-count" min="0" value="0" hidden>
+                <input type="file" accept="image/*" id="image-1" hidden>
+            </div>
+        </form>
+    </div>
+</article>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'merchstore/scripts/edit.js' %}"></script>
+<script src="{% static 'merchstore/scripts/priceFormatter.js' %}"></script>
+{% endblock  %}
