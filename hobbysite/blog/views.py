@@ -38,7 +38,7 @@ def article_detail(request, article_id):
             new_comment.author = request.user.profile
             new_comment.article = article
             new_comment.save()
-            return redirect(article.get_absolute_url)
+            return redirect(article.get_absolute_url())
     
     comment_form = CommentForm()
 

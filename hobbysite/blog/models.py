@@ -30,7 +30,7 @@ class Article(models.Model):
         ordering = ["-created_on"] #descending
     
     def get_absolute_url(self):
-        return reverse('blog:article_detail', kwargs={'article_id': self.id})
+        return reverse('blog:article_detail', kwargs={"article_id": self.id})
 
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="comments")
