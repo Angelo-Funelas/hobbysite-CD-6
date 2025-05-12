@@ -30,7 +30,7 @@ class Article(models.Model):
         ordering = ['-created_on'] # Sorted by creation date in descending order
 
     def get_absolute_url(self):
-        return reverse('wiki:article_detail', args=[self.pk])
+        return reverse('wiki:article_detail', args=[self.id])
     
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)

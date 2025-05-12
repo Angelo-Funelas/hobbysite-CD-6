@@ -48,10 +48,10 @@
             <ul>
                 {% for related_article in related_articles %}
                     <li class="article-item">
-                        <a href="{{ article.get_absolute_url }}" class="article-link">{{ article.title }}</a>
-                        <p class="article-meta">Author: {{ article.author }}</p>
-                        <p class="article-meta">Published: {{ article.created_on|date:"F j, Y" }}</p>
-                        <p class="article-meta">Last Updated: {{ article.updated_on|date:"F j, Y" }}</p>
+                        <a href="{{ related_article.get_absolute_url }}" class="article-link">{{ related_article.title }}</a>
+                        <p class="article-meta">Author: {{ related_article.author }}</p>
+                        <p class="article-meta">Published: {{ related_article.created_on|date:"F j, Y" }}</p>
+                        <p class="article-meta">Last Updated: {{ related_article.updated_on|date:"F j, Y" }}</p>
                     </li>
                 {% empty %}
                     <li>No related articles found.</li>
