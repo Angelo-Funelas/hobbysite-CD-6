@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Thread Creation Page {% endblock %}
+{% block head %}
+    <link rel="shortcut icon" href="{% static 'home/icons/blog.png' %}">
+    <link rel="stylesheet" href="{% static 'forum/styles/forum.css' %}">
+{% endblock %}
+{% block nav %}
+    <div class="forum-nav">
+        <a href="{% url 'forum:thread_list' %}"><h1>Forum</h1></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'forum:create_thread' %}" class="create-btn">Create</a>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="create-body">
+        <div class="form-container">
+            <a class="back-home" href="{% url 'forum:thread_list' %}"> ← Forum Home</a>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ thread_form.as_p }}
+                <div class="submit-btn">
+                    <button type="Submit">Post Thread</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
