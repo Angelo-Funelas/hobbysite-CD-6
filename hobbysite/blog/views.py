@@ -11,7 +11,7 @@ def article_list(request):
         user_articles = Article.objects.filter(author=user_profile).order_by('created_on')
         other_articles = Article.objects.exclude(author=user_profile).order_by('-created_on')
     else:
-        user_articles = Article.objects.none()
+        user_articles = None
         other_articles = Article.objects.all().order_by('-created_on')
 
     categories = ArticleCategory.objects.all().order_by('name')
@@ -38,7 +38,7 @@ def article_detail(request, article_id):
             new_comment.author = request.user.profile
             new_comment.article = article
             new_comment.save()
-            return redirect('blog:article_detail', article_id=article.id)
+            return redirect(article.get_absolute_url)
     
     comment_form = CommentForm()
 

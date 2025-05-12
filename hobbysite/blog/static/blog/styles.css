@@ -191,3 +191,44 @@ a:hover {
     font-size: 1em;
     box-sizing: border-box;
 }
+
+.related-articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Automatically adjust columns based on available space */
+    gap: 20px; /* Adds space between the boxes */
+    margin-bottom: 30px;
+}
+
+.related-article-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.related-article-box:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.related-article-box h4 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: var(--theme);
+}
+
+.related-article-box p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.related-article-box a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+.related-article-box a:hover {
+    text-decoration: underline;
+}
+
