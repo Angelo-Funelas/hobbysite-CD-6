@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from urllib.parse import urlencode, quote
+from django.db.models import Sum
 
 def index(request):
     return render(request, 'merchstore/index.html', {
@@ -43,7 +44,7 @@ def item(request, id):
             return HttpResponseRedirect(reverse('merchstore:cart'))
         except ValueError:
             return redirect(product.get_absolute_url())
-
+    product.sales = product.purchases.aggregate(Sum('amount'))['amount__sum']
     return render(request, 'merchstore/item.html', {
         'product': product
     })
