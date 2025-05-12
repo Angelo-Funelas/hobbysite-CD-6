@@ -36,3 +36,10 @@
 .profile-container div:nth-child(1) > div:hover > img:nth-child(2) {
     display: block;
 }
+form button {
+    background-color: var(--theme);
+    border: none;
+    color: white;
+    padding: .4rem 1.5rem;
+    margin-bottom: 1rem;
+}
