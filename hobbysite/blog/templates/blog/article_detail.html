@@ -32,9 +32,10 @@
     <hr>
 
     <h3>Related Articles</h3>
+    <h5>From the same author</h5>
     <div class="related-articles">
         <ul>
-            {% for related_article in related_articles %}
+            {% for related_article in other_articles %}
                 <li><a href="{% url 'blog:article_detail' related_article.id %}">{{ related_article.title }}</a></li>
             {% empty %}
                 <li>No related articles found.</li>
