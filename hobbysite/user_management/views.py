@@ -47,7 +47,7 @@ def register(request):
             return HttpResponseRedirect(reverse('register'))
 
         # Check if username already exists
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username.lower()).exists():
             messages.error(request, "Username already taken.")
             return HttpResponseRedirect(reverse('register'))
 
