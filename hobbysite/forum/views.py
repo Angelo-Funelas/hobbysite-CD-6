@@ -5,12 +5,12 @@ from .forms import CommentForm, ThreadForm
 
 def thread_list(request):
     if request.user.is_authenticated:
-        username = request.user.profile
-        user_threads = Thread.objects.filter(author=username)
-        threads = Thread.objects.exclude(author=username)
+        user_profile = request.user.profile
+        user_threads = Thread.objects.filter(author=user_profile)
+        threads = Thread.objects.exclude(author=user_profile)
     
     else:
-        username = None
+        user_profile = None
         user_threads = None
         threads = Thread.objects.all()
     
@@ -28,7 +28,7 @@ def thread_list(request):
     return render(request, 'forum/thread_list.html', {
         'user_threads': user_threads,
         'all_threads': grouped_threads,
-        'username': username,
+        'user_profile': user_profile,
         'categories': categories
     })
 

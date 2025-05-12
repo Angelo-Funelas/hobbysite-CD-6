@@ -24,7 +24,7 @@
         </div>
         <div class="forum-body">
             {% if user.is_authenticated %}
-                <h2 class="forum-section-title">{{ username }}'s Posts</h2>
+                <h2 class="forum-section-title">{{ user_profile }}'s Posts</h2>
                 <div class="threads">
                     {% for thread in user_threads %}
                         <div class = "thread">
