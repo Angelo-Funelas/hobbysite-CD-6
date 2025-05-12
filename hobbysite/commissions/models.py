@@ -47,7 +47,8 @@ class Job(models.Model):
     class Meta:
         verbose_name = 'Job'
         verbose_name_plural = 'Jobs'
-        ordering = ["-status","-manpower_required", "role"] 
+        ordering = ["-status","-manpower_required", "role"] #sorted by status (Open > Full), 
+        #manpower required, in descending order, then role, in ascending order
 
 class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="job_application")
@@ -65,4 +66,6 @@ class JobApplication(models.Model):
     class Meta:
         verbose_name = 'Job Application'
         verbose_name_plural = 'Job Applications'
-        ordering = ['applied_on']
+        ordering = ['applied_on']# sorted by status (Pending first, then Accepted, then Rejected), 
+        #then Applied On, in descending order. Custom sorting for status is under admin.py
+
