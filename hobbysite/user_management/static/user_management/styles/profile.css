@@ -1,13 +1,13 @@
 .profile-container {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 40% 60%;
 }
 .profile-container div:nth-child(1) {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 .profile-container div:nth-child(1) > div {
     position: relative;
@@ -18,9 +18,13 @@
     align-items: center;
     overflow: hidden;
     cursor: pointer;
+    border-radius: 50%;
 }
 .profile-container div:nth-child(1) > div > img {
     position: absolute;
+}
+.profile-container div:nth-child(1) > div > img:nth-child(1) {
+    height: 100%;
 }
 .profile-container div:nth-child(1) > div > img:nth-child(2) {
     display: none;
