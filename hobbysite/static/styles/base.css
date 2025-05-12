@@ -181,9 +181,12 @@ main {
 footer {
     font-size: .8rem;
     background-color: #282a35;
-    color: rgb(94, 98, 114);
+    color: rgb(131, 133, 142);
     padding: 1rem 5rem;
     text-align: center;
+}
+footer a {
+    color: rgb(94, 98, 114);
 }
 footer > ul {
     list-style: none;
