@@ -42,6 +42,7 @@ def commission_details(request, pk):
     owner = commission_object.author == request.user.profile if request.user.is_authenticated else False
     jobs = commission_object.jobs.all()
     job_applications = JobApplication.objects.filter(job__in=jobs).select_related('job', 'applicant')
+
     if request.user.is_authenticated:
         applied_job_ids = JobApplication.objects.filter(
             job__in=jobs, applicant=request.user.profile
@@ -70,6 +71,7 @@ def commission_details(request, pk):
             return redirect(request.path)
         except JobApplication.DoesNotExist:
             pass
+        
     else:
         job_status = JobApplicationForm()
 
@@ -79,7 +81,7 @@ def commission_details(request, pk):
         'job_applications': job_applications,
         'applied_job_ids': applied_job_ids,
         'owner': owner,
-        'job_status': job_status
+        'job_status': job_status,
     })
 
 @login_required

@@ -26,6 +26,7 @@ div.button-main{
     display: flex;
     justify-content: center;
     margin-top: 1rem;  
+    padding: 8px;
 }
 hr.line-break{
     border-color: var(--accent);
@@ -52,6 +53,15 @@ div.job-block {
     border-radius: 8px;
     border: 1px solid var(--theme);
     background-color: white;
+    margin: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(134, 147, 121, 0.1);
+}
+div.new-job-block {
+    border-radius: 8px;
+    border: 1px solid var(--theme);
+    background-color: var(--lighthover);
     margin: 20px;
     margin-bottom: 16px;
     padding: 16px;

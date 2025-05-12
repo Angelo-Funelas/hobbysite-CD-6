@@ -6,6 +6,9 @@
 {% endblock %}
 {% block content %}
     <div class="body-block">
+        <div class="header-block">
+            <h1 class="title">Commission Details</h1>
+        </div>
         <div class="commission-block">
             <h2>{{ commission.title }}</h2>
             <p>{{ commission.description }}</p>
@@ -39,7 +42,8 @@
                         {{ job_status.as_p }}
                         <input type="hidden" name="job_id" value="{{ job.id }}">
                         <button type="submit"
-                            {% if job.id in applied_job_ids or job.status == 'full' or not user.is_authenticated %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}>
+                            {% if job.id in applied_job_ids or job.status == 'full' or not user.is_authenticated %}disabled style="opacity: 0.5; cursor: not-allowed;"{% endif %}
+                            class="button">
                             Apply
                         </button>
                     </form>
@@ -50,6 +54,6 @@
                 There are no jobs. 
             </div>
         {% endif %}   
-        <div class="button-main"><p><a href="{% url 'commissions:commission' %}" class="button">return to commission list</a></p> </div>
+        <div class="button-main"><a href="{% url 'commissions:commission' %}" class="button">return to commission list</a></div>
     </div>
 {% endblock %}

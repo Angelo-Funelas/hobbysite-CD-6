@@ -43,8 +43,7 @@ class Job(models.Model):
         return self.role
 
     class Meta:
-        ordering = ["-status","-manpower_required", "role"] # Sorted by status (open>full),
-        #manpower_required in descending order, role in ascending order
+        ordering = ["-status","-manpower_required", "role"] 
 
 class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="job_application")

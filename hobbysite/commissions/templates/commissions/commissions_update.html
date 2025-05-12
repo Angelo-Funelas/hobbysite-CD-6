@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Create Commission{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'styles/commissions.css' %}">
+{% endblock %} 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ commission_form.as_p }}
-    {% for job_form in job_forms %}
-    <p>Job {{ forloop.counter }}:</p>
-        {{ job_form.as_p }}
-    {% endfor %}
-    <p>New job:</p>
-    {{ new_job_form.as_p }}
-    <button type="Submit">Post Commission</button>
-</form>
+<div class="body-block">
+    <div class="commission-block">
+        <h1>Update Commission:</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ commission_form.as_p }}
+            {% for job_form in job_forms %}
+            <div class="job-block">
+                <p>Job {{ forloop.counter }}:</p>
+                {{ job_form.as_p }}
+            </div>
+            {% endfor %}
+            <div class="new-job-block">
+                <p>New job:</p>
+                {{ new_job_form.as_p }}
+            </div>
+            <button type="Submit" class="button">Post Commission</button>
+        </form>
+    </div>   
+</div>
 {% endblock %}

@@ -1,28 +1,47 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Job details{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'styles/commissions.css' %}">
+{% endblock %} 
 {% block content %}
-    <h2>{{ commission.title }}</h2>
-    <p>Description: {{ commission.description }}</p>
-    {% if owner %}
-        <h2>ALL APPLICANTS: </h2>
-        {% if job_applications %}
-            {% for job_application in job_applications %}
-                {% if job_application.job.id == job.id %}
-                    <p>Applicant: {{ job_application.applicant.display_name }}</p>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="job_application_id" value="{{ job_application.id }}">
-                        <button type="submit" name="action" value="accept" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
-                        disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %}>Accept</button>
-                        <button type="submit" name="action" value="reject" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
-                        disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %}>Reject</button>
-                    </form>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <p>No one applied boo hoo</p>
+    <div class="body-block">
+        <div class="header-block">
+            <h1 class="title">Job Details</h1>
+        </div>
+        <div class="commission-block">
+            <h2>{{ commission.title }}</h2>
+            <p>Description: {{ commission.description }}</p>
+            <p>Status: {{ commission.status }}</p>
+        </div>
+        {% if owner %}
+            <hr class="line-break"> 
+            <h3 class="subtitle">ALL APPLICANTS: </h3>
+            {% if job_applications %}
+                {% for job_application in job_applications %}
+                    <div class="job-block">
+                        {% if job_application.job.id == job.id %}
+                        <p>Applicant: {{ job_application.applicant.display_name }}</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="job_application_id" value="{{ job_application.id }}">
+                            <button type="submit" name="action" value="accept" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %} class="button">Accept</button>
+                            <button type="submit" name="action" value="reject" {% if job_application.status == 'accepted' or job_application.status == 'rejected' %}
+                            disabled style="opacity: 0.5; cursor: not-allowed;" {% endif %} class="button">Reject</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                  
+                {% endfor %}
+            {% else %}
+                <div class="job-block">
+                    <p>No one applied boo hoo</p>
+                </div>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <a href="{% url 'commissions:commission_details' pk=commission.pk %}"><button>return to commission</button></a>
+        <div class="button-main">
+            <a href="{% url 'commissions:commission_details' pk=commission.pk %}"><button class="button">return to commission</button></a>
+        </div>
+    </div>
 {% endblock %}

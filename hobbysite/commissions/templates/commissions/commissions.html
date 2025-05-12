@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="{% static 'styles/commissions.css' %}">
 {% endblock %}
 {% block content %}
-    
-    <h1 class="title">dd</h1>
     <div class="body-block">
         <div class="header-block">
             <h1 class="title">Commissions</h1>
@@ -18,8 +16,7 @@
         {% if user.is_authenticated %}
             <h3 class="subtitle">Your commissions:</h3>
         {% endif %}
-        {% if user_commissions %}
-            
+        {% if user_commissions %} 
             {% for user_commission in user_commissions %}
                 <div class="commission-block">
                 <p class="link-section"><a href="{{ user_commission.get_absolute_url }}" class="button">{{ user_commission.title }}</a></p>
@@ -28,7 +25,6 @@
                 <p><b>status: </b>{{ user_commission.status}}</p>
                 </div>
             {% endfor %}
-            
         {% elif user.is_authenticated %}
             <div class="commission-block">
                 You do not have any published commissions.
@@ -70,6 +66,5 @@
                 There are no available outside commissions.
             </div>
         {% endif %}        
-    </div>
-    
+    </div>  
 {% endblock %}
