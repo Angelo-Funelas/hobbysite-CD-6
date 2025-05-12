@@ -73,17 +73,38 @@ main {
 .product-view > div:has(.nav-link) {
     grid-column: 1 / span 2;
 }
-.product-view > div > p:nth-child(3) {
+.product-details > p:nth-child(3) {
     color: var(--theme);
     font-size: 2rem;
     font-weight: bold;
     margin: 0;
 }
-.product-view > div > p:nth-child(4) {
+.product-details > p:nth-child(4) {
     color: rgb(73, 73, 73);
 }
-.product-view > div > p:last-child {
+.product-details > p:nth-child(6) {
+    padding: 1rem;
+    background-color: white;
+}
+.product-details > p:last-child {
     padding-left: 1rem;
+}
+.product-details > h2 {
+    margin-bottom: 0;
+}
+.product-details > p {
+    margin: .4rem 0;
+}
+.product-details > .price {
+    padding: 1rem;
+    background-color: #fafafa;
+}
+.product-details > form:not(.item-form) {
+    display: flex;
+    align-items: center;
+}
+.product-details > form > p {
+    margin-right: .2rem;
 }
 .product-img {
     width: 100%;
@@ -248,8 +269,20 @@ article:nth-child(2) {
 main {
     margin: 0;
 }
-.item-form input {
+.item-form > input, .item-form > select, .item-form > textarea {
     display: block;
+    margin: .25rem 0;
+    padding: .4rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.item-form > p {
+    margin: .5rem 0 0 0;
+}
+.item-form > textarea {
+    height: 6rem;
+    resize: none;
 }
 .nav-block-content {
     display: grid;

@@ -27,12 +27,16 @@
             <img src="{% static 'merchstore/icons/add.svg' %}" id="add-image-button">
         </div>
     </div>
-    <div>
+    <div class="product-details">
         <form class="item-form" action="{% if product %}{% url 'merchstore:edit' product.id %}{% else %}{% url 'merchstore:add' %}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            <p>Product Name:</p>
             <input name="name" placeholder="Product Name" value="{{product.name}}" required>
+            <p>Price:</p>
             <input type="number" name="price" placeholder="Price" value="{{product.price}}" step=".01" min="0" required>
+            <p>Stock:</p>
             <input type="number" name="stock" placeholder="Stock" value="{{product.stock}}" step="1" min="0" required>
+            <p>Product Type:</p>
             <select name="type" required>
                 {% for type in product_types %}
                     <option value="{{type.id}}" {% if type.id == product.product_type.id %}selected{% endif %}>{{type.name}}</option>
