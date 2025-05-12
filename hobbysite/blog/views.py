@@ -16,9 +16,7 @@ def article_list(request):
 
     categories = ArticleCategory.objects.all().order_by('name')
     grouped_articles = {
-        category: other_articles.filter(category=category)
-        for category in categories
-        if other_articles.filter(category=category).exists()
+        category: other_articles.filter(category=category) for category in categories
     }
 
     return render(request, 'blog/article_list.html', {
@@ -29,7 +27,7 @@ def article_list(request):
 def article_detail(request, article_id):
     article = Article.objects.get(id=article_id)
     other_articles = Article.objects.filter(author=article.author).exclude(id=article_id)[:4]
-    comments = Comment.objects.filter(article=article).order_by('created_on')
+    comments = article.comments.order_by('created_on')
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)

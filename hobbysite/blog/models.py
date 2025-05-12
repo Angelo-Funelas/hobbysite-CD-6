@@ -10,7 +10,7 @@ class ArticleCategory(models.Model):
         return self.name
     
     class Meta:
-        ordering = ["name"]
+        ordering = ["name"] #orders the names in ascending alphabetical order
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
@@ -27,8 +27,8 @@ class Article(models.Model):
         return self.title
     
     class Meta:
-        ordering = ["-created_on"] #descending
-    
+        ordering = ["-created_on"] #orders in descending date order
+
     def get_absolute_url(self):
         return reverse('blog:article_detail', kwargs={"article_id": self.id})
 
@@ -43,4 +43,4 @@ class Comment(models.Model):
         return self.author
     
     class Meta:
-        ordering = ['created_on'] #ascending
+        ordering = ['created_on'] #orders in ascending date order

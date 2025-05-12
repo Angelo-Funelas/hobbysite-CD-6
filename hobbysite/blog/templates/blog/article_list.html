@@ -35,6 +35,7 @@
     <div class="all-articles-container">
         <h3>All Articles</h3>
         {% for category, articles in grouped_articles.items %}
+        {% if articles.all %}
             <div class="category-container">
                 <h4>{{ category.name }}</h4>
                 <div class="article-list-container">
@@ -50,6 +51,7 @@
                     {% endfor %}
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
     </div>
 

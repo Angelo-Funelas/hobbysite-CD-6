@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Article, ArticleCategory
-from user_management.models import Profile
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     model = ArticleCategory
