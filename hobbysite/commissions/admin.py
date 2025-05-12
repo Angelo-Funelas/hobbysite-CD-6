@@ -18,6 +18,7 @@ class JobApplicationAdmin(admin.ModelAdmin):
     model = JobApplication
     list_display = ('job', 'applicant', 'status', 'applied_on',)
     list_filter = ('job',)
+    
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.annotate(
