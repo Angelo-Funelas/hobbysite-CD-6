@@ -229,3 +229,20 @@ footer > ul > li + li {
    66%  {background-position:-30px 0, 10px 40px, 20px 20px}
    100% {background-position:-30px 0, 10px 40px, 50px 20px}
 }
+ul.messages, ul.errorlist {
+    list-style: none;
+}
+ul.errorlist {
+    font-size: .8em;
+    max-width: 20rem;
+    padding: 0;
+}
+ul.messages > li, ul.errorlist > li {
+    border-radius: 5px;
+    padding: .2em .5em;
+    background-color: #cde5ef;
+}
+ul.messages > li.error {
+    background-color: rgb(245, 65, 65);
+    color: white;
+}

@@ -43,6 +43,99 @@
           </div>
       </form>
     </section>
+    <section class="dashboard">
+      {% if purchases.all %}
+      <div>
+        <h1>Merch Purchases</h1>
+        <ul>
+          {% for purchase in purchases %}
+          <li><a href="{{purchase.product.get_absolute_url}}">
+            <p>{{purchase.product.name}} <span>{{purchase.amount}}x</span></p>
+            <p>{{purchase.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if sales.all %}
+      <div>
+        <h1>Merch Sales</h1>
+        <ul>
+          {% for sale in sales %}
+          <li><a href="{{sale.product.get_absolute_url}}">
+            <p>{{sale.product.name}} <span>{{sale.amount}}x</span></p>
+            <p>{{sale.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if wiki_articles.all %}
+      <div>
+        <h1>Wiki Articles</h1>
+        <ul>
+          {% for article in wiki_articles %}
+          <li><a href="{{article.get_absolute_url}}">
+            <p>{{article.title}}</p>
+            <p>{{article.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if blog_articles.all %}
+      <div>
+        <h1>Blog Articles</h1>
+        <ul>
+          {% for blog in blog_articles %}
+          <li><a href="{{blog.get_absolute_url}}">
+            <p>{{blog.title}}</p>
+            <p>{{blog.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if threads.all %}
+      <div>
+        <h1>Forum Threads</h1>
+        <ul>
+          {% for thread in threads %}
+          <li><a href="{{thread.get_absolute_url}}">
+            <p>{{thread.title}}</p>
+            <p>{{thread.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if commissions_created.all %}
+      <div>
+        <h1>Commissions Created</h1>
+        <ul>
+          {% for commission in commissions_created %}
+          <li><a href="{{commission.get_absolute_url}}">
+            <p>{{commission.title}}</p>
+            <p>{{commission.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if commissions_joined.all %}
+      <div>
+        <h1>Commissions Joined</h1>
+        <ul>
+          {% for commission in commissions_joined %}
+          <li><a href="{{commission.get_absolute_url}}">
+            <p>{{commission.title}}</p>
+            <p>{{commission.created_on}}</p>
+          </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </section>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'user_management/scripts/profile.js' %}"></script>
