@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Hobbysite - Login{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'user_management/styles/login.css' %}">
+{% endblock %}
 {% block content %}
-    <h3>Login</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    <p>Forget your password? Click <a href="{% url 'password_reset' %}">here</a></p>
-    <p>Don't have an account? Register <a href="{% url 'register' %}">here</a></p>
+    <div class="login-container">
+        <div>
+            <h3>Login</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+            <p>Forget your password? Click <a href="{% url 'password_reset' %}">here</a><br>
+            Don't have an account? Register <a href="{% url 'register' %}">here</a></p>
+        </div>
+    </div>
     <script>
         window.onload = function() {
             const form = document.querySelector('form');
