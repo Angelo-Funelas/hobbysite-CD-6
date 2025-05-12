@@ -10,9 +10,14 @@
             <h1 class="title">Job Details</h1>
         </div>
         <div class="commission-block">
-            <h2>{{ commission.title }}</h2>
+            <h2>Commission: {{ commission.title }}</h2>
             <p>Description: {{ commission.description }}</p>
             <p>Status: {{ commission.status }}</p>
+        </div>
+        <div class="job-block">
+            <h2>Job Role: {{ job.role }}</h2>
+            <p>Description: {{ job.entry }}</p>
+            <p>Status: {{ job.status }}</p>
         </div>
         {% if owner %}
             <hr class="line-break"> 
