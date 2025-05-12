@@ -252,6 +252,10 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+.nav-block-content > a {
+    display: flex;
+    justify-content: flex-start;
+}
 .nav-block-content h2 {
     margin: 0;
     text-align: left;
