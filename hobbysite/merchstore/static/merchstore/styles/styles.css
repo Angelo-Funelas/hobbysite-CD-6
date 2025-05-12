@@ -196,6 +196,9 @@ main {
     grid-template-columns: repeat(auto-fill, max(220px));
     grid-gap: .75em;
 }
+.product-listings-container > h3 {
+    grid-column: 1 / span 3;
+}
 .hero {
     background-color: var(--accent);
     height: 50vh;
