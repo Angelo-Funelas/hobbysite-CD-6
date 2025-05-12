@@ -21,7 +21,7 @@ class Article(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="article")
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="blog_articles")
     header_image = models.ImageField(upload_to='blog/article_headers/', blank=True, null=True)
     
 
@@ -35,8 +35,8 @@ class Article(models.Model):
         return reverse('blog:article_detail', kwargs={"article_id": self.id})
 
 class Comment(models.Model):
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="comments")
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="blog_comments")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="blog_comments")
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
