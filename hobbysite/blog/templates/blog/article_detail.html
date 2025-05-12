@@ -46,9 +46,13 @@
 
     <h3>Comments</h3>
     {% for comment in comments %}
-        <div class="article-list-item comment">
-            <strong>{{ comment.author.display_name }}</strong> ({{ comment.created_on }})<br>
-            <p>{{ comment.entry }}</p>
+        <div class="article-list-item comment" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
+            <img src="{{ comment.author.profile_picture.url }}" alt="Profile Picture"
+                 style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <div>
+                <strong>{{ comment.author.display_name }}</strong> ({{ comment.created_on }})<br>
+                <p>{{ comment.entry }}</p>
+            </div>
         </div>
     {% empty %}
         <p class="empty-message">No comments yet.</p>
