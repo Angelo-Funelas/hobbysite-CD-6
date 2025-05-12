@@ -64,6 +64,8 @@ nav a {
     vertical-align: middle;
     color: white;
     border-radius: 5px;
+    display: flex;
+    justify-content: right;
 }
 nav > div {
     display: flex;
@@ -147,6 +149,7 @@ nav > div:last-child > div:last-child > a {
 }
 .profile-dropdown:hover > ul {
     display: block;
+    overflow: hidden;
 }
 .profile-dropdown > ul > li {
     padding: 0 1em;
@@ -160,6 +163,9 @@ nav > div:last-child > div:last-child > a {
 nav > div:last-child p {
     margin: 0;
     color: black;
+    max-width: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .profile-dropdown > ul > li > a > p {
     margin: 0;
@@ -180,9 +186,12 @@ main {
 footer {
     font-size: .8rem;
     background-color: #282a35;
-    color: rgb(94, 98, 114);
+    color: rgb(131, 133, 142);
     padding: 1rem 5rem;
     text-align: center;
+}
+footer a {
+    color: rgb(94, 98, 114);
 }
 footer > ul {
     list-style: none;
